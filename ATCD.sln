@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATCD.DataAccess.Model", "AT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATCD.DataAccess.Repository", "ATCD.DataAccess.Repository\ATCD.DataAccess.Repository.csproj", "{A4BC6CBC-216D-411E-A2A6-8AA93603743A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATCD.Backend.Dto", "ATCD.Backend.Dto\ATCD.Backend.Dto.csproj", "{6065CC81-76DB-40D0-A80E-5E0C3556290D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{A4BC6CBC-216D-411E-A2A6-8AA93603743A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4BC6CBC-216D-411E-A2A6-8AA93603743A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4BC6CBC-216D-411E-A2A6-8AA93603743A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6065CC81-76DB-40D0-A80E-5E0C3556290D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6065CC81-76DB-40D0-A80E-5E0C3556290D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6065CC81-76DB-40D0-A80E-5E0C3556290D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6065CC81-76DB-40D0-A80E-5E0C3556290D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
