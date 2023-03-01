@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ATCD.DataAccess.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
 namespace ATCD.DataAccess.Model
@@ -27,7 +28,8 @@ namespace ATCD.DataAccess.Model
 
         protected virtual void CreateRelationshipDefinitions(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<Song>().HasOne(s => s.Author).WithMany().HasForeignKey(s => s.AuthorKey);
+            modelBuilder.Entity<Song>().HasMany(s => s.Choreographies).WithOne(c => c.Song).HasForeignKey(s => s.SongKey);
         }
     }
 }
