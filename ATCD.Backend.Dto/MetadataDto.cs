@@ -29,55 +29,55 @@ namespace ATCD.Backend.Dto
         public string SceneName { get; set; } // TODO: enum??
 
         [JsonPropertyName("avgBPM")]
-        public decimal AvgBpm { get; set; }
+        public double AvgBpm { get; set; }
 
         [JsonPropertyName("beatDevisions")]
         public List<int> BeatDevisions { get; set; }
 
         [JsonPropertyName("tempoSections")]
-        public string TempoSections { get; set; }
+        public List<TempoSectionDto> TempoSections { get; set; }
 
         [JsonPropertyName("songEventTracks")]
-        public string SongEventTracks { get; set; }
+        public List<SongEventTrackDto> SongEventTracks { get; set; }
 
         [JsonPropertyName("songFilename")]
         public string SongFilename { get; set; }
 
         [JsonPropertyName("firstBeatTimeInSeconds")]
-        public decimal FirstBeatTimeInSeconds { get; set; }
+        public double FirstBeatTimeInSeconds { get; set; }
 
         [JsonPropertyName("songEndTimeInSeconds")]
-        public decimal SongEndTimeInSeconds { get; set; }
+        public double SongEndTimeInSeconds { get; set; }
 
         [JsonPropertyName("songShortStartTimeInSeconds")]
-        public decimal SongShortStartTimeInSeconds { get; set; }
+        public double SongShortStartTimeInSeconds { get; set; }
 
         [JsonPropertyName("songShortStopTimeInSeconds")]
-        public decimal SongShortStopTimeInSeconds { get; set; }
+        public double SongShortStopTimeInSeconds { get; set; }
 
         [JsonPropertyName("leadingSilenceSeconds")]
-        public decimal LeadingSilenceSeconds { get; set; }
+        public double LeadingSilenceSeconds { get; set; }
 
         [JsonPropertyName("songFullLengthInSeconds")]
-        public decimal SongFullLengthInSeconds { get; set; }
+        public double SongFullLengthInSeconds { get; set; }
 
         [JsonPropertyName("songShortLengthInSeconds")]
-        public decimal SongShortLengthInSeconds { get; set; }
+        public double SongShortLengthInSeconds { get; set; }
 
         [JsonPropertyName("songStartFadeTime")]
-        public decimal SongStartFadeTime { get; set; }
+        public double SongStartFadeTime { get; set; }
 
         [JsonPropertyName("songEndFadeTime")]
-        public decimal SongEndFadeTime { get; set; }
+        public double SongEndFadeTime { get; set; }
 
         [JsonPropertyName("previewStartInSeconds")]
-        public decimal PreviewStartInSeconds { get; set; }
+        public double PreviewStartInSeconds { get; set; }
 
         [JsonPropertyName("previewDurationInSeconds")]
-        public decimal previewDurationInSeconds { get; set; }
+        public double previewDurationInSeconds { get; set; }
 
         [JsonPropertyName("songStartBufferInSeconds")]
-        public decimal SongStartBufferInSeconds { get; set; }
+        public double SongStartBufferInSeconds { get; set; }
 
         [JsonPropertyName("choreoJSONs")]
         public List<ChoreoJsonDto> ChoreoJsons { get; set; }
@@ -86,10 +86,10 @@ namespace ATCD.Backend.Dto
         public List<AnimClipDto> AnimClips { get; set; }
 
         [JsonPropertyName("speed")]
-        public decimal Speed { get; set; }
+        public double Speed { get; set; }
 
         [JsonPropertyName("quantizeSize")]
-        public decimal QuantizeSize { get; set; }
+        public double QuantizeSize { get; set; }
 
         [JsonPropertyName("includeInArcades")]
         public bool IncludeInArcades { get; set; }
@@ -102,7 +102,5 @@ namespace ATCD.Backend.Dto
 
         [JsonPropertyName("drumMaxSFX")]
         public string DrumMaxSfx { get; set; }
-
-
     }
 }

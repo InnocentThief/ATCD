@@ -8,6 +8,6 @@ namespace ATCD.Backend.Dto
         public HeaderDto Header { get; set; }
 
         [JsonPropertyName("data")]
-        public string Data { get; set; }
+        public DataDto Data { get; set; }
     }
 }

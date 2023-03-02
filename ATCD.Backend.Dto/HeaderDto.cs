@@ -8,7 +8,7 @@ namespace ATCD.Backend.Dto
         public string Id { get; set; }
 
         [JsonPropertyName("descriptor")]
-        public string descriptor { get; set; }
+        public string Descriptor { get; set; }
 
         [JsonPropertyName("name")]
         public string Name { get; set; }
@@ -20,13 +20,13 @@ namespace ATCD.Backend.Dto
         public SpawnAheadTimeDto SpawnAheadTime { get; set; }
 
         [JsonPropertyName("gemSpeed")]
-        public decimal GemSpeed { get; set; }
+        public double GemSpeed { get; set; }
 
         [JsonPropertyName("gemRadius")]
-        public decimal GemRadius { get; set; }
+        public double GemRadius { get; set; }
 
         [JsonPropertyName("handRadius")]
-        public decimal HandRadius { get; set; }
+        public double HandRadius { get; set; }
 
         [JsonPropertyName("animClipPath")]
         public string AnimClipPath { get; set; }
