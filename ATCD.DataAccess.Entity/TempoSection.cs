@@ -9,8 +9,6 @@ namespace ATCD.DataAccess.Entity
 
         public int SongKey { get; set; }
 
-        public Song Song { get; set; }
-
         public decimal StartTimeInSeconds { get; set; }
 
         public int BeatsPerMeasure { get; set; }

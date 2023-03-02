@@ -3,14 +3,17 @@
   <Class Name="ATCD.DataAccess.Entity.Song">
     <Position X="2" Y="1.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>ICBAiAIgAEgBYkAgoAgAJAABoIAAAAFBAAEICwAAAYE=</HashCode>
+      <HashCode>ICBAiAIgAEghYkAgoAgAJAABoIBAAAFBIAEICwAAAcE=</HashCode>
       <FileName>Song.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Author" />
+      <Property Name="Koreography" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Choreographies" />
+      <Property Name="TempoSections" />
+      <Property Name="SongEventTracks" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ATCD.DataAccess.Entity.Author">
@@ -21,10 +24,51 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ATCD.DataAccess.Entity.Choreography">
-    <Position X="6.25" Y="3.25" Width="1.5" />
+    <Position X="6.25" Y="3.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAAAAAAAAAAAAgAAAAAABAAAAAIAAAAAAA=</HashCode>
+      <HashCode>AAACAIBAAEAIAAAAAAAAAAQAAAEAABAAQAAIAAgAAAQ=</HashCode>
       <FileName>Choreography.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Data" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ATCD.DataAccess.Entity.TempoSection">
+    <Position X="9" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgABAAAAAAABABAAAQAAAIAAAAAAA=</HashCode>
+      <FileName>TempoSection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATCD.DataAccess.Entity.Koreography">
+    <Position X="9" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQIAAAA=</HashCode>
+      <FileName>Koreography.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATCD.DataAccess.Entity.SongEventTrack">
+    <Position X="6.25" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAABAAoAAAAAAA=</HashCode>
+      <FileName>SongEventTrack.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="TrackEvents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ATCD.DataAccess.Entity.TrackEvent">
+    <Position X="9.5" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAQAAAAAiAAAABAAAAgAAAAAAA=</HashCode>
+      <FileName>TrackEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATCD.DataAccess.Entity.ChoreographyData">
+    <Position X="11.75" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEBAAAAAAAgAAAAgAAAAAAAgAACAAAQAIQIAAAAAAAg=</HashCode>
+      <FileName>ChoreographyData.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

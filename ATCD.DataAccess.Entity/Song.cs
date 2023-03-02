@@ -21,7 +21,7 @@ namespace ATCD.DataAccess.Entity
 
         public int KoreographyKey { get; set; }
 
-        // TODO: Koreography
+        public Koreography Koreography { get; set; }
 
         public string Descriptor { get; set; }
 
@@ -31,9 +31,9 @@ namespace ATCD.DataAccess.Entity
 
         public string BeatDivisions { get; set; }
 
-        public string TempoSections { get; set; }
+        public List<TempoSection> TempoSections { get; set; }
 
-        public string SongEventTracks { get; set; }
+        public List<SongEventTrack> SongEventTracks { get; set; }
 
         public string SongURL { get; set; }
 
