@@ -74,7 +74,7 @@ namespace ATCD.Backend.Dto
         public double PreviewStartInSeconds { get; set; }
 
         [JsonPropertyName("previewDurationInSeconds")]
-        public double previewDurationInSeconds { get; set; }
+        public double PreviewDurationInSeconds { get; set; }
 
         [JsonPropertyName("songStartBufferInSeconds")]
         public double SongStartBufferInSeconds { get; set; }

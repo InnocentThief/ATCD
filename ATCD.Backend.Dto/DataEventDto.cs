@@ -11,7 +11,7 @@ namespace ATCD.Backend.Dto
         public bool HasGuide { get; set; }
 
         [JsonPropertyName("time")]
-        public DataEventDto Time { get; set; }
+        public DataEventTimeDto Time { get; set; }
 
         [JsonPropertyName("beatDivision")]
         public int BeatDivision { get; set; }

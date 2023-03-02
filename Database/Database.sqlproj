@@ -60,8 +60,13 @@
     <Folder Include="dbo\Tables\" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="dbo\Tables\TrackEvent.sql" />
+    <Build Include="dbo\Tables\TempoSection.sql" />
+    <Build Include="dbo\Tables\SongEventTrack.sql" />
     <Build Include="dbo\Tables\Song.sql" />
+    <Build Include="dbo\Tables\Koreography.sql" />
     <Build Include="dbo\Tables\Genre.sql" />
+    <Build Include="dbo\Tables\ChoreographyData.sql" />
     <Build Include="dbo\Tables\Choreography.sql" />
     <Build Include="dbo\Tables\Author.sql" />
   </ItemGroup>

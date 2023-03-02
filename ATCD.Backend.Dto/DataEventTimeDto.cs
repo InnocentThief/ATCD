@@ -2,7 +2,7 @@
 
 namespace ATCD.Backend.Dto
 {
-    internal class DataEventTimeDto
+    public class DataEventTimeDto
     {
         [JsonPropertyName("beat")]
         public int Beat { get; set; }
