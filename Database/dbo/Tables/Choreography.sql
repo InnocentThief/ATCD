@@ -11,6 +11,9 @@
     [BuildVersion]       VARCHAR (50)  NOT NULL,
     [RequiredModalities] INT           NOT NULL,
     [ChoreoType]         INT           NOT NULL,
-    CONSTRAINT [PK_Choreography] PRIMARY KEY CLUSTERED ([ChoreographyKey] ASC)
+    CONSTRAINT [PK_Choreography] PRIMARY KEY CLUSTERED ([ChoreographyKey] ASC),
+    CONSTRAINT [FK_Choreography_Song] FOREIGN KEY ([SongKey]) REFERENCES [dbo].[Song] ([SongKey])
 );
+
+
 

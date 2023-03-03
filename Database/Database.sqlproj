@@ -69,5 +69,6 @@
     <Build Include="dbo\Tables\ChoreographyData.sql" />
     <Build Include="dbo\Tables\Choreography.sql" />
     <Build Include="dbo\Tables\Author.sql" />
+    <Build Include="dbo\Tables\Account.sql" />
   </ItemGroup>
 </Project>

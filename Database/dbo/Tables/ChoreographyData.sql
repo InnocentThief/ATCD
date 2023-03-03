@@ -14,6 +14,9 @@
     [SubPositionY]        FLOAT (53) NOT NULL,
     [SubPositionZ]        FLOAT (53) NOT NULL,
     [BroadcastEventId]    INT        NOT NULL,
-    CONSTRAINT [PK_ChoreographyData] PRIMARY KEY CLUSTERED ([ChoreographyDataKey] ASC)
+    CONSTRAINT [PK_ChoreographyData] PRIMARY KEY CLUSTERED ([ChoreographyDataKey] ASC),
+    CONSTRAINT [FK_ChoreographyData_Choreography] FOREIGN KEY ([ChoreographyKey]) REFERENCES [dbo].[Choreography] ([ChoreographyKey])
 );
+
+
 

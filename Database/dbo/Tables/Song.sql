@@ -34,6 +34,10 @@
     [Challenge]                   BIT            NOT NULL,
     [ContentStrike]               BIT            NOT NULL,
     [Released]                    DATETIME       NOT NULL,
-    CONSTRAINT [PK_Song] PRIMARY KEY CLUSTERED ([SongKey] ASC)
+    CONSTRAINT [PK_Song] PRIMARY KEY CLUSTERED ([SongKey] ASC),
+    CONSTRAINT [FK_Song_Genre] FOREIGN KEY ([GenreKey]) REFERENCES [dbo].[Genre] ([GenreKey]),
+    CONSTRAINT [FK_Song_Koreography] FOREIGN KEY ([KoreographyKey]) REFERENCES [dbo].[Koreography] ([KoreographyKey])
 );
+
+
 

@@ -29,6 +29,6 @@ namespace ATCD.DataAccess.Entity
 
         public int ChoreoType { get; set; }
 
-        public List<ChoreographyData> Data { get; set; }
+        public List<ChoreographyData> ChoreographyDatas { get; set; }
     }
 }
