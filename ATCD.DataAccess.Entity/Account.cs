@@ -5,7 +5,7 @@ namespace ATCD.DataAccess.Entity
     internal class Account
     {
         [Key]
-        public int AccountId { get; set; }
+        public int AccountKey { get; set; }
 
         [MaxLength(50)]
         [Required]

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ATCD.Backend.Dto
+namespace ATCD.Backend.Dto.AudioTrip
 {
     public class DataEventDto
     {

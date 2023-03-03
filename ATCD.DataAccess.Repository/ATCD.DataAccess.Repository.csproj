@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+		  <_Parameter1>ATCD.Backend.Business</_Parameter1>
+	  </AssemblyAttribute>
     <ProjectReference Include="..\ATCD.DataAccess.Model\ATCD.DataAccess.Model.csproj" />
   </ItemGroup>
 

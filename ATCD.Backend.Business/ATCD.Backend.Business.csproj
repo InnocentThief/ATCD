@@ -1,9 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+	  <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+		  <_Parameter1>ATCD.Backend.WebApp</_Parameter1>
+	  </AssemblyAttribute>
+	  <ProjectReference Include="..\ATCD.Backend.Dto\ATCD.Backend.Dto.csproj" />
+    <ProjectReference Include="..\ATCD.DataAccess.Repository\ATCD.DataAccess.Repository.csproj" />
+  </ItemGroup>
 
 </Project>

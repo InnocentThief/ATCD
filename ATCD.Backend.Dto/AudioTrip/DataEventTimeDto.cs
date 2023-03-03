@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ATCD.Backend.Dto
+namespace ATCD.Backend.Dto.AudioTrip
 {
-    public class SpawnAheadTimeDto
+    public class DataEventTimeDto
     {
         [JsonPropertyName("beat")]
         public int Beat { get; set; }
@@ -10,7 +10,7 @@ namespace ATCD.Backend.Dto
         [JsonPropertyName("numerator")]
         public int Numerator { get; set; }
 
-        [JsonPropertyName("denominator")]
+        [JsonPropertyName   ("denominator")]
         public int Denominator { get; set; }
     }
 }

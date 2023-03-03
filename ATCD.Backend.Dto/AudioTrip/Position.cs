@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ATCD.Backend.Dto
+namespace ATCD.Backend.Dto.AudioTrip
 {
-    public class SubPositionDto
+    public class Position
     {
         [JsonPropertyName("x")]
         public double X { get; set; }
