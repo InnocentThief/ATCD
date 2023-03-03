@@ -1,5 +1,6 @@
 ﻿using ATCD.DataAccess.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Configuration;
 
 namespace ATCD.DataAccess.Model
@@ -9,7 +10,8 @@ namespace ATCD.DataAccess.Model
         protected override sealed void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            var connectionString = ConfigurationManager.ConnectionStrings["ATCEntities"]?.ConnectionString;
+            var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            var connectionString = config.GetConnectionString("DefaultConnection");
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ConfigurationErrorsException();
 

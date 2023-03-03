@@ -1,11 +1,7 @@
 ﻿using ATCD.Backend.Business.Domains;
 using ATCD.Backend.Dto.Web;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
 namespace ATCD.Backend.WebApp.Controllers
 {
@@ -13,58 +9,31 @@ namespace ATCD.Backend.WebApp.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IConfiguration config;
         private readonly AccountDomain accountDomain;
 
-        public AccountController(IConfiguration config)
+        public AccountController()
         {
-            this.config = config;
             accountDomain = new AccountDomain();
         }
 
-        [AllowAnonymous]
+        [HttpGet]
+        [Route("{accountKey}")]
+        public async Task<ActionResult<LoginDto>> GetAccount(int accountKey)
+        {
+            if (accountKey == 0) { return BadRequest(); }
+            var login = await accountDomain.GetAccountAsync(accountKey);
+            if (login == null) { return BadRequest(); }
+            return Ok(login);
+        }
+
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<string>> Login(LoginDto loginDto)
+        public async Task<ActionResult<LoginDto>> CreateOrUpdateAccount(LoginDto loginDto)
         {
             if (loginDto == null) { return BadRequest(); }
-
-            var loginResult = await accountDomain.LoginAsync(loginDto.Username, loginDto.Password);
-            if (loginResult == null)
-            {
-                return Unauthorized();
-            }
-
-            var token = GenerateToken(loginResult.Username, loginResult.AccountKey);
-            return Ok(token);
+            var login = await accountDomain.CreateOrUpdateAccountAsync(loginDto);
+            if (login == null) { return BadRequest(); }
+            return Ok(login);
         }
-
-        #region Helper methods
-
-        /// <summary>
-        /// Creates an authentication token.
-        /// </summary>
-        /// <param name="username">Contains username to store in the token.</param>
-        /// <param name="accountKey">Contains user key to store in the token.</param>
-        private string GenerateToken(string username, int accountKey)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Name,username),
-                new Claim("AccountKey",accountKey.ToString())
-            };
-            var token = new JwtSecurityToken(config["Jwt:Issuer"],
-                config["Jwt:Audience"],
-                claims,
-                expires: DateTime.Now.AddMinutes(15),
-                signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        #endregion
-
     }
 }

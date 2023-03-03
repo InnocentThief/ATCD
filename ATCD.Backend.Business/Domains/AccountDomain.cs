@@ -1,5 +1,7 @@
-﻿using ATCD.Backend.Business.Security;
+﻿using ATCD.Backend.Business.Converter;
+using ATCD.Backend.Business.Security;
 using ATCD.Backend.Dto.Web;
+using ATCD.DataAccess.Entity;
 using ATCD.DataAccess.Repository;
 
 namespace ATCD.Backend.Business.Domains
@@ -13,20 +15,38 @@ namespace ATCD.Backend.Business.Domains
             accountRepository = new AccountRepository();
         }
 
-        internal async Task<LoginDto> LoginAsync(string username, string password)
+        public async Task<LoginDto> GetAccountAsync(int accountKey)
         {
-            if (string.IsNullOrWhiteSpace(username)) throw new ArgumentNullException(nameof(username));
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentNullException(nameof(password));
-
-            var account = await accountRepository.GetAccountAsync(username);
-
-            var credentials = new SecurityCredentials(account.PasswordHash, account.Salt);
-            var passwordVerified = PasswordSecurity.VerifyPassword(credentials, password);
-            if (passwordVerified)
+            var account = await accountRepository.GetAccountAsync(accountKey);
+            if (account != null)
             {
-                return new LoginDto { Username = username, AccountKey = account.AccountKey };
+                return account.ToLoginDto();
             }
             return null;
+        }
+
+        public async Task<LoginDto> CreateOrUpdateAccountAsync(LoginDto loginDto)
+        {
+            var account = await accountRepository.GetAccountAsync(loginDto.Username);
+            if (account == null)
+            {
+                var credentials = PasswordSecurity.CreateSecurityCredentials(loginDto.Password);
+                account = new Account
+                {
+                    Created = DateTime.Now,
+                    EMail = loginDto.EMail,
+                    PasswordHash = credentials.PasswordHash,
+                    Salt = credentials.SaltValue,
+                    Username = loginDto.Username,
+                };
+            }
+            else
+            {
+                account.EMail = loginDto.EMail;
+                account.Username = loginDto.Username;
+            }
+            accountRepository.SaveAccount(account);
+            return account.ToLoginDto() ?? loginDto;
         }
     }
 }

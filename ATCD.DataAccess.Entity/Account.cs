@@ -21,6 +21,12 @@ namespace ATCD.DataAccess.Entity
         [Required]
         public byte[] Salt { get; set; }
 
+        [MaxLength(200)]
+        [Required]
+        public string EMail { get; set; }
+
+        public DateTime Created { get; set; }
+
         public ICollection<Author> Authors { get; set; }
     }
 }
