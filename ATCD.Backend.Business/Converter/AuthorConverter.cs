@@ -5,13 +5,23 @@ namespace ATCD.Backend.Business.Converter
 {
     internal static class AuthorConverter
     {
-        public static Author ToEntity(this AuthorDto authorDto)
+        internal static Author ToEntity(this AuthorDto authorDto)
         {
             return new Author
             {
                 AccountId = authorDto.AccountId,
                 DisplayName = authorDto.DisplayName,
                 PlatformId = authorDto.PlatformId
+            };
+        }
+
+        internal static AuthorDto ToDto(this Author author)
+        {
+            return new AuthorDto
+            {
+                AccountId = author.AccountId,
+                DisplayName = author.DisplayName,
+                PlatformId = author.PlatformId
             };
         }
     }

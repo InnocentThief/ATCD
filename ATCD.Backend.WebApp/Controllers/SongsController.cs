@@ -28,7 +28,12 @@ namespace ATCD.Backend.WebApp.Controllers
                 var fileContent = System.IO.File.ReadAllText(file);
                 SongDto song = JsonSerializer.Deserialize<SongDto>(fileContent);
 
-                songDomain.SaveSong(song);
+                var savedSongDto = await songDomain.SaveSongAsync(song);
+
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                var content = JsonSerializer.Serialize(savedSongDto, options);
+                var newFile = @"C:\Users\InnocentThief\Downloads\GeoDaSilva_-_Bam_Bam_Boogie_-_Chez\GeoDaSilva - Bam Bam Boogie - Chez\GeoDaSilva & Stephan F - Bam Bam Boogie - Chez-moi (from ATCD).ats";
+                System.IO.File.WriteAllText(newFile, content);
 
 
                 return Ok(song);

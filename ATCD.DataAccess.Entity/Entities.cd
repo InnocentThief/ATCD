@@ -3,7 +3,7 @@
   <Class Name="ATCD.DataAccess.Entity.Song">
     <Position X="2" Y="1.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>ICBAiAIgAEghYkAgoAgAJAABoIBAAAFBIAEICwAAAcE=</HashCode>
+      <HashCode>ICBAiAIgAEghYEAgoAgAJAABoIBAAAFBIAEICwAAAcE=</HashCode>
       <FileName>Song.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -11,27 +11,24 @@
       <Property Name="Koreography" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Choreographies" />
       <Property Name="TempoSections" />
       <Property Name="SongEventTracks" />
+      <Property Name="Choreographies" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ATCD.DataAccess.Entity.Author">
     <Position X="6.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAAAAAAgAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>BAAAEAAAAAAAAAAAAgAAAAIAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Author.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ATCD.DataAccess.Entity.Choreography">
     <Position X="6.25" Y="3.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAACAIBAAEAIAAAAAAAAAAQAAAEAABAAQAAIAAgAAAQ=</HashCode>
+      <HashCode>AAACAIAAAEAIAAAAAAAAAAQAAAFAABAAQAAIAAgAAAw=</HashCode>
       <FileName>Choreography.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Data" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ATCD.DataAccess.Entity.TempoSection">
     <Position X="9" Y="6.25" Width="2" />
@@ -67,8 +64,15 @@
   <Class Name="ATCD.DataAccess.Entity.ChoreographyData">
     <Position X="11.75" Y="3.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AEBAAAAAAAgAAAAgAAAAAAAgAACAAAQAIQIAAAAAAAg=</HashCode>
+      <HashCode>AEBAAAAAAAgAAAAgAAAAAAAgAAAAAAQAIQIAAAAAAAg=</HashCode>
       <FileName>ChoreographyData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATCD.DataAccess.Entity.Account">
+    <Position X="14.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BADAAAAAAAAAAAAAAQAAAAAAACAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Account.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

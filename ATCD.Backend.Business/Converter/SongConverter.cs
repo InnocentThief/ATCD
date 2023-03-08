@@ -49,5 +49,52 @@ namespace ATCD.Backend.Business.Converter
                 Choreographies = songDto.Choreographies.Choreographies.ToEntities()
             };
         }
+
+        internal static SongDto ToDto(this Song song)
+        {
+            return new SongDto
+            {
+                Metadata = new MetadataDto
+                {
+                    Custom = song.Custom,
+                    Author = song.Author.ToDto(),
+                    SongId = song.SongId,
+                    Title = song.Title,
+                    Artist = song.Artist,
+                    Koreography = song.Koreography.ToDto(),
+                    Descriptor = song.Descriptor,
+                    SceneName = song.SceneName,
+                    AvgBpm = song.AvgBpm,
+                    BeatDevisions = new List<int>(), // TODO
+                    TempoSections = song.TempoSections.ToDtos(),
+                    SongEventTracks = song.SongEventTracks.ToDtos(),
+                    SongFilename = $"({song.SongKey}) {song.Artist} - {song.Title}.ogg",
+                    FirstBeatTimeInSeconds = song.FirstBeatTimeInSeconds,
+                    SongEndTimeInSeconds = song.SongEndTimeInSeconds,
+                    SongShortStartTimeInSeconds = song.SongShortStartTimeInSeconds,
+                    SongShortStopTimeInSeconds = song.SongShortStopTimeInSeconds,
+                    LeadingSilenceSeconds = song.LeadingSilenceSeconds,
+                    SongFullLengthInSeconds = song.SongFullLengthInSeconds,
+                    SongShortLengthInSeconds = song.SongShortLengthInSeconds,
+                    SongStartFadeTime = song.SongStartFadeTime,
+                    SongEndFadeTime = song.SongEndFadeTime,
+                    PreviewStartInSeconds = song.PreviewStartInSeconds,
+                    PreviewDurationInSeconds = song.PreviewDurationInSeconds,
+                    SongStartBufferInSeconds = song.SongStartBufferInSeconds,
+                    ChoreoJsons = new List<ChoreoJsonDto>(), // TODO
+                    AnimClips = new List<AnimClipDto>(), // TODO
+                    Speed = song.Speed,
+                    QuantizeSize = song.QuantizeSize,
+                    IncludeInArcades = song.IncludeInArcades,
+                    SupportedModalitySets = song.SupportedModalitySets,
+                    DrumMaxSfx = song.DrumMaxSfx,
+                    DrumMedSfx = song.DrumMedSfx,
+                },
+                Choreographies = new ChoreographiesDto
+                {
+                    Choreographies = song.Choreographies.ToDtos()
+                }
+            };
+        }
     }
 }

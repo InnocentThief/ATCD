@@ -13,10 +13,15 @@ namespace ATCD.Backend.Business.Domains
             songRepository = new SongRepository();
         }
 
-        internal void SaveSong(SongDto songDto)
+        internal async Task<SongDto> SaveSongAsync(SongDto songDto)
         {
             var song = songDto.ToEntity();
             songRepository.SaveSong(song);
+
+            var savedSong = await songRepository.GetSongAsync(song.SongKey);
+            var savedSongDto = savedSong.ToDto();
+
+            return savedSongDto;
         }
     }
 }

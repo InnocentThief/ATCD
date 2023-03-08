@@ -15,6 +15,14 @@ namespace ATCD.DataAccess.Entity
 
         public string Name { get; set; }
 
+        public string MetaData { get; set; }
+
+        public int Beat { get; set; }
+
+        public int Numerator { get; set; }
+
+        public int Denominator { get; set; }
+
         public double GemSpeed { get; set; }
 
         public double GemRadius { get; set; }

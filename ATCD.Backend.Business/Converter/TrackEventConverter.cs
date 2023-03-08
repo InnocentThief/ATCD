@@ -22,5 +22,22 @@ namespace ATCD.Backend.Business.Converter
             if (trackEventDtos == null) { throw new ArgumentNullException(nameof(trackEventDtos)); }
             return trackEventDtos.Select(ToEntity).ToList();
         }
+
+        internal static TrackEventDto ToDto(this TrackEvent trackEvent)
+        {
+            return new TrackEventDto
+            {
+                EndTimeInSeconds = trackEvent.EndTimeInSeconds,
+                Payload = trackEvent.Payload,
+                PayloadType = trackEvent.PayloadType,
+                StartTimeInSeconds = trackEvent.StartTimeInSeconds
+            };
+        }
+
+        internal static List<TrackEventDto> ToDtos(this List<TrackEvent> trackEvents)
+        {
+            if (trackEvents == null) { throw new ArgumentNullException(nameof(trackEvents)); }
+            return trackEvents.Select(ToDto).ToList();
+        }
     }
 }
