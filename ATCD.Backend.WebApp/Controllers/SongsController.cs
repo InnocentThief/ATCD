@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ATCD.Backend.Business.Domains;
+using ATCD.Backend.Dto.AudioTrip;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace ATCD.Backend.WebApp.Controllers
 {
@@ -6,5 +10,36 @@ namespace ATCD.Backend.WebApp.Controllers
     [ApiController]
     public class SongsController : ControllerBase
     {
+        private SongDomain songDomain;
+
+        public SongsController()
+        {
+            songDomain = new SongDomain();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("")]
+        public async Task<ActionResult<string>> TrySomeStuff()
+        {
+            try
+            {
+                var file = @"C:\Users\InnocentThief\Downloads\GeoDaSilva_-_Bam_Bam_Boogie_-_Chez\GeoDaSilva - Bam Bam Boogie - Chez\GeoDaSilva & Stephan F - Bam Bam Boogie - Chez-moi.ats";
+                var fileContent = System.IO.File.ReadAllText(file);
+                SongDto song = JsonSerializer.Deserialize<SongDto>(fileContent);
+
+                songDomain.SaveSong(song);
+
+
+                return Ok(song);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+        }
     }
 }

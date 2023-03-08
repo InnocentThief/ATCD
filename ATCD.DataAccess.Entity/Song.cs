@@ -13,7 +13,7 @@ namespace ATCD.DataAccess.Entity
 
         public Author Author { get; set; }
 
-        public int SongId { get; set; }
+        public string SongId { get; set; }
 
         public string Title { get; set; }
 
@@ -27,9 +27,7 @@ namespace ATCD.DataAccess.Entity
 
         public string SceneName { get; set; }
 
-        public decimal AvgBpm { get; set; }
-
-        public string BeatDivisions { get; set; }
+        public double AvgBpm { get; set; }
 
         public List<TempoSection> TempoSections { get; set; }
 
@@ -37,37 +35,37 @@ namespace ATCD.DataAccess.Entity
 
         public string SongURL { get; set; }
 
-        public decimal FirstBeatTimeInSeconds { get; set; }
+        public double FirstBeatTimeInSeconds { get; set; }
 
-        public decimal SongEndTimeInSeconds { get; set; }
+        public double SongEndTimeInSeconds { get; set; }
 
-        public decimal SongShortStartTimeInSeconds { get; set; }
+        public double SongShortStartTimeInSeconds { get; set; }
 
-        public decimal SongShortStopTimeInSeconds { get; set; }
+        public double SongShortStopTimeInSeconds { get; set; }
 
-        public decimal LeadingSilenceSeconds { get; set; }
+        public double LeadingSilenceSeconds { get; set; }
 
-        public decimal SongFullLengthInSeconds { get; set; }
+        public double SongFullLengthInSeconds { get; set; }
 
-        public decimal SongShortLengthInSeconds { get; set; }
+        public double SongShortLengthInSeconds { get; set; }
 
-        public decimal SongStartFadeTime { get; set; }
+        public double SongStartFadeTime { get; set; }
 
-        public decimal SongEndFadeTime { get; set; }
+        public double SongEndFadeTime { get; set; }
 
-        public decimal PreviewStartInSeconds { get; set; }
+        public double PreviewStartInSeconds { get; set; }
 
-        public decimal PreviewDurationInSeconds { get; set; }
+        public double PreviewDurationInSeconds { get; set; }
 
-        public decimal SongStartBufferInSeconds { get; set; }
+        public double SongStartBufferInSeconds { get; set; }
 
         public string ChoreoJsons { get; set; }
 
         public string AnimClips { get; set; }
 
-        public decimal Speed { get; set; }
+        public double Speed { get; set; }
 
-        public decimal QuantizeSize { get; set; }
+        public double QuantizeSize { get; set; }
 
         public bool IncludeInArcades { get; set; }
 
@@ -77,7 +75,7 @@ namespace ATCD.DataAccess.Entity
 
         public string DrumMaxSfx { get; set; }
 
-        public int GenreKey { get; set; }
+        public int? GenreKey { get; set; }
 
         public string Description { get; set; }
 
@@ -86,6 +84,8 @@ namespace ATCD.DataAccess.Entity
         public bool Challenge { get; set; }
 
         public bool ContentStrike { get; set; }
+
+        public DateTime Released { get; set; }
 
         public ICollection<Choreography> Choreographies { get; set; }
     }

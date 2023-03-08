@@ -45,8 +45,8 @@
       <FileName>AudioTrip\ChoreographyDto.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Data" />
       <Property Name="Header" />
+      <Property Name="Data" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ATCD.Backend.Dto.AudioTrip.DataDto">
@@ -59,7 +59,7 @@
       <Property Name="Events" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="ATCD.Backend.Dto.AudioTrip.DataEventDto" Collapsed="true">
+  <Class Name="ATCD.Backend.Dto.AudioTrip.DataEventDto">
     <Position X="13.5" Y="12.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEBAAAAAAAAAAAAgAAAAAAAAAACAAAQAAQAAAAAAAQA=</HashCode>

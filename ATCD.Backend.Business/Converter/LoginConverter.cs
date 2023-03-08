@@ -3,7 +3,7 @@ using ATCD.DataAccess.Entity;
 
 namespace ATCD.Backend.Business.Converter
 {
-    internal static class LoginDtoConverter
+    internal static class LoginConverter
     {
         internal static LoginDto ToLoginDto(this Account account)
         {

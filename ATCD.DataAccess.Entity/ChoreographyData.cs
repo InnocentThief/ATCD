@@ -27,12 +27,6 @@ namespace ATCD.DataAccess.Entity
 
         public double PositionZ { get; set; }
 
-        public double SubPositionX { get; set; }
-
-        public double SubPositionY { get; set; }
-
-        public double SubPositionZ { get; set;}
-
         public int BroadcastEventId { get; set; }
     }
 }

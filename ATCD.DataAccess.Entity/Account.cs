@@ -27,6 +27,6 @@ namespace ATCD.DataAccess.Entity
 
         public DateTime Created { get; set; }
 
-        public ICollection<Author> Authors { get; set; }
+        //public ICollection<Author> Authors { get; set; }
     }
 }

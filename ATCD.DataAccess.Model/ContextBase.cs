@@ -30,7 +30,7 @@ namespace ATCD.DataAccess.Model
 
         protected virtual void CreateRelationshipDefinitions(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Account>().HasMany(acc => acc.Authors).WithOne().HasForeignKey(a => a.AccountKey);
+            //modelBuilder.Entity<Account>().HasMany(acc => acc.Authors).WithOne().HasForeignKey(a => a.AccountKey);
             modelBuilder.Entity<Choreography>().HasMany(c => c.ChoreographyDatas).WithOne().HasForeignKey(cd => cd.ChoreographyKey);
             modelBuilder.Entity<Song>().HasOne(s => s.Author).WithMany().HasForeignKey(s => s.AuthorKey);
             modelBuilder.Entity<Song>().HasMany(s => s.Choreographies).WithOne().HasForeignKey(c => c.SongKey);

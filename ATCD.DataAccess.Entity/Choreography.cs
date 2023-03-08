@@ -5,7 +5,7 @@ namespace ATCD.DataAccess.Entity
     internal class Choreography
     {
         [Key]
-        public int ChoreogrphyId { get; set; }
+        public int ChoreographyKey { get; set; }
 
         public int SongKey { get; set; }
 

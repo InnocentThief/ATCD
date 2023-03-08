@@ -9,11 +9,11 @@ namespace ATCD.DataAccess.Entity
 
         public int SongKey { get; set; }
 
-        public decimal StartTimeInSeconds { get; set; }
+        public double StartTimeInSeconds { get; set; }
 
         public int BeatsPerMeasure { get; set; }
 
-        public decimal BeatsPerMinute { get; set; }
+        public double BeatsPerMinute { get; set; }
 
         public bool DoesStartNewMeasure { get; set; }
     }
