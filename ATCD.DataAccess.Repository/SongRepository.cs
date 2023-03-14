@@ -1,11 +1,6 @@
 ﻿using ATCD.DataAccess.Entity;
 using ATCD.DataAccess.Model;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ATCD.DataAccess.Repository
 {
@@ -14,6 +9,34 @@ namespace ATCD.DataAccess.Repository
         protected internal override SongContext GetContext()
         {
             return new SongContext();
+        }
+
+        public async Task<List<Song>> GetSongsForOverviewAsync(string title, string artist, string author)
+        {
+            using var context = GetContext();
+            var query = context.Song
+                .AsNoTracking()
+                .Include(s => s.Author)
+                .Include(s => s.Choreographies)
+                .Where(s => s.Custom == true);
+
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                query = query
+                    .Where(s => s.Title.Contains(title));
+            }
+            if (!string.IsNullOrWhiteSpace(artist))
+            {
+                query = query
+                    .Where(s => s.Artist.Contains(artist));
+            }
+            if (!string.IsNullOrWhiteSpace(author))
+            {
+                query = query
+                    .Where(s => s.Author.DisplayName.Contains(author));
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<Song> GetSongAsync(int songKey)

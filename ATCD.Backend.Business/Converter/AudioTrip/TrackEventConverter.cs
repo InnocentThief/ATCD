@@ -2,7 +2,7 @@
 using ATCD.DataAccess.Entity;
 using System.Data;
 
-namespace ATCD.Backend.Business.Converter
+namespace ATCD.Backend.Business.Converter.AudioTrip
 {
     internal static class TrackEventConverter
     {

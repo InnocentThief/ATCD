@@ -1,5 +1,6 @@
 ﻿using ATCD.Backend.Business.Domains;
 using ATCD.Backend.Dto.AudioTrip;
+using ATCD.Backend.Dto.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -10,7 +11,7 @@ namespace ATCD.Backend.WebApp.Controllers
     [ApiController]
     public class SongsController : ControllerBase
     {
-        private SongDomain songDomain;
+        private readonly SongDomain songDomain;
 
         public SongsController()
         {
@@ -20,6 +21,15 @@ namespace ATCD.Backend.WebApp.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("")]
+        public async Task<ActionResult<List<SongOverviewDto>>> Songs()
+        {
+            var songOverviewDtos = await songDomain.GetSongsForOverview();
+            return Ok( songOverviewDtos);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("try")]
         public async Task<ActionResult<string>> TrySomeStuff()
         {
             try

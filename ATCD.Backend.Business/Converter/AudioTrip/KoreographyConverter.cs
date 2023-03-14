@@ -1,7 +1,7 @@
 ﻿using ATCD.Backend.Dto.AudioTrip;
 using ATCD.DataAccess.Entity;
 
-namespace ATCD.Backend.Business.Converter
+namespace ATCD.Backend.Business.Converter.AudioTrip
 {
     internal static class KoreographyConverter
     {
