@@ -34,6 +34,7 @@ namespace ATCD.DataAccess.Model
             modelBuilder.Entity<Choreography>().HasMany(c => c.ChoreographyDatas).WithOne().HasForeignKey(cd => cd.ChoreographyKey);
             modelBuilder.Entity<Song>().HasOne(s => s.Author).WithMany().HasForeignKey(s => s.AuthorKey);
             modelBuilder.Entity<Song>().HasMany(s => s.Choreographies).WithOne().HasForeignKey(c => c.SongKey);
+            modelBuilder.Entity<Song>().HasOne(s => s.Genre).WithMany().HasForeignKey(s => s.GenreKey);
             modelBuilder.Entity<Song>().HasOne(s => s.Koreography).WithOne().HasForeignKey<Song>(s => s.KoreographyKey);
             modelBuilder.Entity<Song>().HasMany(s => s.SongEventTracks).WithOne().HasForeignKey(set => set.SongKey);
             modelBuilder.Entity<Song>().HasMany(s => s.TempoSections).WithOne().HasForeignKey(ts => ts.SongKey);

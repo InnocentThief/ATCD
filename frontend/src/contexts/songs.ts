@@ -23,7 +23,6 @@ export class SongContext{
             )
             const json = await response.json()
             this.loadedSongs = parseArray(json, SongOverviewDto.fromJSON)
-            console.log(this.loadedSongs.length)
         } catch (e) {
             this.loadedSongs = []            
         } finally{

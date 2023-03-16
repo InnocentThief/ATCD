@@ -9,6 +9,7 @@ namespace ATCD.Backend.Business.Converter.Web
         {
             return new SongOverviewChoreographyDto
             {
+                ChoreographyKey = choreography.ChoreographyKey,
                 DisplayName = choreography.Name
             };
         }

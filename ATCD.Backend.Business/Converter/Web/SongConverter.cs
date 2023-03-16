@@ -13,7 +13,10 @@ namespace ATCD.Backend.Business.Converter.Web
                 Artist = song.Artist,
                 Author = song.Author.DisplayName,
                 AuthorKey = song.AuthorKey,
-                CoverUrl = string.Empty, // TODO
+                AvgBpm = song.AvgBpm.ToString("#"),
+                CoverUrl = song.CoverURL,
+                Genre = song.Genre.DisplayName,
+                Length = $"{song.SongFullLengthInSeconds / 60:#}:{song.SongFullLengthInSeconds % 60:#}",
                 Released = song.Released,
                 SongKey = song.SongKey,
                 Title = song.Title,

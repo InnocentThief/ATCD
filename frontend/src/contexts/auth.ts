@@ -1,7 +1,6 @@
 import * as toaster from '../helpers/toaster'
 
 export class AuthContext {
-
     authToken: string | null = null
 
     fetch = async (

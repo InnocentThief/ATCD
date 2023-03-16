@@ -35,6 +35,8 @@ namespace ATCD.DataAccess.Entity
 
         public string SongURL { get; set; }
 
+        public string CoverURL { get; set; }
+
         public double FirstBeatTimeInSeconds { get; set; }
 
         public double SongEndTimeInSeconds { get; set; }
@@ -76,6 +78,8 @@ namespace ATCD.DataAccess.Entity
         public string DrumMaxSfx { get; set; }
 
         public int? GenreKey { get; set; }
+
+        public Genre Genre { get; set; }
 
         public string Description { get; set; }
 

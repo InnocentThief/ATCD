@@ -28,11 +28,11 @@ interface Props extends RouteComponentProps {}
 class Router extends React.Component<Props>{
    render() {
       const{
-
+         settings: { isDarkTheme }
       } = Context
 
       return (
-         <div className={Classes.DARK}>
+         <Container className={isDarkTheme ?  Classes.DARK: ""}>
             <Fixed>
                <AppBar />
             </Fixed>
@@ -48,10 +48,14 @@ class Router extends React.Component<Props>{
                   </Switch>
                </Main>
             </Content>
-         </div>
+         </Container>
       )
    }
 }
+
+const Container = styled.div`
+   height: 100% !important
+`
 
 const Fixed = styled.div`
   position: fixed;
@@ -64,6 +68,10 @@ const Content = styled.div`
   display: flex;
   height: 100%;
   padding-top: 50px;
+  background: #F6F7F9;
+  .bp4-dark & {
+      background: #343A42;
+  }
 `
 
 const Main = styled.main`

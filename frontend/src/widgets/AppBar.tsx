@@ -11,13 +11,13 @@ interface Props extends RouteComponentProps<{}>{
 class AppBar extends React.Component<Props>{
     render(){
         const {
-            
+            settings: { isDarkTheme, swithTheme }
         } = Context
 
         return (
             <Navbar style={{ zIndex: 1000 }}>
                 <Navbar.Group align={Alignment.LEFT}>
-                    <Navbar.Heading>Audio Trip Choreographies</Navbar.Heading>
+                    <Navbar.Heading>AUDIO TRIP CHOREOGRAPHIES</Navbar.Heading>
                     <Navbar.Divider />
                     <Button className={Classes.MINIMAL} icon="music" text="Songs" onClick={this.swithToSongsPage} />
                     <Button className={Classes.MINIMAL} icon="map" text="Mappers" onClick={this.swithToMappersPage} />
@@ -26,9 +26,10 @@ class AppBar extends React.Component<Props>{
                     <Button className={Classes.MINIMAL} icon="user" text="InnocentThief" onClick={this.swithToAccountPage} />
                 </Navbar.Group>
                 <Navbar.Group align={Alignment.RIGHT}>
-                    <Button className={Classes.MINIMAL} icon="log-out" text="Logout" />
+                    <Button className={Classes.MINIMAL} icon="log-out" text="" />
                     <Navbar.Divider />
                     <Button className={Classes.MINIMAL} icon="translate" text="English" />
+                    <Button className={Classes.MINIMAL} icon={isDarkTheme ? "flash": "moon"} text="" onClick={swithTheme} />
                 </Navbar.Group>
             </Navbar>
         )

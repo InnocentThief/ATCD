@@ -18,6 +18,7 @@ namespace ATCD.DataAccess.Repository
                 .AsNoTracking()
                 .Include(s => s.Author)
                 .Include(s => s.Choreographies)
+                .Include(s => s.Genre)
                 .Where(s => s.Custom == true);
 
             if (!string.IsNullOrWhiteSpace(title))

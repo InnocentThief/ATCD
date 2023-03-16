@@ -1,4 +1,4 @@
-import { Button, Card, H5, NonIdealState, NonIdealStateIconSize, Tag } from '@blueprintjs/core'
+import { Button, Card, Divider, H5, Icon, NonIdealState, NonIdealStateIconSize, Spinner, Tag } from '@blueprintjs/core'
 import React from 'react'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
@@ -18,7 +18,8 @@ class Songs extends React.Component{
     render() {
         const {
             songs: {
-                loadedSongs            
+                loadedSongs,
+                loadingSongs            
             }
         } = Context
 
@@ -33,7 +34,12 @@ class Songs extends React.Component{
         return(
             <Container>
                 <NonIdeal>
-                    {loadedSongs.length == 0 && (
+                    {loadingSongs ? (
+                        <NonIdealState>
+                            <Spinner />
+                            Loading data...
+                        </NonIdealState>
+                    ): loadedSongs.length == 0 && (
                         <NonIdealState
                             icon="search"  
                             iconSize={NonIdealStateIconSize.SMALL}
@@ -43,25 +49,46 @@ class Songs extends React.Component{
                     )}
                 </NonIdeal>
                 {loadedSongs.length > 0 && (
-                    <List>
-                        {loadedSongs.map(s => (
-                            <SongCard>
-                                <H5>
-                                    {s.title} by {s.artist}
-                                </H5>
-                                <p>
-                                    Mapped by {s.author}
-                                </p>
-                                <div>
-                                    {s.choreographies.map(c => (
-                                        <ChoreographyTag>
-                                            {c.displayName}
-                                        </ChoreographyTag>
-                                    ))}
-                                </div>
+                    <Ideal>
+                        {loadedSongs.map(s=> (
+                            <SongCard key={s.songKey} elevation={2}>
+                                <SongCardContent>
+                                    <SongCardCover>
+                                        <img src={s.coverUrl} height={100} width={100} />
+                                    </SongCardCover>
+                                    <SongCardSongInfo>
+                                        <H5>
+                                           {s.title} - {s.artist}
+                                        </H5>
+                                        <p>Mapped by {s.author}</p>
+                                        <SongCardGenreChoreographyInfo>
+                                            <GenreTag round={true}>{s.genre}</GenreTag>
+                                            <Divider />
+                                            {s.choreographies.map(c => (
+                                                <ChoreographyTag key={c.choreographyKey}>
+                                                    {c.displayName}
+                                                </ChoreographyTag>
+                                            ))}
+                                        </SongCardGenreChoreographyInfo>
+                                    </SongCardSongInfo>
+                                    <SongCardAdditionalInfo>
+                                        <SongCardAdditionalInfoRow>
+                                            <SongCardAdditionalInfoValue>{s.songKey}</SongCardAdditionalInfoValue>
+                                            <Icon icon="key" />
+                                        </SongCardAdditionalInfoRow>
+                                        <SongCardAdditionalInfoRow>
+                                            <SongCardAdditionalInfoValue>{s.length}</SongCardAdditionalInfoValue>
+                                            <Icon icon="time" />
+                                        </SongCardAdditionalInfoRow>
+                                        <SongCardAdditionalInfoRow>
+                                            <SongCardAdditionalInfoValue>{s.avgBpm}</SongCardAdditionalInfoValue>
+                                            <Icon icon="dashboard" />
+                                        </SongCardAdditionalInfoRow>
+                                    </SongCardAdditionalInfo>
+                                </SongCardContent>
                             </SongCard>
-                        ) )}
-                    </List> 
+                        ))}
+                    </Ideal>
                 )}
             </Container>
         )
@@ -69,27 +96,75 @@ class Songs extends React.Component{
 }
 
 const Container = styled(Vertical)`
-  max-height: 100%;
-`
-
-const List = styled.div`
-  overflow: auto;
+    max-height: 100%;
 `
 
 const NonIdeal = styled.div`
-  grid-area: nonideal;
-  max-height: 100%;
-  display: flex;
-  align-items: flex-start;
-  gap: 50px;
+    grid-area: nonideal;
+    max-height: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+`
+
+const Ideal = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
 `
 
 const SongCard = styled(Card)`
-    margin-bottom: 6px;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+    padding: 10px;
+    width: 640px;
+`
+
+const SongCardContent = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`
+
+const SongCardCover = styled.div`
+    margin-right: 10px;
+`
+
+const SongCardSongInfo = styled.div`
+    width: 100%;
+`
+
+const SongCardGenreChoreographyInfo = styled.div`
+    display: flex;
+    flex-direction: row;
+`
+const GenreTag = styled(Tag)`
+    margin-right: 3px;
 `
 
 const ChoreographyTag = styled(Tag)`
-    margin-right: 6px;
+    margin-left: 3px;
+    margin-right: 3px;
+`
+
+const SongCardAdditionalInfo = styled.div`
+    widht: 100%;
+    width: 150px;
+`
+
+const SongCardAdditionalInfoRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+`
+
+const SongCardAdditionalInfoValue = styled.div`
+    margin-right: 10px;
 `
 
 export default observer(Songs)
