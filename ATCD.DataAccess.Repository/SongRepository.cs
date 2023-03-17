@@ -40,6 +40,19 @@ namespace ATCD.DataAccess.Repository
             return await query.ToListAsync();
         }
 
+        public async Task<Song> GetSongForOverviewAsync(int songKey)
+        {
+            using var context = GetContext();
+            var query = context.Song
+                .AsNoTracking()
+                .Include(s => s.Author)
+                .Include(s => s.Choreographies)
+                .Include(s => s.Genre)
+                .Where(s => s.SongKey == songKey);
+
+            return await query.SingleOrDefaultAsync();
+        }
+
         public async Task<Song> GetSongAsync(int songKey)
         {
             using var context = GetContext();

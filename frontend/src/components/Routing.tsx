@@ -15,8 +15,7 @@ import Playlists from './pages/Playlists'
 import Account from './pages/Account'
 import Mapper from './pages/Mapper'
 import Song from './pages/Song'
-import { Colors } from '@blueprintjs/core';
-import { Alignment, Button, Classes, Navbar} from "@blueprintjs/core";
+import { Classes} from "@blueprintjs/core";
 
 export const SONGS_ROUTE = "/songs"
 export const MAPPERS_ROUTE = "/mappers"

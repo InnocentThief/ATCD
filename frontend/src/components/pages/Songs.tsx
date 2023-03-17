@@ -2,7 +2,6 @@ import { Button, Card, Divider, H5, Icon, NonIdealState, NonIdealStateIconSize, 
 import React from 'react'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
-import SongOverviewRow from '../../widgets/SongOverviewRow'
 import Vertical from '../layouts/Vertical'
 import { observer } from 'mobx-react'
 
@@ -37,7 +36,7 @@ class Songs extends React.Component{
                     {loadingSongs ? (
                         <NonIdealState>
                             <Spinner />
-                            Loading data...
+                            Loading songs...
                         </NonIdealState>
                     ): loadedSongs.length == 0 && (
                         <NonIdealState
@@ -50,44 +49,50 @@ class Songs extends React.Component{
                 </NonIdeal>
                 {loadedSongs.length > 0 && (
                     <Ideal>
-                        {loadedSongs.map(s=> (
-                            <SongCard key={s.songKey} elevation={2}>
-                                <SongCardContent>
-                                    <SongCardCover>
-                                        <img src={s.coverUrl} height={100} width={100} />
-                                    </SongCardCover>
-                                    <SongCardSongInfo>
-                                        <H5>
-                                           {s.title} - {s.artist}
-                                        </H5>
-                                        <p>Mapped by {s.author}</p>
-                                        <SongCardGenreChoreographyInfo>
-                                            <GenreTag round={true}>{s.genre}</GenreTag>
-                                            <Divider />
-                                            {s.choreographies.map(c => (
-                                                <ChoreographyTag key={c.choreographyKey}>
-                                                    {c.displayName}
-                                                </ChoreographyTag>
-                                            ))}
-                                        </SongCardGenreChoreographyInfo>
-                                    </SongCardSongInfo>
-                                    <SongCardAdditionalInfo>
-                                        <SongCardAdditionalInfoRow>
-                                            <SongCardAdditionalInfoValue>{s.songKey}</SongCardAdditionalInfoValue>
-                                            <Icon icon="key" />
-                                        </SongCardAdditionalInfoRow>
-                                        <SongCardAdditionalInfoRow>
-                                            <SongCardAdditionalInfoValue>{s.length}</SongCardAdditionalInfoValue>
-                                            <Icon icon="time" />
-                                        </SongCardAdditionalInfoRow>
-                                        <SongCardAdditionalInfoRow>
-                                            <SongCardAdditionalInfoValue>{s.avgBpm}</SongCardAdditionalInfoValue>
-                                            <Icon icon="dashboard" />
-                                        </SongCardAdditionalInfoRow>
-                                    </SongCardAdditionalInfo>
-                                </SongCardContent>
-                            </SongCard>
-                        ))}
+                        <SearchArea>
+                            
+                            <Button intent='primary' icon="search" text="Search" />
+                        </SearchArea>
+                        <SongList>
+                            {loadedSongs.map(s=> (
+                                <SongCard key={s.songKey} elevation={2}>
+                                    <SongCardContent>
+                                        <SongCardCover>
+                                            <img src={s.coverUrl} height={100} width={100} />
+                                        </SongCardCover>
+                                        <SongCardSongInfo>
+                                            <H5>
+                                                <a href={`songs/${s.songKey}`} >{s.title} - {s.artist}</a>
+                                            </H5>
+                                            <p>Mapped by <a href={`mappers/${s.authorKey}`} >{s.author}</a></p>
+                                            <SongCardGenreChoreographyInfo>
+                                                <GenreTag round={true}>{s.genre}</GenreTag>
+                                                <Divider />
+                                                {s.choreographies.map(c => (
+                                                    <ChoreographyTag key={c.choreographyKey}>
+                                                        {c.choreographyType} ({c.displayName})
+                                                    </ChoreographyTag>
+                                                ))}
+                                            </SongCardGenreChoreographyInfo>
+                                        </SongCardSongInfo>
+                                        <SongCardAdditionalInfo>
+                                            <SongCardAdditionalInfoRow>
+                                                <SongCardAdditionalInfoValue>{s.songKey}</SongCardAdditionalInfoValue>
+                                                <Icon icon="key" />
+                                            </SongCardAdditionalInfoRow>
+                                            <SongCardAdditionalInfoRow>
+                                                <SongCardAdditionalInfoValue>{s.length}</SongCardAdditionalInfoValue>
+                                                <Icon icon="time" />
+                                            </SongCardAdditionalInfoRow>
+                                            <SongCardAdditionalInfoRow>
+                                                <SongCardAdditionalInfoValue>{s.avgBpm}</SongCardAdditionalInfoValue>
+                                                <Icon icon="dashboard" />
+                                            </SongCardAdditionalInfoRow>
+                                        </SongCardAdditionalInfo>
+                                    </SongCardContent>
+                                </SongCard>
+                            ))}
+                        </SongList>
                     </Ideal>
                 )}
             </Container>
@@ -108,6 +113,19 @@ const NonIdeal = styled.div`
 `
 
 const Ideal = styled.div`
+    width: 100%;
+    align-content: center;
+`
+
+const SearchArea = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px;
+`
+
+const SongList = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -116,10 +134,9 @@ const Ideal = styled.div`
 `
 
 const SongCard = styled(Card)`
-    margin-top: 3px;
     margin-bottom: 10px;
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
     padding: 10px;
     width: 640px;
 `

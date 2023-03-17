@@ -2,9 +2,9 @@ import React from 'react'
 import { RouteComponentProps } from 'react-router'
 import { Context } from '../../contexts'
 
+interface Props extends RouteComponentProps<{ authorKey: string }>{}
 
-
-class Mapper extends React.Component{
+class Mapper extends React.Component<Props>{
     render() {
         const{
 

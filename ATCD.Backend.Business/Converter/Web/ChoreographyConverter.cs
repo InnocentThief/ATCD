@@ -10,6 +10,7 @@ namespace ATCD.Backend.Business.Converter.Web
             return new SongOverviewChoreographyDto
             {
                 ChoreographyKey = choreography.ChoreographyKey,
+                ChoreographyType = choreography.ChoreographyType.ToDisplayText(),
                 DisplayName = choreography.Name
             };
         }
@@ -18,6 +19,18 @@ namespace ATCD.Backend.Business.Converter.Web
         {
             if (choreographies == null) throw new ArgumentNullException(nameof(choreographies));
             return choreographies.Select(ToOverviewDto).ToList();
+        }
+
+        internal static string ToDisplayText(this ChoreographyType choreographyType)
+        {
+            return choreographyType switch
+            {
+                ChoreographyType.Easy => "Easy",
+                ChoreographyType.Regular => "Regular",
+                ChoreographyType.Expert => "Expert",
+                ChoreographyType.Cardio => "Cardio",
+                _ => "Unkown choreograpy type"
+            };
         }
     }
 }

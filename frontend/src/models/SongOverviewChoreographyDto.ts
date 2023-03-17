@@ -2,6 +2,7 @@ import { logTypeMissmatch, parseNumber, parseString } from '../helpers/model'
 
 export class SongOverviewChoreographyDto {
     choreographyKey: number = 0
+    choreographyType: string = ''
     displayName: string = ''
 
     static fromJSON(obj: any): SongOverviewChoreographyDto {
@@ -12,6 +13,7 @@ export class SongOverviewChoreographyDto {
 
         return {
             choreographyKey: parseNumber(obj.choreographyKey),
+            choreographyType: parseString(obj.choreographyType),
             displayName: parseString(obj.displayName),
         }
     }

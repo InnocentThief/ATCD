@@ -13,6 +13,8 @@ namespace ATCD.DataAccess.Entity
 
         public string Descriptor { get; set; }
 
+        public ChoreographyType ChoreographyType { get; set; }
+
         public string Name { get; set; }
 
         public string MetaData { get; set; }

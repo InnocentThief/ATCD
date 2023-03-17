@@ -3,6 +3,7 @@
     public class SongOverviewChoreographyDto
     {
         public int ChoreographyKey { get; set; }
+        public string ChoreographyType { get; set; }
         public string DisplayName { get; set; }
     }
 }

@@ -23,8 +23,17 @@ namespace ATCD.Backend.WebApp.Controllers
         [Route("")]
         public async Task<ActionResult<List<SongOverviewDto>>> Songs()
         {
-            var songOverviewDtos = await songDomain.GetSongsForOverview();
-            return Ok( songOverviewDtos);
+            var songOverviewDtos = await songDomain.GetSongsForOverviewAsync();
+            return Ok(songOverviewDtos);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("{songKey}")]
+        public async Task<ActionResult<SongOverviewDto>> Song(int songKey)
+        {
+            var songOverviewDto = await songDomain.GetSongForOverviewAsync(songKey);
+            return Ok(songOverviewDto);
         }
 
         [AllowAnonymous]

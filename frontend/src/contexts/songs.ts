@@ -9,7 +9,7 @@ export class SongContext{
     loadedSongs: SongOverviewDto[] = []
     loadingSongs = false
 
-    loadedSongDetail?: SongOverviewDetailDto
+    selectedSong: SongOverviewDetailDto | null | undefined
 
     constructor(private auth: AuthContext){
         makeAutoObservable(this)
@@ -17,6 +17,7 @@ export class SongContext{
 
     fetchSongs = async () => {
         this.loadingSongs = true
+        this.selectedSong = null
         try {
             const response = await this.auth.fetch(
                 `/api/songs`
@@ -30,13 +31,13 @@ export class SongContext{
         }
     }
 
-    fetchSongDetail = async (songKey: number) => {
+    fetchSongDetail = async (songKey: string) => {
         try {
             const response = await this.auth.fetch(
                 `/api/songs/${songKey}`
             )
             const json = await response.json()
-            this.loadedSongDetail = SongOverviewDetailDto.fromJSON(json)
+            this.selectedSong = SongOverviewDetailDto.fromJSON(json)
         } catch (e) {
             return
         }

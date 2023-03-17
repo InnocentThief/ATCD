@@ -15,10 +15,16 @@ namespace ATCD.Backend.Business.Domains
             songRepository = new SongRepository();
         }
 
-        internal async Task<List<SongOverviewDto>> GetSongsForOverview(string title = "", string artist = "", string author = "")
+        internal async Task<List<SongOverviewDto>> GetSongsForOverviewAsync(string title = "", string artist = "", string author = "")
         {
             var songs = await songRepository.GetSongsForOverviewAsync(title, artist, author);
             return songs.ToOverviewDtos();
+        }
+
+        internal async Task<SongOverviewDto> GetSongForOverviewAsync(int songKey)
+        {
+            var song = await songRepository.GetSongForOverviewAsync(songKey);
+            return song.ToOverviewDto();
         }
 
         internal async Task<SongDto> SaveSongAsync(SongDto songDto)
