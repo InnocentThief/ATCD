@@ -1,6 +1,5 @@
 import { makeAutoObservable, reaction } from 'mobx'
 import { parseArray } from '../helpers/model'
-import { SongOverviewDetailDto } from '../models/SongOverviewDetailDto'
 import { SongOverviewDto } from '../models/SongOverviewDto'
 import { AuthContext } from './auth'
 
@@ -9,7 +8,7 @@ export class SongContext{
     loadedSongs: SongOverviewDto[] = []
     loadingSongs = false
 
-    selectedSong: SongOverviewDetailDto | null | undefined
+    selectedSong: SongOverviewDto | null | undefined
 
     constructor(private auth: AuthContext){
         makeAutoObservable(this)
@@ -37,7 +36,7 @@ export class SongContext{
                 `/api/songs/${songKey}`
             )
             const json = await response.json()
-            this.selectedSong = SongOverviewDetailDto.fromJSON(json)
+            this.selectedSong = SongOverviewDto.fromJSON(json)
         } catch (e) {
             return
         }

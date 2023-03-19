@@ -10,8 +10,11 @@ namespace ATCD.Backend.Business.Converter.Web
             return new SongOverviewChoreographyDto
             {
                 ChoreographyKey = choreography.ChoreographyKey,
+                Id = choreography.Id,
                 ChoreographyType = choreography.ChoreographyType.ToDisplayText(),
-                DisplayName = choreography.Name
+                DisplayName = choreography.Name,
+                GemSpeed = choreography.GemSpeed,
+                GemRadius = choreography.GemRadius
             };
         }
 

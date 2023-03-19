@@ -12,6 +12,7 @@ export class SongOverviewDto {
     authorKey: number =0
     author: string = ''
     released: string = ''
+    description: string = ''
     choreographies: SongOverviewChoreographyDto[] = []
 
     static fromJSON(obj: any): SongOverviewDto {
@@ -31,6 +32,7 @@ export class SongOverviewDto {
             authorKey: parseNumber(obj.authorKey),
             author: parseString(obj.author),
             released: parseString(obj.released),
+            description: parseString(obj.description),
             choreographies :parseArray(obj.choreographies, SongOverviewChoreographyDto.fromJSON)
         }
     }

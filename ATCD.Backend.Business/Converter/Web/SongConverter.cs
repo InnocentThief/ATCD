@@ -15,6 +15,7 @@ namespace ATCD.Backend.Business.Converter.Web
                 AuthorKey = song.AuthorKey,
                 AvgBpm = song.AvgBpm.ToString("#"),
                 CoverUrl = song.CoverURL,
+                Description = song.Description,
                 Genre = song.Genre.DisplayName,
                 Length = $"{song.SongFullLengthInSeconds / 60:#}:{song.SongFullLengthInSeconds % 60:#}",
                 Released = song.Released,
