@@ -10,15 +10,15 @@ import { Context } from '../contexts'
 import styled from 'styled-components/macro'
 import AppBar from '../widgets/AppBar'
 import Songs from './pages/Songs'
-import Mappers from './pages/Mappers'
+import Authors from './pages/Authors'
 import Playlists from './pages/Playlists'
 import Account from './pages/Account'
-import Mapper from './pages/Mapper'
+import Author from './pages/Author'
 import Song from './pages/Song'
 import { Classes} from "@blueprintjs/core";
 
 export const SONGS_ROUTE = "/songs"
-export const MAPPERS_ROUTE = "/mappers"
+export const AUTHORS_ROUTE = "/mappers"
 export const PLAYLISTS_ROUTE = "/playlists"
 export const ACCOUNT_ROUTE = "/account"
 
@@ -40,8 +40,8 @@ class Router extends React.Component<Props>{
                   <Switch>
                      <Route exact path={SONGS_ROUTE} component={Songs} />
                      <Route exact path={`${SONGS_ROUTE}/:songKey`} component={Song} />
-                     <Route exact path={MAPPERS_ROUTE} component={Mappers} />
-                     <Route exact path={`${MAPPERS_ROUTE}/:authorKey`} component={Mapper} />
+                     <Route exact path={AUTHORS_ROUTE} component={Authors} />
+                     <Route exact path={`${AUTHORS_ROUTE}/:authorKey`} component={Author} />
                      <Route exact path={PLAYLISTS_ROUTE} component={Playlists} />
                      <Route exact path={ACCOUNT_ROUTE} component={Account} />
                   </Switch>

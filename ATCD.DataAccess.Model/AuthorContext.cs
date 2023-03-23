@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ATCD.DataAccess.Model
 {
-    internal sealed class SongContext: ContextBase
+    internal sealed class AuthorContext: ContextBase
     {
-        public DbSet<Song> Song { get; set; }
+        public DbSet<Author> Author { get; set; }
     }
 }

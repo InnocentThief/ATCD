@@ -1,9 +1,10 @@
-import { Button, Card, Divider, H5, Icon, NonIdealState, NonIdealStateIconSize, Spinner, Tag } from '@blueprintjs/core'
+import { Button, Card, Divider, H5, Icon, mergeRefs, NonIdealState, NonIdealStateIconSize, Spinner, Tag, Tooltip } from '@blueprintjs/core'
 import React from 'react'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
 import Vertical from '../layouts/Vertical'
 import { observer } from 'mobx-react'
+import { Classes, Popover2, Tooltip2 } from '@blueprintjs/popover2'
 
 class Songs extends React.Component{
     async componentDidMount() {
@@ -64,7 +65,7 @@ class Songs extends React.Component{
                                             <H5>
                                                 <a href={`songs/${s.songKey}`} >{s.title} - {s.artist}</a>
                                             </H5>
-                                            <p>Mapped by <a href={`mappers/${s.authorKey}`} >{s.author}</a></p>
+                                            <p>Mapped by <a href={`mappers/${s.authorKey}`}>{s.author}</a></p>
                                             <SongCardGenreChoreographyInfo>
                                                 <GenreTag round={true}>{s.genre}</GenreTag>
                                                 <Divider />
@@ -77,8 +78,8 @@ class Songs extends React.Component{
                                         </SongCardSongInfo>
                                         <SongCardAdditionalInfo>
                                             <SongCardAdditionalInfoRow>
-                                                <SongCardAdditionalInfoValue>{s.songKey}</SongCardAdditionalInfoValue>
-                                                <Icon icon="key" />
+                                                <SongCardAdditionalInfoValue>{s.atr}</SongCardAdditionalInfoValue>
+                                                <Icon icon="key" onClick={()=>{}} />
                                             </SongCardAdditionalInfoRow>
                                             <SongCardAdditionalInfoRow>
                                                 <SongCardAdditionalInfoValue>{s.length}</SongCardAdditionalInfoValue>
@@ -88,7 +89,35 @@ class Songs extends React.Component{
                                                 <SongCardAdditionalInfoValue>{s.avgBpm}</SongCardAdditionalInfoValue>
                                                 <Icon icon="dashboard" />
                                             </SongCardAdditionalInfoRow>
+                                            <SongCardAdditionalInfoRow>
+                                                {s.contentStrike && (
+                                                    <Tooltip2 content="Content Strike" placement="top" compact={true}>
+                                                        <Icon icon="lightning" color="red" />
+                                                    </Tooltip2>
+                                                )}
+                                                {s.explicit && (
+                                                    <Tooltip2 content="Explicit" placement="top" compact={true}>
+                                                        <Icon icon="high-priority" color="darkorange" />
+                                                    </Tooltip2>
+                                                )}
+                                                {s.challenge && (
+                                                    <Tooltip2 content="Challenge" placement="top" compact={true}>
+                                                        <Icon icon="clean" color="gold" />
+                                                    </Tooltip2>
+                                                )}
+                                            </SongCardAdditionalInfoRow>
                                         </SongCardAdditionalInfo>
+                                        <SongCardActions>
+                                            <Tooltip2 content="Copy ATR" placement="top" compact={true}>
+                                                    <Button minimal={true} icon="duplicate" intent='primary' onClick={() => this.copyATR(s.atr)} />
+                                                </Tooltip2>
+                                            <Tooltip2 content="Preview" placement="top" compact={true}>
+                                                <Button minimal={true} icon="video" intent='primary' />
+                                            </Tooltip2>
+                                            <Tooltip2 content="Download ZIP" placement="top" compact={true}>
+                                                <Button minimal={true} icon="download" intent='primary' />
+                                            </Tooltip2>
+                                        </SongCardActions>
                                     </SongCardContent>
                                 </SongCard>
                             ))}
@@ -97,6 +126,10 @@ class Songs extends React.Component{
                 )}
             </Container>
         )
+    }
+
+    copyATR = (atr: string) => {
+        navigator.clipboard.writeText(`!atr ${atr}`)
     }
 }
 
@@ -114,7 +147,6 @@ const NonIdeal = styled.div`
 
 const Ideal = styled.div`
     width: 100%;
-    align-content: center;
 `
 
 const SearchArea = styled.div`
@@ -126,19 +158,14 @@ const SearchArea = styled.div`
 `
 
 const SongList = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    gap: 6px;
     width: 100%;
 `
 
 const SongCard = styled(Card)`
-    margin-bottom: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
     padding: 10px;
-    width: 640px;
 `
 
 const SongCardContent = styled.div`
@@ -169,7 +196,7 @@ const ChoreographyTag = styled(Tag)`
 `
 
 const SongCardAdditionalInfo = styled.div`
-    widht: 100%;
+    margin-right: 10px;
     width: 150px;
 `
 
@@ -182,6 +209,10 @@ const SongCardAdditionalInfoRow = styled.div`
 
 const SongCardAdditionalInfoValue = styled.div`
     margin-right: 10px;
+`
+
+const SongCardActions = styled.div`
+    width: 30px;
 `
 
 export default observer(Songs)

@@ -1,5 +1,4 @@
-﻿using ATCD.Backend.Business.Converter.AudioTrip;
-using ATCD.Backend.Dto.Web;
+﻿using ATCD.Backend.Dto.Web;
 using ATCD.DataAccess.Entity;
 
 namespace ATCD.Backend.Business.Converter.Web
@@ -11,11 +10,15 @@ namespace ATCD.Backend.Business.Converter.Web
             return new SongOverviewDto
             {
                 Artist = song.Artist,
+                Atr = song.SongKey.ToString("X"), 
                 Author = song.Author.DisplayName,
                 AuthorKey = song.AuthorKey,
                 AvgBpm = song.AvgBpm.ToString("#"),
+                Challenge = song.Challenge,
+                ContentStrike = song.ContentStrike,
                 CoverUrl = song.CoverURL,
                 Description = song.Description,
+                Explicit = song.Explicit,
                 Genre = song.Genre.DisplayName,
                 Length = $"{song.SongFullLengthInSeconds / 60:#}:{song.SongFullLengthInSeconds % 60:#}",
                 Released = song.Released,

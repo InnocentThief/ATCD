@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Vertical from '../layouts/Vertical'
 import { Context } from '../../contexts'
 import { observer } from 'mobx-react'
-import { Card, Divider, H3, H5 } from '@blueprintjs/core'
+import { Card, ControlGroup, Divider, Text, H3, H5 } from '@blueprintjs/core'
 
 interface Props extends RouteComponentProps<{ songKey: string }>{}
 
@@ -24,36 +24,86 @@ class Song extends React.Component<Props>{
 
         return(
             <Container>
-                <Card elevation={2}>
-                    <H3>
-                        {selectedSong?.title} - {selectedSong?.artist}
-                    </H3>
+                <SongCard>
+                    <H3>{selectedSong?.title} - {selectedSong?.artist}</H3>
                     <SongCardContent>
-                        <SongCardCover>
+                        <SongCardContentCover>
                             <img src={selectedSong?.coverUrl} height="200" />
-                        </SongCardCover>
+                        </SongCardContentCover>
                         {selectedSong?.description}
                     </SongCardContent>
-                </Card>
-                <Choreographies elevation={2}>
-                    {selectedSong?.choreographies.map(c => (
-                        <Choreography key={c.choreographyKey}>
-                            <H5>{c.choreographyType} ({c.displayName})</H5>
-                            <ChoreographyInfos>
-                                <ChoreographyInfo>
-                                    GemSpeed
-                                    <Divider />
-                                    {c.gemSpeed} 
-                                </ChoreographyInfo>
-                                <ChoreographyInfo>
-                                    GemRadius
-                                    <Divider />
-                                    {c.gemRadius} 
-                                </ChoreographyInfo>
-                            </ChoreographyInfos>
-                        </Choreography>
-                    ))}
-                </Choreographies>
+                </SongCard>
+                <SongInfoChoreographies>
+                    <SongInfoCard>
+                        <SongInfo fill={true} vertical={false}>
+                            <Text>Key</Text>
+                            <SongInfoValue>{selectedSong?.songKey}</SongInfoValue>
+                        </SongInfo>
+                        <SongInfoDivider />
+                        <SongInfo fill={true} vertical={false}>
+                            <Text>Mapper</Text>
+                            <SongInfoValue><a href={`../mappers/${selectedSong?.authorKey}`}>{selectedSong?.author}</a></SongInfoValue>
+                        </SongInfo>
+                        <SongInfoDivider />
+                        <SongInfo fill={true} vertical={false}>
+                            <Text>Published</Text>
+                            <SongInfoValue>{selectedSong?.released}</SongInfoValue>
+                        </SongInfo>
+                        <SongInfoDivider />
+                        <SongInfo fill={true} vertical={false}>
+                            <Text>Genre</Text>
+                            <SongInfoValue>{selectedSong?.genre}</SongInfoValue>
+                        </SongInfo>
+                        <SongInfoDivider />
+                        <SongInfo fill={true} vertical={false}>
+                            <Text>Song Lenght</Text>
+                            <SongInfoValue>{selectedSong?.length}</SongInfoValue>
+                        </SongInfo>
+                        <SongInfoDivider />
+                        <SongInfo fill={true} vertical={false}>
+                            <Text>Average BPM</Text>
+                            <SongInfoValue>{selectedSong?.avgBpm}</SongInfoValue>
+                        </SongInfo>
+                        <SongInfoDivider />
+                        <SongInfo fill={true} vertical={false}>
+                            <Text>Explicit</Text>
+                            <SongInfoValue>{selectedSong?.explicit? "Yes": "No"}</SongInfoValue>
+                        </SongInfo>
+                        <SongInfoDivider />
+                        <SongInfo fill={true} vertical={false}>
+                            <Text>Challenge</Text>
+                            <SongInfoValue>{selectedSong?.challenge? "Yes": "No"}</SongInfoValue>
+                        </SongInfo>
+                        <SongInfoDivider />
+                        <SongInfo fill={true} vertical={false}>
+                            <Text>Content Strike</Text>
+                            <SongInfoValue>{selectedSong?.contentStrike? "Yes": "No"}</SongInfoValue>
+                        </SongInfo>
+                    </SongInfoCard>
+                    <ChoreographiesCard>
+                        {selectedSong?.choreographies.map(c => (
+                            <Choreography key={c.choreographyKey} onClick={()=> {}}>
+                                <H5>{c.choreographyType} ({c.displayName})</H5>
+                                <ChoreographyInfos>
+                                    <ChoreographyInfo>
+                                        GemSpeed
+                                        <Divider />
+                                        {c.gemSpeed} 
+                                    </ChoreographyInfo>
+                                    <ChoreographyInfo>
+                                        GemRadius
+                                        <Divider />
+                                        {c.gemRadius} 
+                                    </ChoreographyInfo>
+                                </ChoreographyInfos>
+                                <ChoreographyDivider />
+                            </Choreography>
+                        ))}
+                    </ChoreographiesCard>
+                </SongInfoChoreographies>
+                <ScoreCard>
+
+                </ScoreCard>
             </Container>
         )
     }
@@ -63,29 +113,59 @@ const Container = styled(Vertical)`
     max-height: 100%;
 `
 
+const SongCard = styled(Card)`
+    margin-bottom: 6px;
+`
+
 const SongCardContent = styled.div`
     display: flex;
 `
 
-const SongCardCover = styled.div`
-    margin-right: 10px;
+const SongCardContentCover = styled.div`
+    margin-right: 6px;
 `
 
-const Choreographies = styled(Card)`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    flex-grow: 1;
-    margin-top: 10px;
+const SongInfoChoreographies = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+    gap: 6px;
+    margin-bottom: 6px;
+`
+
+const SongInfoCard = styled(Card)`
+    
+`
+
+const SongInfo = styled(ControlGroup)`
+
+`
+
+const SongInfoDivider = styled(Divider)`
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+`
+
+const SongInfoValue = styled(Text)`
+    text-align: right;
+`
+
+const ChoreographiesCard = styled(Card)`
+    
 `
 
 const Choreography = styled.div`
     height: 50px;
-    min-width: 100px;
-    margin-bottom: 3px;
-    margin-right: 6px;
-    background: red;
     padding: 3px;
+    margin-bottom: 20px;
+`
+
+const ChoreographyDivider = styled(Divider)`
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 6px;
+    margin-bottom: 6px;
 `
 
 const ChoreographyInfos = styled.div`
@@ -97,6 +177,29 @@ const ChoreographyInfo = styled.div`
     margin-bottom: 6px;
     margin-right: 10px
 `
+
+const ScoreCard = styled(Card)`
+
+`
+
+
+
+// const SongCardContent = styled.div`
+//     display: flex;
+// `
+
+// const SongCardCover = styled.div`
+//     margin-right: 10px;
+// `
+
+// const Choreographies = styled(Card)`
+//     margin-top: 10px;
+//     display: grid;
+//     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+//     gap: 6px;
+// `
+
+
 
 
 

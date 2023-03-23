@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ATCD.DataAccess.Repository
 {
-    internal class SongRepository : RepositoryBase<SongContext>
+    internal sealed class SongRepository : RepositoryBase<SongContext>
     {
         protected internal override SongContext GetContext()
         {
@@ -43,14 +43,12 @@ namespace ATCD.DataAccess.Repository
         public async Task<Song> GetSongForOverviewAsync(int songKey)
         {
             using var context = GetContext();
-            var query = context.Song
+            return  await context.Song
                 .AsNoTracking()
                 .Include(s => s.Author)
                 .Include(s => s.Choreographies)
                 .Include(s => s.Genre)
-                .Where(s => s.SongKey == songKey);
-
-            return await query.SingleOrDefaultAsync();
+                .SingleOrDefaultAsync(s => s.SongKey == songKey);
         }
 
         public async Task<Song> GetSongAsync(int songKey)

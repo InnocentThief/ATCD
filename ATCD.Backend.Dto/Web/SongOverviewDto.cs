@@ -3,6 +3,7 @@
     public class SongOverviewDto
     {
         public int SongKey { get; set; }
+        public string Atr { get; set; }
         public string Title { get; set; }
         public string Artist { get; set; }
         public string CoverUrl { get; set; }
@@ -13,6 +14,9 @@
         public string AvgBpm { get; set; }
         public string Length { get; set; }
         public string Description { get; set; }
+        public bool Explicit { get; set; }
+        public bool Challenge { get; set; }
+        public bool ContentStrike { get; set; }
 
         public List<SongOverviewChoreographyDto> Choreographies { get; set; }
     }

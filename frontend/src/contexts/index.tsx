@@ -1,7 +1,7 @@
 import { configure } from "mobx";
 import { AuthContext } from "./auth";
 import { LanguageContext } from "./language";
-import { MapperContext } from "./mappers";
+import { AuthorContext } from "./authors";
 import { PlaylistContext } from "./playlists";
 import { SettingsContext } from "./settings";
 import { SongContext } from "./songs";
@@ -16,7 +16,7 @@ export interface ContextRoot{
     settings: SettingsContext
     language: LanguageContext
     songs: SongContext
-    mappers: MapperContext
+    authors: AuthorContext
     playlists: PlaylistContext
 }
 
@@ -24,7 +24,7 @@ const auth = new AuthContext()
 const settings = new SettingsContext()
 const language = new LanguageContext()
 const songs = new SongContext(auth)
-const mappers = new MapperContext()
+const authors = new AuthorContext(auth)
 const playlists = new PlaylistContext()
 
 export const Context: ContextRoot = {
@@ -32,6 +32,6 @@ export const Context: ContextRoot = {
     settings,
     language,
     songs,
-    mappers,
+    authors,
     playlists
 }

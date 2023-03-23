@@ -1,4 +1,4 @@
-import { makeAutoObservable, reaction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 import { parseArray } from '../helpers/model'
 import { SongOverviewDto } from '../models/SongOverviewDto'
 import { AuthContext } from './auth'
