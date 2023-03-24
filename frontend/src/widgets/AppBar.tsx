@@ -3,6 +3,7 @@ import { RouteComponentProps, withRouter } from 'react-router'
 import { Context } from '../contexts'
 import { observer } from 'mobx-react'
 import { Alignment, Button, Classes, Navbar} from "@blueprintjs/core";
+import { LanguageSelection } from './LanguageSelection';
 
 interface Props extends RouteComponentProps<{}>{
 
@@ -11,7 +12,8 @@ interface Props extends RouteComponentProps<{}>{
 class AppBar extends React.Component<Props>{
     render(){
         const {
-            settings: { isDarkTheme, swithTheme }
+            settings: { isDarkTheme, swithTheme },
+            language: { get }
         } = Context
 
         return (
@@ -19,16 +21,16 @@ class AppBar extends React.Component<Props>{
                 <Navbar.Group align={Alignment.LEFT}>
                     <Navbar.Heading>AUDIO TRIP CHOREOGRAPHIES</Navbar.Heading>
                     <Navbar.Divider />
-                    <Button className={Classes.MINIMAL} icon="music" text="Songs" onClick={this.swithToSongsPage} />
-                    <Button className={Classes.MINIMAL} icon="map" text="Mappers" onClick={this.swithToMappersPage} />
-                    <Button className={Classes.MINIMAL} icon="list" text="Playlists" onClick={this.swithToPlaylitsPage} />
+                    <Button className={Classes.MINIMAL} icon="music" text={get('AppBar.Songs')} onClick={this.swithToSongsPage} />
+                    <Button className={Classes.MINIMAL} icon="map" text={get('AppBar.Mappers')} onClick={this.swithToMappersPage} />
+                    <Button className={Classes.MINIMAL} icon="list" text={get('AppBar.Playlists')} onClick={this.swithToPlaylitsPage} />
                     <Navbar.Divider />
                     <Button className={Classes.MINIMAL} icon="user" text="InnocentThief" onClick={this.swithToAccountPage} />
                 </Navbar.Group>
                 <Navbar.Group align={Alignment.RIGHT}>
                     <Button className={Classes.MINIMAL} icon="log-out" text="" />
                     <Navbar.Divider />
-                    <Button className={Classes.MINIMAL} icon="translate" text="English" />
+                    <LanguageSelection />
                     <Button className={Classes.MINIMAL} icon={isDarkTheme ? "flash": "moon"} text="" onClick={swithTheme} />
                 </Navbar.Group>
             </Navbar>

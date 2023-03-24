@@ -20,7 +20,8 @@ class Songs extends React.Component{
             songs: {
                 loadedSongs,
                 loadingSongs            
-            }
+            },
+            language: { get }
         } = Context
 
         const nonIdealStateDescription = (
@@ -108,13 +109,13 @@ class Songs extends React.Component{
                                             </SongCardAdditionalInfoRow>
                                         </SongCardAdditionalInfo>
                                         <SongCardActions>
-                                            <Tooltip2 content="Copy ATR" placement="top" compact={true}>
+                                            <Tooltip2 content={get('Songs.Action.CopyAtr')} placement="top" compact={true}>
                                                     <Button minimal={true} icon="duplicate" intent='primary' onClick={() => this.copyATR(s.atr)} />
                                                 </Tooltip2>
-                                            <Tooltip2 content="Preview" placement="top" compact={true}>
+                                            <Tooltip2 content={get('Songs.Action.Preview')} placement="top" compact={true}>
                                                 <Button minimal={true} icon="video" intent='primary' />
                                             </Tooltip2>
-                                            <Tooltip2 content="Download ZIP" placement="top" compact={true}>
+                                            <Tooltip2 content={get('Songs.Action.DownloadZip')} placement="top" compact={true}>
                                                 <Button minimal={true} icon="download" intent='primary' />
                                             </Tooltip2>
                                         </SongCardActions>

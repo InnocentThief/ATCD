@@ -19,7 +19,8 @@ class Song extends React.Component<Props>{
 
     render() {
         const{
-            songs: { selectedSong }
+            songs: { selectedSong },
+            language: { get }
         } = Context
 
         return(
@@ -36,48 +37,48 @@ class Song extends React.Component<Props>{
                 <SongInfoChoreographies>
                     <SongInfoCard>
                         <SongInfo fill={true} vertical={false}>
-                            <Text>Key</Text>
+                            <Text>{get('Song.Detail.Key')}</Text>
                             <SongInfoValue>{selectedSong?.songKey}</SongInfoValue>
                         </SongInfo>
                         <SongInfoDivider />
                         <SongInfo fill={true} vertical={false}>
-                            <Text>Mapper</Text>
+                            <Text>{get('Song.Detail.Mapper')}</Text>
                             <SongInfoValue><a href={`../mappers/${selectedSong?.authorKey}`}>{selectedSong?.author}</a></SongInfoValue>
                         </SongInfo>
                         <SongInfoDivider />
                         <SongInfo fill={true} vertical={false}>
-                            <Text>Published</Text>
+                            <Text>{get('Song.Detail.Published')}</Text>
                             <SongInfoValue>{selectedSong?.released}</SongInfoValue>
                         </SongInfo>
                         <SongInfoDivider />
                         <SongInfo fill={true} vertical={false}>
-                            <Text>Genre</Text>
+                            <Text>{get('Song.Detail.Genre')}</Text>
                             <SongInfoValue>{selectedSong?.genre}</SongInfoValue>
                         </SongInfo>
                         <SongInfoDivider />
                         <SongInfo fill={true} vertical={false}>
-                            <Text>Song Lenght</Text>
+                            <Text>{get('Song.Detail.SongLenght')}</Text>
                             <SongInfoValue>{selectedSong?.length}</SongInfoValue>
                         </SongInfo>
                         <SongInfoDivider />
                         <SongInfo fill={true} vertical={false}>
-                            <Text>Average BPM</Text>
+                            <Text>{get('Song.Detail.AverageBpm')}</Text>
                             <SongInfoValue>{selectedSong?.avgBpm}</SongInfoValue>
                         </SongInfo>
                         <SongInfoDivider />
                         <SongInfo fill={true} vertical={false}>
-                            <Text>Explicit</Text>
-                            <SongInfoValue>{selectedSong?.explicit? "Yes": "No"}</SongInfoValue>
+                            <Text>{get('Song.Detail.Explicit')}</Text>
+                            <SongInfoValue>{selectedSong?.explicit? `${get('Global.Yes')}`: `${get('Global.No')}`}</SongInfoValue>
                         </SongInfo>
                         <SongInfoDivider />
                         <SongInfo fill={true} vertical={false}>
-                            <Text>Challenge</Text>
-                            <SongInfoValue>{selectedSong?.challenge? "Yes": "No"}</SongInfoValue>
+                            <Text>{get('Song.Detail.Challenge')}</Text>
+                            <SongInfoValue>{selectedSong?.challenge? `${get('Global.Yes')}`: `${get('Global.No')}`}</SongInfoValue>
                         </SongInfo>
                         <SongInfoDivider />
                         <SongInfo fill={true} vertical={false}>
-                            <Text>Content Strike</Text>
-                            <SongInfoValue>{selectedSong?.contentStrike? "Yes": "No"}</SongInfoValue>
+                            <Text>{get('Song.Detail.ContentStrike')}</Text>
+                            <SongInfoValue>{selectedSong?.contentStrike? `${get('Global.Yes')}`: `${get('Global.No')}`}</SongInfoValue>
                         </SongInfo>
                     </SongInfoCard>
                     <ChoreographiesCard>
