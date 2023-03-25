@@ -13,7 +13,7 @@ namespace ATCD.Backend.Business.Converter.Web
                 DisplayName = author.DisplayName,
                 AccountId = author.AccountId,
                 Description = author.Description,
-                PlatformId = author.PlatformId
+                PlatformId = author.PlatformId,
             };
         }
 
