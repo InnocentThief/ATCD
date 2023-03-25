@@ -12,6 +12,7 @@ interface Props extends RouteComponentProps<{}>{
 class AppBar extends React.Component<Props>{
     render(){
         const {
+            auth: { currentAccount },
             settings: { isDarkTheme, swithTheme },
             language: { get }
         } = Context
@@ -24,11 +25,15 @@ class AppBar extends React.Component<Props>{
                     <Button className={Classes.MINIMAL} icon="music" text={get('AppBar.Songs')} onClick={this.swithToSongsPage} />
                     <Button className={Classes.MINIMAL} icon="map" text={get('AppBar.Mappers')} onClick={this.swithToMappersPage} />
                     <Button className={Classes.MINIMAL} icon="list" text={get('AppBar.Playlists')} onClick={this.swithToPlaylitsPage} />
-                    <Navbar.Divider />
-                    <Button className={Classes.MINIMAL} icon="user" text="InnocentThief" onClick={this.swithToAccountPage} />
+                    {currentAccount && (
+                        <>
+                            <Navbar.Divider />
+                            <Button className={Classes.MINIMAL} icon="user" text={currentAccount?.username} onClick={this.swithToAccountPage} />
+                        </>
+                    )} 
                 </Navbar.Group>
                 <Navbar.Group align={Alignment.RIGHT}>
-                    <Button className={Classes.MINIMAL} icon="log-out" text="" />
+                    <Button className={Classes.MINIMAL} icon={currentAccount? "log-out": "log-in" } text="" />
                     <Navbar.Divider />
                     <LanguageSelection />
                     <Button className={Classes.MINIMAL} icon={isDarkTheme ? "flash": "moon"} text="" onClick={swithTheme} />

@@ -16,5 +16,7 @@ namespace ATCD.DataAccess.Entity
         public string DisplayName { get; set; } // TODO: length
 
         public string AccountId { get; set; } // TODO: lenght
+
+        public string Description { get; set; }
     }
 }

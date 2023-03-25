@@ -24,5 +24,11 @@ namespace ATCD.Backend.Business.Domains
             var author = await authorRepository.GetAuthorForOverviewAsync(authorKey);
             return author.ToOverviewDto();
         }
+
+        internal async Task<List<AuthorOverviewDto>> GetAuthorsForAccountAsync(int accountKey)
+        {
+            var authors = await authorRepository.GetAuthorsForAccountAsync(accountKey);
+            return authors.ToOverviewDtos();
+        }
     }
 }

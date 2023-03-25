@@ -5,6 +5,7 @@ import { AuthorContext } from "./authors";
 import { PlaylistContext } from "./playlists";
 import { SettingsContext } from "./settings";
 import { SongContext } from "./songs";
+import { AccountContext } from "./account";
 
 
 configure({
@@ -13,6 +14,7 @@ configure({
 
 export interface ContextRoot{
     auth: AuthContext
+    account: AccountContext
     settings: SettingsContext
     language: LanguageContext
     songs: SongContext
@@ -21,6 +23,7 @@ export interface ContextRoot{
 }
 
 const auth = new AuthContext()
+const account = new AccountContext(auth)
 const settings = new SettingsContext()
 const language = new LanguageContext()
 const songs = new SongContext(auth)
@@ -29,6 +32,7 @@ const playlists = new PlaylistContext()
 
 export const Context: ContextRoot = {
     auth,
+    account,
     settings,
     language,
     songs,

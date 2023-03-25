@@ -30,8 +30,8 @@ class Author extends React.Component<Props>{
                     <H3>{selectedAuthor?.displayName}</H3>
                 </AuthorCard>
                 <Tabs>
-                    <Tab id="sng" title="Songs" />
-                    <Tab id="pls" title="Playlists" />
+                    <Tab id="sng" title="Songs" icon="music" />
+                    <Tab id="pls" title="Playlists" icon="list" />
                 </Tabs>
             </Container>
             

@@ -10,7 +10,10 @@ namespace ATCD.Backend.Business.Converter.Web
             return new AuthorOverviewDto
             {
                 AuthorKey = author.AuthorKey,
-                DisplayName = author.DisplayName
+                DisplayName = author.DisplayName,
+                AccountId = author.AccountId,
+                Description = author.Description,
+                PlatformId = author.PlatformId
             };
         }
 

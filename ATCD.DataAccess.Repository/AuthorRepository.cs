@@ -26,5 +26,14 @@ namespace ATCD.DataAccess.Repository
                 .AsNoTracking()
                 .SingleOrDefaultAsync(a => a.AuthorKey == authorKey);
         }
+
+        public async Task<List<Author>> GetAuthorsForAccountAsync(int accountKey)
+        {
+            using var context = GetContext();
+            return await context.Author
+                .AsNoTracking()
+                .Where(a => a.AccountKey == accountKey)
+                .ToListAsync();
+        }
     }
 }
