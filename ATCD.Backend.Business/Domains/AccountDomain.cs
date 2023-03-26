@@ -53,7 +53,7 @@ namespace ATCD.Backend.Business.Domains
 
         public async Task ChangePassword(LoginDto loginDto)
         {
-            await Task.CompletedTask
+            await Task.CompletedTask;
         }
     }
 }

@@ -17,7 +17,6 @@
         public bool Explicit { get; set; }
         public bool Challenge { get; set; }
         public bool ContentStrike { get; set; }
-
         public List<SongOverviewChoreographyDto> Choreographies { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { parseString } from '../helpers/model'
 import * as toaster from '../helpers/toaster'
-import { AccountDto } from '../models/AccountDto'
 import { LoginDto } from '../models/LoginDto'
 
 const TOKEN_STORAGE_KEY = 'auth-token'
@@ -9,16 +8,9 @@ const LOGIN_ERROR_TOAST_ID = 'LOGIN_ERROR_TOAST_ID'
 
 export class AuthContext {
   authToken: string | null = null
-  currentAccount: AccountDto | null | undefined
 
   constructor() {
     makeAutoObservable(this)
-
-    // TODO: Remove this once login is available !!!!!!!
-    this.currentAccount = new AccountDto()
-    this.currentAccount.accountKey = 1
-    this.currentAccount.username = "InnocentThief"
-    this.currentAccount.email = "blubber@emailprovier.com"
   }
 
   fetch = async (

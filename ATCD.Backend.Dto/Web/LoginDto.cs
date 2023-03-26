@@ -1,15 +1,13 @@
-﻿namespace ATCD.Backend.Dto.Web
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ATCD.Backend.Dto.Web
 {
     public sealed class LoginDto
     {
-        public int AccountKey { get; set; }
-
+        [Required]
         public string Username { get; set; }
 
+        [Required]
         public string Password { get; set; }
-
-        public string EMail { get; set; }
-
-        public DateTime Created { get; set; }
     }
 }

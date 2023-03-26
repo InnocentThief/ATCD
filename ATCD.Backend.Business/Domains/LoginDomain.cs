@@ -13,7 +13,7 @@ namespace ATCD.Backend.Business.Domains
             accountRepository = new AccountRepository();
         }
 
-        internal async Task<LoginDto> LoginAsync(string username, string password)
+        internal async Task<AccountDto> LoginAsync(string username, string password)
         {
             if (string.IsNullOrWhiteSpace(username)) throw new ArgumentNullException(nameof(username));
             if (string.IsNullOrWhiteSpace(password)) throw new ArgumentNullException(nameof(password));
@@ -25,7 +25,7 @@ namespace ATCD.Backend.Business.Domains
                 var passwordVerified = PasswordSecurity.VerifyPassword(credentials, password);
                 if (passwordVerified)
                 {
-                    return new LoginDto { Username = username, AccountKey = account.AccountKey };
+                    return new AccountDto { Username = username, AccountKey = account.AccountKey };
                 }
             }
             return null;

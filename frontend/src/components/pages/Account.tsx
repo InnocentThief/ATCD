@@ -1,4 +1,4 @@
-import { Card, H3, H4, H5, Tab, Tabs } from '@blueprintjs/core'
+import { Card, H3, H5, Tab, Tabs } from '@blueprintjs/core'
 import { observer } from 'mobx-react'
 import React from 'react'
 import styled from 'styled-components'
@@ -18,8 +18,7 @@ class Account extends React.Component{
 
     render() {
         const{
-            auth: { currentAccount },
-            account: { loadedAuthors }
+            account: { currentAccount, loadedAuthors }
         } = Context
 
         return(

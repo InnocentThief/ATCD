@@ -9,8 +9,6 @@ namespace ATCD.DataAccess.Entity
 
         public int? AccountKey { get; set; }
 
-        //public Account Account { get; set; }
-
         public string PlatformId { get; set; } // TODO: enum?? OC = Ocolus Quest ST = Steam
 
         public string DisplayName { get; set; } // TODO: length

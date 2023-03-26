@@ -26,7 +26,5 @@ namespace ATCD.DataAccess.Entity
         public string EMail { get; set; }
 
         public DateTime Created { get; set; }
-
-        //public ICollection<Author> Authors { get; set; }
     }
 }

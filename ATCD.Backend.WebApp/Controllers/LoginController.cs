@@ -14,13 +14,11 @@ namespace ATCD.Backend.WebApp.Controllers
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration config;
-        private readonly AccountDomain accountDomain;
         private readonly LoginDomain loginDomain;
 
         public LoginController(IConfiguration config)
         {
             this.config = config;
-            accountDomain = new AccountDomain();
             loginDomain = new LoginDomain();
         }
 
@@ -69,6 +67,5 @@ namespace ATCD.Backend.WebApp.Controllers
         }
 
         #endregion
-
     }
 }

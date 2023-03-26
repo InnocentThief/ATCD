@@ -12,7 +12,7 @@ interface Props extends RouteComponentProps<{}>{
 class AppBar extends React.Component<Props>{
     render(){
         const {
-            auth: { currentAccount },
+            account: { currentAccount },
             settings: { isDarkTheme, swithTheme },
             language: { get }
         } = Context
