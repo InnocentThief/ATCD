@@ -3,6 +3,7 @@ using ATCD.Backend.Dto.AudioTrip;
 using ATCD.Backend.Dto.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using nClam;
 using System.Text.Json;
 
 namespace ATCD.Backend.WebApp.Controllers
@@ -12,10 +13,12 @@ namespace ATCD.Backend.WebApp.Controllers
     public class SongsController : ControllerBase
     {
         private readonly SongDomain songDomain;
+        private readonly VirusCheckDomain virusCheckDomain;
 
         public SongsController()
         {
             songDomain = new SongDomain();
+            virusCheckDomain = new VirusCheckDomain();
         }
 
         [AllowAnonymous]
@@ -38,32 +41,50 @@ namespace ATCD.Backend.WebApp.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("try")]
-        public async Task<ActionResult<string>> TrySomeStuff()
+        [Route("initialImport")]
+        public async Task<ActionResult<string>> InitialImport()
         {
             try
             {
-                var file = @"C:\Users\InnocentThief\Downloads\GeoDaSilva_-_Bam_Bam_Boogie_-_Chez\GeoDaSilva - Bam Bam Boogie - Chez\GeoDaSilva & Stephan F - Bam Bam Boogie - Chez-moi.ats";
-                var fileContent = System.IO.File.ReadAllText(file);
-                SongDto song = JsonSerializer.Deserialize<SongDto>(fileContent);
+                var localFileHandler = new LocalFileHandlerDomain();
 
-                var savedSongDto = await songDomain.SaveSongAsync(song);
+                DirectoryInfo importDirectoryInfo = new(@"C:\Temp\ATCD");
+                foreach (var atsFileInfo in importDirectoryInfo.GetFiles("*.ats"))
+                {
+                    var atsContent = System.IO.File.ReadAllText(atsFileInfo.FullName);
+                    SongDto songDto = JsonSerializer.Deserialize<SongDto>(atsContent);
 
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                var content = JsonSerializer.Serialize(savedSongDto, options);
-                var newFile = @"C:\Users\InnocentThief\Downloads\GeoDaSilva_-_Bam_Bam_Boogie_-_Chez\GeoDaSilva - Bam Bam Boogie - Chez\GeoDaSilva & Stephan F - Bam Bam Boogie - Chez-moi (from ATCD).ats";
-                System.IO.File.WriteAllText(newFile, content);
+                    // Check .ats file for viruses
+                    using (var ms = new MemoryStream())
+                    {
+                        atsFileInfo.OpenRead().CopyTo(ms);
+                        byte[] fileBytes = ms.ToArray();
+                        var scanResult = await virusCheckDomain.CheckForVirusAsync(fileBytes);
+                        if (scanResult.Result != ClamScanResults.Clean) continue;
 
+                        localFileHandler.StoreFile(songDto.Metadata.SongId, atsContent, "ats");
+                    }
 
-                return Ok(song);
+                    var oggFileInfo = importDirectoryInfo.GetFiles(songDto.Metadata.SongFilename).Single();
+                    using (var ms = new MemoryStream())
+                    {
+                        oggFileInfo.OpenRead().CopyTo(ms);
+                        byte[] fileBytes = ms.ToArray();
+                        var scanResult = await virusCheckDomain.CheckForVirusAsync(fileBytes);
+                        if (scanResult.Result != ClamScanResults.Clean) continue;
+
+                        localFileHandler.StoreFile(songDto.Metadata.SongId, fileBytes, "ogg");
+                    }
+
+                    await songDomain.SaveSongAsync(songDto);
+                }
+
+                return Ok();
             }
             catch (Exception ex)
             {
-
-                throw;
+                return BadRequest(ex.Message);
             }
-
-
         }
     }
 }

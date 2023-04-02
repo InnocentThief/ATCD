@@ -10,6 +10,7 @@
 	  <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 		  <_Parameter1>ATCD.Backend.WebApp</_Parameter1>
 	  </AssemblyAttribute>
+	  <PackageReference Include="nClam" Version="7.0.0" />
 	  <ProjectReference Include="..\ATCD.Backend.Dto\ATCD.Backend.Dto.csproj" />
     <ProjectReference Include="..\ATCD.DataAccess.Repository\ATCD.DataAccess.Repository.csproj" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using ATCD.DataAccess.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
 
@@ -26,6 +27,7 @@ namespace ATCD.DataAccess.Model
                 throw new ArgumentNullException(nameof(modelBuilder));
 
             CreateRelationshipDefinitions(modelBuilder);
+            CreateDefaultValues(modelBuilder);
         }
 
         protected virtual void CreateRelationshipDefinitions(ModelBuilder modelBuilder)
@@ -40,5 +42,27 @@ namespace ATCD.DataAccess.Model
             modelBuilder.Entity<Song>().HasMany(s => s.TempoSections).WithOne().HasForeignKey(ts => ts.SongKey);
             modelBuilder.Entity<SongEventTrack>().HasMany(set => set.TrackEvents).WithOne().HasForeignKey(te => te.SongEventTrackKey);
         }
+
+        protected virtual void CreateDefaultValues(ModelBuilder modelBuilder)
+        {
+            CreateSongDefaultValues(modelBuilder.Entity<Song>());
+        }
+
+        #region
+
+        private void CreateSongDefaultValues(EntityTypeBuilder<Song> entity)
+        {
+            entity.Property(s => s.SongURL).HasDefaultValue(string.Empty);
+            entity.Property(s => s.CoverURL).HasDefaultValue(string.Empty);
+            entity.Property(s => s.GenreKey).HasDefaultValue(1);
+            entity.Property(s => s.Description).HasDefaultValue(string.Empty);
+            entity.Property(s => s.DrumMedSfx).HasDefaultValue(string.Empty);
+            entity.Property(s => s.DrumMaxSfx).HasDefaultValue(string.Empty);
+            entity.Property(s => s.Explicit).HasDefaultValue(false);
+            entity.Property(s => s.Challenge).HasDefaultValue(false);
+            entity.Property(s=>s.ContentStrike).HasDefaultValue(false);
+        }
+
+        #endregion
     }
 }
