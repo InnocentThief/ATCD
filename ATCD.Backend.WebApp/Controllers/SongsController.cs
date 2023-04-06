@@ -12,13 +12,13 @@ namespace ATCD.Backend.WebApp.Controllers
     [ApiController]
     public class SongsController : ControllerBase
     {
+        private readonly ImportDomain importDomain;
         private readonly SongDomain songDomain;
-        private readonly VirusCheckDomain virusCheckDomain;
 
         public SongsController()
         {
+            importDomain = new ImportDomain();
             songDomain = new SongDomain();
-            virusCheckDomain = new VirusCheckDomain();
         }
 
         [AllowAnonymous]
@@ -46,39 +46,7 @@ namespace ATCD.Backend.WebApp.Controllers
         {
             try
             {
-                var localFileHandler = new LocalFileHandlerDomain();
-
-                DirectoryInfo importDirectoryInfo = new(@"C:\Temp\ATCD");
-                foreach (var atsFileInfo in importDirectoryInfo.GetFiles("*.ats"))
-                {
-                    var atsContent = System.IO.File.ReadAllText(atsFileInfo.FullName);
-                    SongDto songDto = JsonSerializer.Deserialize<SongDto>(atsContent);
-
-                    // Check .ats file for viruses
-                    using (var ms = new MemoryStream())
-                    {
-                        atsFileInfo.OpenRead().CopyTo(ms);
-                        byte[] fileBytes = ms.ToArray();
-                        var scanResult = await virusCheckDomain.CheckForVirusAsync(fileBytes);
-                        if (scanResult.Result != ClamScanResults.Clean) continue;
-
-                        localFileHandler.StoreFile(songDto.Metadata.SongId, atsContent, "ats");
-                    }
-
-                    var oggFileInfo = importDirectoryInfo.GetFiles(songDto.Metadata.SongFilename).Single();
-                    using (var ms = new MemoryStream())
-                    {
-                        oggFileInfo.OpenRead().CopyTo(ms);
-                        byte[] fileBytes = ms.ToArray();
-                        var scanResult = await virusCheckDomain.CheckForVirusAsync(fileBytes);
-                        if (scanResult.Result != ClamScanResults.Clean) continue;
-
-                        localFileHandler.StoreFile(songDto.Metadata.SongId, fileBytes, "ogg");
-                    }
-
-                    await songDomain.SaveSongAsync(songDto);
-                }
-
+                await importDomain.PerformInitialImportAsync();
                 return Ok();
             }
             catch (Exception ex)

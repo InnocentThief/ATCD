@@ -1,4 +1,6 @@
-﻿using ATCD.Backend.Business.Converter.Web;
+﻿using ATCD.Backend.Business.Converter.AudioTrip;
+using ATCD.Backend.Business.Converter.Web;
+using ATCD.Backend.Dto.AudioTrip;
 using ATCD.Backend.Dto.Web;
 using ATCD.DataAccess.Repository;
 

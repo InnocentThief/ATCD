@@ -35,5 +35,21 @@ namespace ATCD.DataAccess.Repository
                 .Where(a => a.AccountKey == accountKey)
                 .ToListAsync();
         }
+
+        /// <summary>
+        /// Saves the given author if it doesn't exist.
+        /// </summary>
+        /// <param name="author">The author to save.</param>
+        public async Task<Author> SaveAuthorInitialAsync(Author author)
+        {
+            using var context = GetContext();
+            var existingAuthor = await context.Author.SingleOrDefaultAsync(a => a.AccountId == author.AccountId);
+            if (existingAuthor == null)
+            {
+                Save(author, c => c.Author, a => a.AuthorKey == author.AuthorKey);
+                return author;
+            }
+            else { return existingAuthor; }
+        }
     }
 }

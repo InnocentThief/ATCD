@@ -17,6 +17,7 @@ class Author extends React.Component<Props>{
         } = Context
 
         await fetchAuthorDetail(this.props.match.params.authorKey)
+        
     }
 
     render() {

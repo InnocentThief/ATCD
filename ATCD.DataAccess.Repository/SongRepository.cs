@@ -43,12 +43,40 @@ namespace ATCD.DataAccess.Repository
         public async Task<Song> GetSongForOverviewAsync(int songKey)
         {
             using var context = GetContext();
-            return  await context.Song
+            return await context.Song
                 .AsNoTracking()
                 .Include(s => s.Author)
                 .Include(s => s.Choreographies)
                 .Include(s => s.Genre)
                 .SingleOrDefaultAsync(s => s.SongKey == songKey);
+        }
+
+        public async Task<List<Song>> GetLatestSongsByAuthorAsync(int authorKey)
+        {
+            using var context = GetContext();
+            return await context.Song
+                .AsNoTracking()
+                .Include(s => s.Author)
+                .Include(s => s.Choreographies)
+                .Include(s => s.Genre)
+                .Where(s => s.AuthorKey == authorKey)
+                .OrderByDescending(s => s.Released)
+                .Take(10)
+                .ToListAsync();
+        }
+
+        public async Task<List<Song>> GetLatestSongsByGenreAsync(int genreKey)
+        {
+            using var context = GetContext();
+            return await context.Song
+                .AsNoTracking()
+                .Include(s => s.Author)
+                .Include(s => s.Choreographies)
+                .Include(s => s.Genre)
+                .Where(s => s.GenreKey == genreKey)
+                .OrderByDescending(s => s.Released)
+                .Take(10)
+                .ToListAsync();
         }
 
         public async Task<Song> GetSongAsync(int songKey)
@@ -67,6 +95,16 @@ namespace ATCD.DataAccess.Repository
         public void SaveSong(Song song)
         {
             Save(song, c => c.Song, s => s.SongKey == song.SongKey);
+        }
+
+        public void SaveSongBySongId(Song song)
+        {
+            Save(song, c => c.Song, s => s.SongId == song.SongId);
+        }
+
+        public void SaveKoregraphy(Koreography koreography)
+        {
+            Save(koreography, c => c.Koreography, k => k.KoreographyKey == koreography.KoreographyKey);
         }
     }
 }

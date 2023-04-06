@@ -10,10 +10,12 @@ namespace ATCD.Backend.WebApp.Controllers
     public class AuthorsController : ControllerBase
     {
         private readonly AuthorDomain authorDomain;
+        private readonly SongDomain songDomain;
 
         public AuthorsController()
         {
             authorDomain = new AuthorDomain();
+            songDomain = new SongDomain();
         }
 
         [AllowAnonymous]
@@ -32,6 +34,15 @@ namespace ATCD.Backend.WebApp.Controllers
         {
             var authorOverviewDto = await authorDomain.GetAuthorForOverviewAsync(authorKey);
             return Ok(authorOverviewDto);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("{authorKey}/songs")]
+        public async Task<ActionResult<SongOverviewDto>> Songs(int authorKey)
+        {
+            var songDtos = await songDomain.GetLatestSongsByAuthorAsync(authorKey);
+            return Ok(songDtos);
         }
     }
 }

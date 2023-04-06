@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { parseArray } from "../helpers/model";
 import { AuthorOverviewDto } from "../models/AuthorOverviewDto";
+import { SongOverviewDto } from "../models/SongOverviewDto";
 import { AuthContext } from "./auth";
 
 export class AuthorContext{
@@ -9,6 +10,9 @@ export class AuthorContext{
     loadingAuthors = false
 
     selectedAuthor: AuthorOverviewDto  | null | undefined
+
+    loadingSongs = false
+    loadedSongs: SongOverviewDto[] = []
 
     constructor(private auth: AuthContext){
         makeAutoObservable(this)
@@ -39,6 +43,21 @@ export class AuthorContext{
             this.selectedAuthor = AuthorOverviewDto.fromJSON(json)
         } catch (error) {
             
+        }
+    }
+
+    fetchLatestSongsByAuthor = async (authorKey: string) => {
+        this.loadingSongs = true
+        try{
+            const response = await this.auth.fetch(
+                `/api/authors/${authorKey}/songs`
+            )
+            const json = await response.json()
+            this.loadedSongs = parseArray(json, SongOverviewDto.fromJSON)
+        } catch (error) {
+            this.loadedSongs = []
+        } finally {
+            this.loadingSongs = false
         }
     }
 }

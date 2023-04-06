@@ -3,7 +3,7 @@
   <Class Name="ATCD.DataAccess.Entity.Song">
     <Position X="2" Y="1.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>ICBAiAIgAEghYEAgoAgAJAABoIBAAAFBIAEICwAAAcE=</HashCode>
+      <HashCode>ICBAiAIgAEghYEAgoAoAJAABoIBAAAFBIAEICwAAIcE=</HashCode>
       <FileName>Song.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -19,19 +19,22 @@
   <Class Name="ATCD.DataAccess.Entity.Author">
     <Position X="6.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAEAAAAAAAAAAAAgAAAAIAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>BAAAEAAAAAAgAAAAAgAAAAIAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Author.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ATCD.DataAccess.Entity.Choreography">
-    <Position X="6.25" Y="3.25" Width="1.75" />
+    <Position X="6.25" Y="3.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAACAIAAAEAIAAAAAAAAAAQAAAFAABAAQAAIAAgAAAw=</HashCode>
+      <HashCode>AAACAIAAAEgIAAAAAAAAAAQgAAFAAFAAYAIIAAgAAAw=</HashCode>
       <FileName>Choreography.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ChoreographyDatas" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ATCD.DataAccess.Entity.TempoSection">
-    <Position X="9" Y="6.25" Width="2" />
+    <Position X="9" Y="6.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgABAAAAAAABABAAAQAAAIAAAAAAA=</HashCode>
       <FileName>TempoSection.cs</FileName>
@@ -45,7 +48,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ATCD.DataAccess.Entity.SongEventTrack">
-    <Position X="6.25" Y="8.75" Width="1.75" />
+    <Position X="6.25" Y="9" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAABAAoAAAAAAA=</HashCode>
       <FileName>SongEventTrack.cs</FileName>
@@ -55,7 +58,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ATCD.DataAccess.Entity.TrackEvent">
-    <Position X="9.5" Y="8.75" Width="1.75" />
+    <Position X="9.5" Y="9" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAABAQAAAAAiAAAABAAAAgAAAAAAA=</HashCode>
       <FileName>TrackEvent.cs</FileName>

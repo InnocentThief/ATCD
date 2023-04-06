@@ -1,6 +1,4 @@
-﻿using ATCD.Backend.Business.Converter.AudioTrip;
-using ATCD.Backend.Business.Converter.Web;
-using ATCD.Backend.Dto.AudioTrip;
+﻿using ATCD.Backend.Business.Converter.Web;
 using ATCD.Backend.Dto.Web;
 using ATCD.DataAccess.Repository;
 
@@ -27,15 +25,16 @@ namespace ATCD.Backend.Business.Domains
             return song.ToOverviewDto();
         }
 
-        internal async Task<SongDto> SaveSongAsync(SongDto songDto)
+        internal async Task<List<SongOverviewDto>> GetLatestSongsByAuthorAsync(int authorKey)
         {
-            var song = songDto.ToEntity();
-            songRepository.SaveSong(song);
+            var songs = await songRepository.GetLatestSongsByAuthorAsync(authorKey);
+            return songs.ToOverviewDtos();
+        }
 
-            var savedSong = await songRepository.GetSongAsync(song.SongKey);
-            var savedSongDto = savedSong.ToDto();
-
-            return savedSongDto;
+        internal async Task<List<SongOverviewDto>> GetLatestSongsByGenreAsync(int genreKey)
+        {
+            var songs = await songRepository.GetLatestSongsByGenreAsync(genreKey);
+            return songs.ToOverviewDtos();
         }
     }
 }
