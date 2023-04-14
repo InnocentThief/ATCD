@@ -16,6 +16,8 @@ namespace ATCD.DataAccess.Repository
             using var context = GetContext();
             return await context.Author
                 .AsNoTracking()
+                .Include(a => a.Songs)
+                .OrderBy(a => a.DisplayName)
                 .ToListAsync();
         }
 
@@ -24,6 +26,7 @@ namespace ATCD.DataAccess.Repository
             using var context = GetContext();
             return await context.Author
                 .AsNoTracking()
+                .Include(a => a.Songs)
                 .SingleOrDefaultAsync(a => a.AuthorKey == authorKey);
         }
 

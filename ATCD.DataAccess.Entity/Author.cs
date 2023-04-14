@@ -16,5 +16,7 @@ namespace ATCD.DataAccess.Entity
         public string AccountId { get; set; } // TODO: lenght
 
         public string Description { get; set; }
+
+        public ICollection<Song> Songs { get; set; }
     }
 }

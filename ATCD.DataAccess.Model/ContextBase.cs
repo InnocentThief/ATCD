@@ -34,7 +34,7 @@ namespace ATCD.DataAccess.Model
         {
             //modelBuilder.Entity<Account>().HasMany(acc => acc.Authors).WithOne().HasForeignKey(a => a.AccountKey);
             modelBuilder.Entity<Choreography>().HasMany(c => c.ChoreographyDatas).WithOne().HasForeignKey(cd => cd.ChoreographyKey);
-            modelBuilder.Entity<Song>().HasOne(s => s.Author).WithMany().HasForeignKey(s => s.AuthorKey);
+            modelBuilder.Entity<Song>().HasOne(s => s.Author).WithMany(a => a.Songs).HasForeignKey(s => s.AuthorKey);
             modelBuilder.Entity<Song>().HasMany(s => s.Choreographies).WithOne().HasForeignKey(c => c.SongKey);
             modelBuilder.Entity<Song>().HasOne(s => s.Genre).WithMany().HasForeignKey(s => s.GenreKey);
             modelBuilder.Entity<Song>().HasOne(s => s.Koreography).WithOne().HasForeignKey<Song>(s => s.KoreographyKey);
@@ -60,7 +60,7 @@ namespace ATCD.DataAccess.Model
             entity.Property(s => s.DrumMaxSfx).HasDefaultValue(string.Empty);
             entity.Property(s => s.Explicit).HasDefaultValue(false);
             entity.Property(s => s.Challenge).HasDefaultValue(false);
-            entity.Property(s=>s.ContentStrike).HasDefaultValue(false);
+            entity.Property(s => s.ContentStrike).HasDefaultValue(false);
         }
 
         #endregion

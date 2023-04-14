@@ -1,10 +1,10 @@
-import { Button, Card, Divider, H5, Icon, mergeRefs, NonIdealState, NonIdealStateIconSize, Spinner, Tag, Tooltip } from '@blueprintjs/core'
+import { Button, Card, Divider, H5, Icon, InputGroup, NonIdealState, NonIdealStateIconSize, Spinner, Tag } from '@blueprintjs/core'
 import React from 'react'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
 import Vertical from '../layouts/Vertical'
 import { observer } from 'mobx-react'
-import { Classes, Popover2, Tooltip2 } from '@blueprintjs/popover2'
+import { Tooltip2 } from '@blueprintjs/popover2'
 
 class Songs extends React.Component{
     async componentDidMount() {
@@ -52,77 +52,77 @@ class Songs extends React.Component{
                 {loadedSongs.length > 0 && (
                     <Ideal>
                         <SearchArea>
-                            
+                            <InputGroup placeholder="Title / Artist / Mapper" />
                             <Button intent='primary' icon="search" text="Search" />
                         </SearchArea>
-                        <SongList>
-                            {loadedSongs.map(s=> (
-                                <SongCard key={s.songKey} elevation={2}>
-                                    <SongCardContent>
-                                        <SongCardCover>
-                                            <img src={s.coverUrl} height={100} width={100} />
-                                        </SongCardCover>
-                                        <SongCardSongInfo>
-                                            <H5>
-                                                <a href={`songs/${s.songKey}`} >{s.title} - {s.artist}</a>
-                                            </H5>
-                                            <p>Mapped by <a href={`mappers/${s.authorKey}`}>{s.author}</a></p>
-                                            <SongCardGenreChoreographyInfo>
-                                                <GenreTag round={true}>{s.genre}</GenreTag>
-                                                <Divider />
-                                                {s.choreographies.map(c => (
-                                                    <ChoreographyTag key={c.choreographyKey}>
-                                                        {c.choreographyType} ({c.displayName})
-                                                    </ChoreographyTag>
-                                                ))}
-                                            </SongCardGenreChoreographyInfo>
-                                        </SongCardSongInfo>
-                                        <SongCardAdditionalInfo>
-                                            <SongCardAdditionalInfoRow>
-                                                <SongCardAdditionalInfoValue>{s.atr}</SongCardAdditionalInfoValue>
-                                                <Icon icon="key" onClick={()=>{}} />
-                                            </SongCardAdditionalInfoRow>
-                                            <SongCardAdditionalInfoRow>
-                                                <SongCardAdditionalInfoValue>{s.length}</SongCardAdditionalInfoValue>
-                                                <Icon icon="time" />
-                                            </SongCardAdditionalInfoRow>
-                                            <SongCardAdditionalInfoRow>
-                                                <SongCardAdditionalInfoValue>{s.avgBpm}</SongCardAdditionalInfoValue>
-                                                <Icon icon="dashboard" />
-                                            </SongCardAdditionalInfoRow>
-                                            <SongCardAdditionalInfoRow>
-                                                {s.contentStrike && (
-                                                    <Tooltip2 content="Content Strike" placement="top" compact={true}>
-                                                        <Icon icon="lightning" color="red" />
+                            <SongList>
+                                {loadedSongs.map(s=> (
+                                    <SongCard key={s.songKey} elevation={2}>
+                                        <SongCardContent>
+                                            <SongCardCover>
+                                                <img src={s.coverUrl} height={100} width={100} />
+                                            </SongCardCover>
+                                            <SongCardSongInfo>
+                                                <H5>
+                                                    <a href={`songs/${s.songKey}`} >{s.title} - {s.artist}</a>
+                                                </H5>
+                                                <p>Mapped by <a href={`mappers/${s.authorKey}`}>{s.author}</a></p>
+                                                <SongCardGenreChoreographyInfo>
+                                                    <GenreTag round={true}>{s.genre}</GenreTag>
+                                                    <Divider />
+                                                    {s.choreographies.map(c => (
+                                                        <ChoreographyTag key={c.choreographyKey}>
+                                                            {c.choreographyType} ({c.displayName})
+                                                        </ChoreographyTag>
+                                                    ))}
+                                                </SongCardGenreChoreographyInfo>
+                                            </SongCardSongInfo>
+                                            <SongCardAdditionalInfo>
+                                                <SongCardAdditionalInfoRow>
+                                                    <SongCardAdditionalInfoValue>{s.atr}</SongCardAdditionalInfoValue>
+                                                    <Icon icon="key" onClick={()=>{}} />
+                                                </SongCardAdditionalInfoRow>
+                                                <SongCardAdditionalInfoRow>
+                                                    <SongCardAdditionalInfoValue>{s.length}</SongCardAdditionalInfoValue>
+                                                    <Icon icon="time" />
+                                                </SongCardAdditionalInfoRow>
+                                                <SongCardAdditionalInfoRow>
+                                                    <SongCardAdditionalInfoValue>{s.avgBpm}</SongCardAdditionalInfoValue>
+                                                    <Icon icon="dashboard" />
+                                                </SongCardAdditionalInfoRow>
+                                                <SongCardAdditionalInfoRow>
+                                                    {s.contentStrike && (
+                                                        <Tooltip2 content="Content Strike" placement="top" compact={true}>
+                                                            <Icon icon="lightning" color="red" />
+                                                        </Tooltip2>
+                                                    )}
+                                                    {s.explicit && (
+                                                        <Tooltip2 content="Explicit" placement="top" compact={true}>
+                                                            <Icon icon="high-priority" color="darkorange" />
+                                                        </Tooltip2>
+                                                    )}
+                                                    {s.challenge && (
+                                                        <Tooltip2 content="Challenge" placement="top" compact={true}>
+                                                            <Icon icon="clean" color="gold" />
+                                                        </Tooltip2>
+                                                    )}
+                                                </SongCardAdditionalInfoRow>
+                                            </SongCardAdditionalInfo>
+                                            <SongCardActions>
+                                                <Tooltip2 content={get('Songs.Action.CopyAtr')} placement="top" compact={true}>
+                                                        <Button minimal={true} icon="duplicate" intent='primary' onClick={() => this.copyATR(s.atr)} />
                                                     </Tooltip2>
-                                                )}
-                                                {s.explicit && (
-                                                    <Tooltip2 content="Explicit" placement="top" compact={true}>
-                                                        <Icon icon="high-priority" color="darkorange" />
-                                                    </Tooltip2>
-                                                )}
-                                                {s.challenge && (
-                                                    <Tooltip2 content="Challenge" placement="top" compact={true}>
-                                                        <Icon icon="clean" color="gold" />
-                                                    </Tooltip2>
-                                                )}
-                                            </SongCardAdditionalInfoRow>
-                                        </SongCardAdditionalInfo>
-                                        <SongCardActions>
-                                            <Tooltip2 content={get('Songs.Action.CopyAtr')} placement="top" compact={true}>
-                                                    <Button minimal={true} icon="duplicate" intent='primary' onClick={() => this.copyATR(s.atr)} />
+                                                <Tooltip2 content={get('Songs.Action.Preview')} placement="top" compact={true}>
+                                                    <Button minimal={true} icon="video" intent='primary' />
                                                 </Tooltip2>
-                                            <Tooltip2 content={get('Songs.Action.Preview')} placement="top" compact={true}>
-                                                <Button minimal={true} icon="video" intent='primary' />
-                                            </Tooltip2>
-                                            <Tooltip2 content={get('Songs.Action.DownloadZip')} placement="top" compact={true}>
-                                                <Button minimal={true} icon="download" intent='primary' />
-                                            </Tooltip2>
-                                        </SongCardActions>
-                                    </SongCardContent>
-                                </SongCard>
-                            ))}
-                        </SongList>
+                                                <Tooltip2 content={get('Songs.Action.DownloadZip')} placement="top" compact={true}>
+                                                    <Button minimal={true} icon="download" intent='primary' />
+                                                </Tooltip2>
+                                            </SongCardActions>
+                                        </SongCardContent>
+                                    </SongCard>
+                                ))}
+                            </SongList>
                     </Ideal>
                 )}
             </Container>
