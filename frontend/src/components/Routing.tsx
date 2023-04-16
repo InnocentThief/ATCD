@@ -64,13 +64,12 @@ const Fixed = styled.div`
 `
 
 const Content = styled.div`
-  display: flex;
-  height: 100%;
-  padding-top: 50px;
-  background: #F6F7F9;
-  .bp4-dark & {
+   min-height: 100%;
+   padding-top: 50px;
+   background: #F6F7F9;
+   .bp4-dark & {
       background: #343A42;
-  }
+   }
 `
 
 const Main = styled.main`

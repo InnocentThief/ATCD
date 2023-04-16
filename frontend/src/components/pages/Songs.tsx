@@ -135,7 +135,7 @@ class Songs extends React.Component{
 }
 
 const Container = styled(Vertical)`
-    max-height: 100%;
+    
 `
 
 const NonIdeal = styled.div`
@@ -151,14 +151,19 @@ const Ideal = styled.div`
 `
 
 const SearchArea = styled.div`
+    background: red;
+    position: fixed;
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     margin-bottom: 10px;
 `
 
 const SongList = styled.div`
+    padding-top: 50px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
     gap: 6px;
