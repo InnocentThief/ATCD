@@ -80,7 +80,7 @@ export class AuthContext {
   logout = (): void => {
     toaster.dismissAll()
     localStorage.removeItem(TOKEN_STORAGE_KEY)
-    window.location.href = '/'
+    window.location.href = '/songs'
   }
 
   private handleTokenResponse = async (response: Response) => {

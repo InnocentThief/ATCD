@@ -13,7 +13,8 @@ class AppBar extends React.Component<Props>{
     render(){
         const {
             account: { currentAccount },
-            settings: { isDarkTheme, swithTheme },
+            auth: { logout },
+            settings: { isDarkTheme, swithTheme: switchTheme },
             language: { get }
         } = Context
 
@@ -22,40 +23,44 @@ class AppBar extends React.Component<Props>{
                 <Navbar.Group align={Alignment.LEFT}>
                     <Navbar.Heading>AUDIO TRIP CHOREOGRAPHIES</Navbar.Heading>
                     <Navbar.Divider />
-                    <Button className={Classes.MINIMAL} icon="music" text={get('AppBar.Songs')} onClick={this.swithToSongsPage} />
-                    <Button className={Classes.MINIMAL} icon="map" text={get('AppBar.Mappers')} onClick={this.swithToMappersPage} />
-                    <Button className={Classes.MINIMAL} icon="list" text={get('AppBar.Playlists')} onClick={this.swithToPlaylitsPage} />
+                    <Button className={Classes.MINIMAL} icon="music" text={get('AppBar.Songs')} onClick={this.switchToSongsPage} />
+                    <Button className={Classes.MINIMAL} icon="map" text={get('AppBar.Mappers')} onClick={this.switchToMappersPage} />
+                    <Button className={Classes.MINIMAL} icon="list" text={get('AppBar.Playlists')} onClick={this.switchToPlaylitsPage} />
                     {currentAccount && (
                         <>
                             <Navbar.Divider />
-                            <Button className={Classes.MINIMAL} icon="user" text={currentAccount?.username} onClick={this.swithToAccountPage} />
+                            <Button className={Classes.MINIMAL} icon="user" text={currentAccount?.username} onClick={this.switchToAccountPage} />
                         </>
                     )} 
                 </Navbar.Group>
                 <Navbar.Group align={Alignment.RIGHT}>
-                    <Button className={Classes.MINIMAL} icon={currentAccount? "log-out": "log-in" } text="" />
+                    <Button className={Classes.MINIMAL} icon={currentAccount? "log-out": "log-in" } text="" onClick={currentAccount ? logout: this.switchToLoginPage} />
                     <Navbar.Divider />
                     <LanguageSelection />
-                    <Button className={Classes.MINIMAL} icon={isDarkTheme ? "flash": "moon"} text="" onClick={swithTheme} />
+                    <Button className={Classes.MINIMAL} icon={isDarkTheme ? "flash": "moon"} text="" onClick={switchTheme} />
                 </Navbar.Group>
             </Navbar>
         )
     }
 
-    swithToSongsPage = () =>{
+    switchToSongsPage = () =>{
         window.location.href = '/songs'
     }
 
-    swithToMappersPage = () => {
+    switchToMappersPage = () => {
         window.location.href = '/mappers'
     }
 
-    swithToPlaylitsPage = () => {
+    switchToPlaylitsPage = () => {
         window.location.href = '/playlists'
     }
 
-    swithToAccountPage = () => {
+    switchToAccountPage = () => {
         window.location.href = '/account'
+    }
+
+    switchToLoginPage = () => {
+        window.location.href = '/login'
     }
 }
 

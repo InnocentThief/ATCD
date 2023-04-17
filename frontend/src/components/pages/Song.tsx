@@ -113,7 +113,10 @@ class Song extends React.Component<Props>{
 }
 
 const Container = styled(Vertical)`
-    max-height: 100%;
+    max-width: 1300px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 auto
 `
 
 const SongCard = styled(Card)`

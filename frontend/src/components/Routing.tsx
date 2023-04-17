@@ -16,11 +16,17 @@ import Account from './pages/Account'
 import Author from './pages/Author'
 import Song from './pages/Song'
 import { Classes} from "@blueprintjs/core";
+import Login from './pages/Login'
+import ResetPassword from './pages/ResetPassword'
+import Register from './pages/Register'
 
 export const SONGS_ROUTE = "/songs"
 export const AUTHORS_ROUTE = "/mappers"
 export const PLAYLISTS_ROUTE = "/playlists"
 export const ACCOUNT_ROUTE = "/account"
+export const LOGIN_ROUTE = "/login"
+export const RESET_PASSWORD_ROUTE = "/restpassword"
+export const REGISTER_ROUTE = "/register"
 
 interface Props extends RouteComponentProps {}
 
@@ -44,6 +50,9 @@ class Router extends React.Component<Props>{
                      <Route exact path={`${AUTHORS_ROUTE}/:authorKey`} component={Author} />
                      <Route exact path={PLAYLISTS_ROUTE} component={Playlists} />
                      <Route exact path={ACCOUNT_ROUTE} component={Account} />
+                     <Route exact path={LOGIN_ROUTE} component={Login} />
+                     <Route exact path={RESET_PASSWORD_ROUTE} component={ResetPassword} />
+                     <Route exact path={REGISTER_ROUTE} component={Register} />
                   </Switch>
                </Main>
             </Content>
@@ -75,6 +84,7 @@ const Content = styled.div`
 const Main = styled.main`
   flex: 1;
   margin-left: 15px;
+  margin-right: 15px;
 `
 
 export default withRouter(observer(Router))

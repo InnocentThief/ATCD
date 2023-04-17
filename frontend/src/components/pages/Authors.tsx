@@ -42,7 +42,10 @@ class Authors extends React.Component{
 }
 
 const Container = styled(Vertical)`
-    max-height: 100%;
+    max-width: 1300px;
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    margin: 0 auto;
 `
 
 const AuthorCard = styled(Card)`
