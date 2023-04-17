@@ -74,7 +74,7 @@ const Content = styled.div`
 
 const Main = styled.main`
   flex: 1;
-  margin: 15px;
+  margin-left: 15px;
 `
 
 export default withRouter(observer(Router))

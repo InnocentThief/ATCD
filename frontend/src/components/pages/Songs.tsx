@@ -51,6 +51,7 @@ class Songs extends React.Component{
                 </NonIdeal>
                 {loadedSongs.length > 0 && (
                     <Ideal>
+                        
                         <SearchArea>
                             <InputGroup placeholder="Title / Artist / Mapper" />
                             <Button intent='primary' icon="search" text="Search" />
@@ -135,7 +136,10 @@ class Songs extends React.Component{
 }
 
 const Container = styled(Vertical)`
-    
+    max-width: 1300px;
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    margin: 0 auto;
 `
 
 const NonIdeal = styled.div`
@@ -151,7 +155,6 @@ const Ideal = styled.div`
 `
 
 const SearchArea = styled.div`
-    background: red;
     position: fixed;
     width: 100%;
     display: flex;
