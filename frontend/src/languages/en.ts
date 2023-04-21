@@ -6,9 +6,14 @@ export const enTextRepo: TextRepo = {
     'Global.No': 'No',
 
     // Login
+    'Login.Title': "Sign in",
     'Login.Username': 'Username',
     'Login.Password': 'Password',
-    'Login.SignIn': 'Sign-In',
+    'Login.SignIn': 'Sign in',
+    'Login.ForgotPassword': 'Forgot password?',
+    'Login.SignUpNewAccount': 'Sign up new account',
+    'Login.Success': 'You are successfully logged in',
+    'Login.ShowAccount': 'Show account',
 
     // AppBar
     'AppBar.Songs': 'Songs',
@@ -29,5 +34,10 @@ export const enTextRepo: TextRepo = {
     'Song.Detail.AverageBpm': 'Average BPM',
     'Song.Detail.Explicit': 'Explicit',
     'Song.Detail.Challenge': 'Challenge',
-    'Song.Detail.ContentStrike': 'Content Strike'
+    'Song.Detail.ContentStrike': 'Content Strike',
+
+    // Authentication Context
+    'auth.Error.Server': 'Error occurred during server request',
+    'auth.Error.UsernamePassword': 'Username or password incorrect',
+    'auth.Error.Authentication': 'Authentication error. You have been logged out'
 }

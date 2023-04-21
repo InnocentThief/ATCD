@@ -4,6 +4,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
 import Vertical from '../layouts/Vertical'
+import { Link } from 'react-router-dom'
 
 class Authors extends React.Component{
     async componentDidMount() {
@@ -26,7 +27,9 @@ class Authors extends React.Component{
                     {loadedAuthors.length > 0 && (
                         loadedAuthors.map((a)=> (
                             <AuthorCard key={a.authorKey}>
-                                <H5><a href={`mappers/${a.authorKey}`}>{a.displayName}</a></H5>
+                                <H5>
+                                    <Link to={{ pathname: `mappers/${a.authorKey}` }}>{a.displayName}</Link>
+                                </H5>
                                 <div>
                                     hallo
                                     hallo
@@ -45,7 +48,7 @@ const Container = styled(Vertical)`
     max-width: 1300px;
     display: grid;
     grid-template-columns: repeat(1,1fr);
-    margin: 0 auto;
+    margin: 15px auto;
 `
 
 const AuthorCard = styled(Card)`

@@ -15,30 +15,27 @@ export class AccountContext {
     constructor(private auth: AuthContext) {
         makeAutoObservable(this)
 
-        // TODO: Remove this once login is available !!!!!!!
-        this.currentAccount = null
-        // this.currentAccount = new AccountDto()
-        // this.currentAccount.accountKey = 1
-        // this.currentAccount.username = "InnocentThief"
-        // this.currentAccount.email = "blubber@emailprovier.com"
-
         reaction(
             () => auth.authToken,
             () => {
-                this.currentAccount = null
+                if (auth.isAuthenticated) {
+                    this.fetchAccount(auth.accountKey)
+                }
             }
         )
     }
 
     fetchAccount = async (accountKey: string) => {
         this.loadingAccount = true
+        console.log("Loading Account")
         try {
             const response = await this.auth.fetch(
                 `/api/accounts/${accountKey}`
             )
             const json = await response.json()
-            // TODO: Return account dto
+            this.currentAccount = AccountDto.fromJSON(json)
         } catch (error) {
+            console.log("1")
             this.currentAccount = null
         } finally {
             this.loadingAccount = false
@@ -48,6 +45,7 @@ export class AccountContext {
     fetchAuthors = async () => {
         this.loadingAuthors = true
         try {
+            console.log(this.currentAccount)
             const response = await this.auth.fetch(
                 `/api/accounts/${this.currentAccount?.accountKey}/authors`
             )

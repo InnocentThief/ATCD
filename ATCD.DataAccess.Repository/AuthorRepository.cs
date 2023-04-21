@@ -35,6 +35,7 @@ namespace ATCD.DataAccess.Repository
             using var context = GetContext();
             return await context.Author
                 .AsNoTracking()
+                .Include(a=> a.Songs)
                 .Where(a => a.AccountKey == accountKey)
                 .ToListAsync();
         }

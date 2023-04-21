@@ -17,7 +17,6 @@ class Author extends React.Component<Props>{
         } = Context
 
         await fetchAuthorDetail(this.props.match.params.authorKey)
-        
     }
 
     render() {
@@ -35,7 +34,6 @@ class Author extends React.Component<Props>{
                     <Tab id="pls" title="Playlists" icon="list" />
                 </Tabs>
             </Container>
-            
         )
     }
 }
@@ -44,7 +42,7 @@ const Container = styled(Vertical)`
     max-width: 1300px;
     display: grid;
     grid-template-columns: repeat(1,1fr);
-    margin: 0 auto;
+    margin: 15px auto;
 `
 
 const AuthorCard = styled(Card)`

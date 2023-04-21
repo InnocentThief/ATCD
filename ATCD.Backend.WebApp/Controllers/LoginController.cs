@@ -11,7 +11,7 @@ namespace ATCD.Backend.WebApp.Controllers
 {
     [Route("api/login")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class LoginController : AtcdControllerBase
     {
         private readonly IConfiguration config;
         private readonly LoginDomain loginDomain;
@@ -25,7 +25,7 @@ namespace ATCD.Backend.WebApp.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<string>> Login(LoginDto loginDto)
+        public async Task<ActionResult> Login(LoginDto loginDto)
         {
             if (loginDto == null) { return BadRequest(); }
 
@@ -36,6 +36,14 @@ namespace ATCD.Backend.WebApp.Controllers
             }
 
             var token = GenerateToken(loginResult.Username, loginResult.AccountKey);
+            return Ok(token);
+        }
+
+        [HttpPost]
+        [Route("refresh")]
+        public ActionResult Refresh()
+        {
+            var token = GenerateToken(GetUsername(), GetAccountKey());
             return Ok(token);
         }
 
@@ -53,14 +61,15 @@ namespace ATCD.Backend.WebApp.Controllers
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name,username),
+                new Claim("Username",username),
                 new Claim("AccountKey",accountKey.ToString())
             };
 
-            var token = new JwtSecurityToken(config["Jwt:Issuer"],
+            var token = new JwtSecurityToken(
+                config["Jwt:Issuer"],
                 config["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(15),
+                expires: DateTime.UtcNow.AddHours(1),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

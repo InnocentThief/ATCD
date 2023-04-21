@@ -5,6 +5,7 @@ import { Context } from '../../contexts'
 import Vertical from '../layouts/Vertical'
 import { observer } from 'mobx-react'
 import { Tooltip2 } from '@blueprintjs/popover2'
+import { Link } from 'react-router-dom'
 
 class Songs extends React.Component{
     async componentDidMount() {
@@ -70,9 +71,9 @@ class Songs extends React.Component{
                                         </SongCardCover>
                                         <SongCardSongInfo>
                                             <H5>
-                                                <a href={`songs/${s.songKey}`} >{s.title} - {s.artist}</a>
+                                                <Link to={{ pathname: `songs/${s.songKey}` }}>{s.title} - {s.artist}</Link>
                                             </H5>
-                                            <p>Mapped by <a href={`mappers/${s.authorKey}`}>{s.author}</a></p>
+                                            <p>Mapped by <Link to={{ pathname: `mappers/${s.authorKey}` }}>{s.author}</Link></p>
                                             <SongCardGenreChoreographyInfo>
                                                 <GenreTag round={true}>{s.genre}</GenreTag>
                                                 <Divider />

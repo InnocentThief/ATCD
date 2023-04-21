@@ -5,6 +5,7 @@ import Vertical from '../layouts/Vertical'
 import { Context } from '../../contexts'
 import { observer } from 'mobx-react'
 import { Card, ControlGroup, Divider, Text, H3, H5 } from '@blueprintjs/core'
+import { Link } from 'react-router-dom'
 
 interface Props extends RouteComponentProps<{ songKey: string }>{}
 
@@ -31,7 +32,7 @@ class Song extends React.Component<Props>{
                     <H3>{selectedSong?.title} - {selectedSong?.artist}</H3>
                     <SongCardContent>
                         <SongCardContentCover>
-                            <img src={selectedSong?.coverUrl} height="200" />
+                            <img src={selectedSong?.coverUrl} alt='' height="200" />
                         </SongCardContentCover>
                         {selectedSong?.description}
                     </SongCardContent>
@@ -45,7 +46,9 @@ class Song extends React.Component<Props>{
                         <SongInfoDivider />
                         <SongInfo fill={true} vertical={false}>
                             <Text>{get('Song.Detail.Mapper')}</Text>
-                            <SongInfoValue><a href={`../mappers/${selectedSong?.authorKey}`}>{selectedSong?.author}</a></SongInfoValue>
+                            <SongInfoValue>
+                                <Link to={{ pathname: `../mappers/${selectedSong?.authorKey}`}}>{selectedSong?.author}</Link>
+                            </SongInfoValue>
                         </SongInfo>
                         <SongInfoDivider />
                         <SongInfo fill={true} vertical={false}>
@@ -116,7 +119,7 @@ const Container = styled(Vertical)`
     max-width: 1300px;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    margin: 0 auto
+    margin: 15px auto;
 `
 
 const SongCard = styled(Card)`
@@ -187,26 +190,5 @@ const ChoreographyInfo = styled.div`
 const ScoreCard = styled(Card)`
 
 `
-
-
-
-// const SongCardContent = styled.div`
-//     display: flex;
-// `
-
-// const SongCardCover = styled.div`
-//     margin-right: 10px;
-// `
-
-// const Choreographies = styled(Card)`
-//     margin-top: 10px;
-//     display: grid;
-//     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-//     gap: 6px;
-// `
-
-
-
-
 
 export default observer(Song)

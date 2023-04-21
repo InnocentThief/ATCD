@@ -4,9 +4,14 @@ const textKeys = [
     'Global.No',
 
     // Login
+    'Login.Title',
     'Login.Username',
     'Login.Password', 
     'Login.SignIn',
+    'Login.ForgotPassword',
+    'Login.SignUpNewAccount',
+    'Login.Success',
+    'Login.ShowAccount',
 
     // AppBar
     'AppBar.Songs',
@@ -27,7 +32,12 @@ const textKeys = [
     'Song.Detail.AverageBpm',
     'Song.Detail.Explicit',
     'Song.Detail.Challenge',
-    'Song.Detail.ContentStrike'
+    'Song.Detail.ContentStrike',
+
+    // Authentication Context
+    'auth.Error.Server',
+    'auth.Error.UsernamePassword',
+    'auth.Error.Authentication'
     
 ] as const
 

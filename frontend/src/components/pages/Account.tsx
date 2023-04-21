@@ -1,10 +1,9 @@
-import { Card, H3, H5, Tab, Tabs } from '@blueprintjs/core'
+import { Button, Card, ControlGroup, Divider, FileInput, H1, H3, H4, H5, InputGroup, Label, Navbar, Tab, Tabs, Text, TextArea } from '@blueprintjs/core'
 import { observer } from 'mobx-react'
 import React from 'react'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
-
-
+import { ListItem } from 'react-native-elements'
 
 class Account extends React.Component{
     async componentDidMount() {
@@ -14,7 +13,6 @@ class Account extends React.Component{
 
         await fetchAuthors()
     }
-
 
     render() {
         const{
@@ -27,49 +25,136 @@ class Account extends React.Component{
                     <H3>{currentAccount?.username}</H3>
                     {currentAccount?.email}
                 </AccountCard>
-                <AliasCard>
-                    <H5>Aliases (Song Author)</H5>
-                    <AliasList>
-                        {loadedAuthors.map(a => (
-                            <AuthorCard key={a.authorKey} elevation={2}>
-                                <H5>{a.displayName} ({a.platformId})</H5>
-                                {a.description}
-                            </AuthorCard>
-                        ))
-                        }
-                    </AliasList>
-                </AliasCard>
-                <Tabs>
-                    <Tab id="sng" title="Songs" icon="music" />
-                    <Tab id="sng" title="Playlists" icon="list" />
+                <Tabs onChange={this.handleMainTabChange}>
+                    <Tab id="songs" title="Songs" icon="music" panel={
+                        <>
+                            <Divider />
+                            <Tabs>
+                                <Tab id="spub" title="Published" icon="eye-open" />
+                                <Tab id="supub" title="Unpublished" icon="eye-off" />
+                                <Tab id="sadd" title="Add song" icon="add" />
+                            </Tabs>
+                        </>
+                    } />
+                    <Tab id="playlists" title="Playlists" icon="list" panel={
+                        <>
+                            <Divider />
+                            <Tabs>
+                                <Tab id="ppub" title="Published" icon="eye-open" />
+                                <Tab id="pupub" title="Unpublished" icon="eye-off" />
+                                <Tab id="padd" title="Add playlist" icon="add" />
+                            </Tabs>
+                        </>
+                    } />
+                    <Tab id="aliases" title="Aliases" icon="layout-hierarchy" panel={
+                        <>
+                            <Divider />
+                            <AliasList>
+                                {loadedAuthors.map(a=> (
+                                    <AliasListItem key={a.accountId}>
+                                        {a.displayName}
+                                        <Divider />
+                                    </AliasListItem>
+                                ))}
+                            </AliasList>
+                        </>
+                    } />
+                    <Tab id="account" title="Account" icon="person" panel={
+                        <>
+                            <Divider />
+                            <AccountDetails fill={true} vertical={true}>
+                                <H4>Account details</H4>
+                                <Divider />
+                            </AccountDetails>
+                            <AccountDetails fill={true} vertical={true}>
+                                <Label>
+                                    Email
+                                    <InputGroup />
+                                </Label>
+                                <Button
+                                    text="Change email"
+                                    intent='success' />
+                            </AccountDetails>
+                            <AccountDetails fill={true} vertical={true}>
+                                <Label>
+                                    Username
+                                    <InputGroup />
+                                </Label>
+                                <Button
+                                    text="Change username"
+                                    intent='success' />
+                            </AccountDetails>
+                            <AccountDetails fill={true} vertical={true}>
+                                <Label>
+                                    Description
+                                    <TextArea fill={true} />
+                                </Label>
+                                <Button
+                                    text="Change description"
+                                    intent='success' />
+                            </AccountDetails>
+                            <AccountDetails fill={true} vertical={true}>
+                                <H4>Password</H4>
+                                <Divider />
+                            </AccountDetails>
+                            <AccountDetails fill={true} vertical={true}>
+                                <Label>
+                                    Current Password
+                                    <InputGroup placeholder='Current Password' fill={true} />
+                                </Label>
+                                <Label>
+                                    New Password
+                                    <InputGroup placeholder='New Password' fill={true} />
+                                    <InputGroup placeholder='Repeat Password' fill={true} />
+                                </Label>
+                                <Button
+                                    text="Change password"
+                                    intent='success' />
+                            </AccountDetails>
+                            <AccountDetails fill={true} vertical={true}>
+                                <H4>Delete account</H4>
+                                <Divider />
+                            </AccountDetails>
+                            <AccountDetails fill={true} vertical={true}>
+                                <Button
+                                    text="Delete account"
+                                    intent='danger' />
+                            </AccountDetails>
+                        </>
+                    } />
                 </Tabs>
             </Container>
         )
     }
+
+    handleMainTabChange = () => {
+
+    }
 }
 
 const Container = styled.div`
-    max-height: 100%;       
+    max-width: 1300px;
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    margin: 15px auto;  
 `
 
 const AccountCard = styled(Card)`
     margin-bottom: 6px
 `
 
-const AliasCard = styled(Card)`
-    margin-bottom: 6px;
+const AccountDetails = styled(ControlGroup)`
+    max-width: 600px;
+    margin-top: 20px;
 `
 
 const AliasList = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 6px;
-    width: 100%;
-`
-
-const AuthorCard = styled(Card)`
 
 `
 
+const AliasListItem = styled.div`
+
+    margin-bottom: 20px;
+`
 
 export default observer(Account)
