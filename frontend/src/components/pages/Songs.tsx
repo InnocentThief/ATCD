@@ -1,4 +1,4 @@
-import { Button, Card, ControlGroup, Divider, H5, Icon, InputGroup, Label, NonIdealState, NonIdealStateIconSize, Spinner, Switch, Tag } from '@blueprintjs/core'
+import { Button, Card, ControlGroup, Divider, H5, HTMLSelect, Icon, InputGroup, Intent, Label, MultiSlider, NonIdealState, NonIdealStateIconSize, Spinner, Switch, Tag } from '@blueprintjs/core'
 import React from 'react'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
@@ -6,6 +6,8 @@ import Vertical from '../layouts/Vertical'
 import { observer } from 'mobx-react'
 import { Tooltip2 } from '@blueprintjs/popover2'
 import { Link } from 'react-router-dom'
+import { ItemRendererProps, MultiSelect2 } from '@blueprintjs/select'
+import { CancelablePromise, makeCancelablePromise } from '../../helpers/promise'
 
 class Songs extends React.Component{
     async componentDidMount() {
@@ -13,7 +15,21 @@ class Songs extends React.Component{
             songs: { fetchSongs }
         } = Context
 
-        await fetchSongs()
+        await fetchSongs({
+            searchText: ""
+        })
+    }
+
+    componentWillUnmount(): void {
+        if (this.searchPromise) {
+            this.searchPromise.cancel()
+        }
+    }
+
+    private searchPromise: CancelablePromise<void> | undefined
+
+    state = {
+        searchText: ''
     }
 
     render() {
@@ -53,14 +69,38 @@ class Songs extends React.Component{
                 {loadedSongs.length > 0 && (
                     <Ideal>
                         <SearchArea>
-                            <InputGroup placeholder="Title / Artist / Mapper" />
-                            <ControlGroup>
-                                <Label>Filters</Label>
-                                <Switch label='Explicit' inline={true} />
-                                <Switch label='Challenge' inline={true} />
-                                <Switch label='Content Strike' inline={true} />
-                            </ControlGroup>
-                            <Button intent='primary' icon="search" text="Search" />
+                            <SearchAreaControlGroup>
+                                <InputGroup 
+                                    leftIcon="search"
+                                    placeholder='Song name / Artist / Mapper' 
+                                    fill={true}
+                                    value={this.state.searchText}
+                                    onChange={this.updateSearchText}
+                                    onKeyPress={this.handleEnter}
+                                />
+                                <Button 
+                                    text='Search' 
+                                    intent={Intent.PRIMARY}
+                                    onClick={this.search}
+                                    />
+                            </SearchAreaControlGroup>
+                            <SearchAreaControlGroup>
+                                <ControlGroup>
+                                    <Label>
+                                        Genre
+                                        <MultiSelect2 selectedItems={[]} tagRenderer={function (item: unknown): React.ReactNode {
+                                            throw new Error('Function not implemented.')
+                                        } } items={[]} itemRenderer={function (item: unknown, itemProps: ItemRendererProps<HTMLLIElement>): JSX.Element | null {
+                                            throw new Error('Function not implemented.')
+                                        } } onItemSelect={function (item: unknown, event?: React.SyntheticEvent<HTMLElement, Event> | undefined): void {
+                                            throw new Error('Function not implemented.')
+                                        } }                                            
+                                        />
+                                    </Label>
+
+                                </ControlGroup>
+
+                            </SearchAreaControlGroup>
                         </SearchArea>
                         <SongList>
                             {loadedSongs.map(s=> (
@@ -136,16 +176,35 @@ class Songs extends React.Component{
         )
     }
 
-    copyATR = (atr: string) => {
+    private copyATR = (atr: string) => {
         navigator.clipboard.writeText(`!atr ${atr}`)
     }
+
+    private handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            this.search()
+        }
+    }
+
+    private updateSearchText = (event: React.ChangeEvent<HTMLInputElement>): void =>
+        this.setState({ searchText: event.target.value})
+
+    private search = async () : Promise<void> => {
+        const { searchText } = this.state
+        this.searchPromise = makeCancelablePromise (
+            Context.songs.fetchSongs({
+                searchText: searchText
+            })
+        )
+    }
+
 }
 
 const Container = styled(Vertical)`
     max-width: 1300px;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    margin: 0 auto;
+    margin: 15px auto;
 `
 
 const NonIdeal = styled.div`
@@ -161,23 +220,21 @@ const Ideal = styled.div`
 `
 
 const SearchArea = styled.div`
-    position: fixed;
+    display: grid;
+    padding-bottom: 15px;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
     background: #F6F7F9;
     .bp4-dark & {
        background: #343A42;
     }
-    padding: 15px;
+    z-index: 9;
+`
+
+const SearchAreaControlGroup = styled(ControlGroup)`
+    margin-bottom: 6px;
 `
 
 const SongList = styled.div`
-    padding-top: 60px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
     gap: 6px;

@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx'
 import { parseArray } from '../helpers/model'
 import { SongOverviewDto } from '../models/SongOverviewDto'
 import { AuthContext } from './auth'
+import { SongSearchDto } from '../models/SongSearchDto'
 
 export class SongContext{
 
@@ -14,12 +15,17 @@ export class SongContext{
         makeAutoObservable(this)
     }
 
-    fetchSongs = async () => {
+    fetchSongs = async (songSearchDto: SongSearchDto) => {
         this.loadingSongs = true
         this.selectedSong = null
         try {
             const response = await this.auth.fetch(
-                `/api/songs`
+                `/api/songs`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify(songSearchDto)
+                },
+                false
             )
             const json = await response.json()
             this.loadedSongs = parseArray(json, SongOverviewDto.fromJSON)

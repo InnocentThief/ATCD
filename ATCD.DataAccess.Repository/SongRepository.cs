@@ -11,7 +11,7 @@ namespace ATCD.DataAccess.Repository
             return new SongContext();
         }
 
-        public async Task<List<Song>> GetSongsForOverviewAsync(string title, string artist, string author)
+        public async Task<List<Song>> GetSongsForOverviewAsync(string searchText)
         {
             using var context = GetContext();
             var query = context.Song
@@ -21,20 +21,10 @@ namespace ATCD.DataAccess.Repository
                 .Include(s => s.Genre)
                 .Where(s => s.Custom == true);
 
-            if (!string.IsNullOrWhiteSpace(title))
+            if (!string.IsNullOrWhiteSpace(searchText))
             {
                 query = query
-                    .Where(s => s.Title.Contains(title));
-            }
-            if (!string.IsNullOrWhiteSpace(artist))
-            {
-                query = query
-                    .Where(s => s.Artist.Contains(artist));
-            }
-            if (!string.IsNullOrWhiteSpace(author))
-            {
-                query = query
-                    .Where(s => s.Author.DisplayName.Contains(author));
+                    .Where(s => s.Title.Contains(searchText) || s.Artist.Contains(searchText) || s.Author.DisplayName.Contains(searchText));
             }
 
             return await query.ToListAsync();

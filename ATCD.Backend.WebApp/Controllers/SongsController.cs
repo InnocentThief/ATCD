@@ -22,11 +22,11 @@ namespace ATCD.Backend.WebApp.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpPost]
         [Route("")]
-        public async Task<ActionResult<List<SongOverviewDto>>> Songs()
+        public async Task<ActionResult<List<SongOverviewDto>>> Songs(SongSearchDto songSearchDto)
         {
-            var songOverviewDtos = await songDomain.GetSongsForOverviewAsync();
+            var songOverviewDtos = await songDomain.GetSongsForOverviewAsync(songSearchDto);
             return Ok(songOverviewDtos);
         }
 
