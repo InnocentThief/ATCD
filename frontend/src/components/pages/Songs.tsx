@@ -1,4 +1,4 @@
-import { Button, Card, ControlGroup, Divider, H5, Icon, InputGroup, Intent, Label, NonIdealState, NonIdealStateIconSize, Spinner, Tag } from '@blueprintjs/core'
+import { Button, Card, Checkbox, ControlGroup, Divider, H5, Icon, InputGroup, Intent, Label, MultiSlider, NonIdealState, NonIdealStateIconSize, Spinner, Tag } from '@blueprintjs/core'
 import React from 'react'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
@@ -7,9 +7,22 @@ import { observer } from 'mobx-react'
 import { Tooltip2 } from '@blueprintjs/popover2'
 import { Link } from 'react-router-dom'
 import { ItemRendererProps, MultiSelect2 } from '@blueprintjs/select'
+import { DateFormatProps, DateRange, TimePrecision } from "@blueprintjs/datetime";
+import { DateRangeInput2 } from "@blueprintjs/datetime2";
 import { CancelablePromise, makeCancelablePromise } from '../../helpers/promise'
+import { format } from 'date-fns'
 
-class Songs extends React.Component{
+interface IState {
+    searchText: string;
+    published_range: DateRange;
+}
+
+class Songs extends React.Component<IState>{
+    state: IState = {
+        searchText: "",
+        published_range: [null, null]
+    }
+
     async componentDidMount() {
         const {
             songs: { fetchSongs }
@@ -28,10 +41,6 @@ class Songs extends React.Component{
 
     private searchPromise: CancelablePromise<void> | undefined
 
-    state = {
-        searchText: ''
-    }
-
     render() {
         const {
             songs: {
@@ -48,6 +57,18 @@ class Songs extends React.Component{
                 Try searching for something else.
             </div>
         );
+
+        const locales: { [localeCode: string]: Locale } = require("date-fns/locale");
+        const DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+        // const [range, setRange] = React.useState<DateRange>([null, null]);
+        // const handleRangeChange = (range: DateRange) => setRange(range);
+
+        function maybeGetLocaleOptions(
+            localeCode: string | undefined
+          ): { locale: Locale } | undefined {
+            if (localeCode == null || locales[localeCode] == null) return undefined;
+            return { locale: locales[localeCode] };
+          }
 
         return(
             <Container>
@@ -69,7 +90,7 @@ class Songs extends React.Component{
                 {loadedSongs.length > 0 && (
                     <Ideal>
                         <SearchArea>
-                            <SearchAreaControlGroup>
+                            <ControlGroup>
                                 <InputGroup 
                                     leftIcon="search"
                                     placeholder='Song name / Artist / Mapper' 
@@ -83,12 +104,11 @@ class Songs extends React.Component{
                                     intent={Intent.PRIMARY}
                                     onClick={this.search}
                                     />
-                            </SearchAreaControlGroup>
-                            <SearchAreaControlGroup>
-                                <ControlGroup>
+                            </ControlGroup>
+                                <SearchDetails>
                                     <Label>
-                                        Genre
-                                        <MultiSelect2 selectedItems={[]} tagRenderer={function (item: unknown): React.ReactNode {
+                                        Exclude
+                                        <MultiSelect2 placeholder='Select one or many' selectedItems={[]} tagRenderer={function (item: unknown): React.ReactNode {
                                             throw new Error('Function not implemented.')
                                         } } items={[]} itemRenderer={function (item: unknown, itemProps: ItemRendererProps<HTMLLIElement>): JSX.Element | null {
                                             throw new Error('Function not implemented.')
@@ -97,10 +117,54 @@ class Songs extends React.Component{
                                         } }                                            
                                         />
                                     </Label>
-
-                                </ControlGroup>
-
-                            </SearchAreaControlGroup>
+                                    <Label>
+                                        Genre
+                                        <MultiSelect2 placeholder='Select one or many' selectedItems={[]} tagRenderer={function (item: unknown): React.ReactNode {
+                                            throw new Error('Function not implemented.')
+                                        } } items={[]} itemRenderer={function (item: unknown, itemProps: ItemRendererProps<HTMLLIElement>): JSX.Element | null {
+                                            throw new Error('Function not implemented.')
+                                        } } onItemSelect={function (item: unknown, event?: React.SyntheticEvent<HTMLElement, Event> | undefined): void {
+                                            throw new Error('Function not implemented.')
+                                        } }                                            
+                                        />
+                                    </Label>
+                                    <Label>
+                                        Difficulty
+                                        <MultiSelect2 placeholder='Select one or many' selectedItems={[]} tagRenderer={function (item: unknown): React.ReactNode {
+                                            throw new Error('Function not implemented.')
+                                        } } items={[]} itemRenderer={function (item: unknown, itemProps: ItemRendererProps<HTMLLIElement>): JSX.Element | null {
+                                            throw new Error('Function not implemented.')
+                                        } } onItemSelect={function (item: unknown, event?: React.SyntheticEvent<HTMLElement, Event> | undefined): void {
+                                            throw new Error('Function not implemented.')
+                                        } }                                            
+                                        />
+                                    </Label>
+                                    <Label>
+                                        Gem Speed
+                                        <MultiSlider>
+                                            <MultiSlider.Handle
+                                                value={3}
+                                                type='start'
+                                                intentAfter={Intent.PRIMARY}
+                                            />
+                                            <MultiSlider.Handle
+                                                value={8}
+                                                type='end'
+                                            />
+                                        </MultiSlider>
+                                    </Label>
+                                    <Label>
+                                        Published
+                                        <DateRangeInput2
+                                            formatDate={(date, localeCode) => 
+                                                format(date, DATE_FORMAT, maybeGetLocaleOptions(localeCode) )
+                                            }
+                                            closeOnSelection={false}
+                                            value={this.state.published_range}
+                                            onChange={this.updateDateRange}
+                                        />
+                                    </Label>
+                                </SearchDetails>
                         </SearchArea>
                         <SongList>
                             {loadedSongs.map(s=> (
@@ -186,6 +250,9 @@ class Songs extends React.Component{
         }
     }
 
+    private updateDateRange = ( range: DateRange) =>
+        this.setState( { published_range: range })
+
     private updateSearchText = (event: React.ChangeEvent<HTMLInputElement>): void =>
         this.setState({ searchText: event.target.value})
 
@@ -230,8 +297,12 @@ const SearchArea = styled.div`
     z-index: 9;
 `
 
-const SearchAreaControlGroup = styled(ControlGroup)`
-    margin-bottom: 6px;
+const SearchDetails = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 0px 10px;
+    width: 100%;
+    margin-top: 20px;
 `
 
 const SongList = styled.div`
