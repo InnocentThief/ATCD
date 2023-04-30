@@ -12,9 +12,7 @@ interface Props extends RouteComponentProps<{ songKey: string }>{}
 class Song extends React.Component<Props>{
     async componentDidMount() {
         const {
-            songs: { fetchSongDetail },
-            authors: { fetchLatestSongsByAuthor },
-            genres: { fetchLatestSongsByGenre }
+            songs: { fetchSongDetail }
         } = Context
 
         await fetchSongDetail(this.props.match.params.songKey)

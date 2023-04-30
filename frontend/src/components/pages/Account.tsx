@@ -1,9 +1,8 @@
-import { Button, Card, ControlGroup, Divider, FileInput, H1, H3, H4, H5, InputGroup, Label, Navbar, Tab, Tabs, Text, TextArea } from '@blueprintjs/core'
+import { Button, Card, ControlGroup, Divider, H3, H4, InputGroup, Label, Tab, Tabs, TextArea } from '@blueprintjs/core'
 import { observer } from 'mobx-react'
 import React from 'react'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
-import { ListItem } from 'react-native-elements'
 
 class Account extends React.Component{
     async componentDidMount() {

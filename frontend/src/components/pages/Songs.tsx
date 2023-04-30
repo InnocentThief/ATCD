@@ -1,4 +1,4 @@
-import { Button, Card, ControlGroup, Divider, H5, HTMLSelect, Icon, InputGroup, Intent, Label, MultiSlider, NonIdealState, NonIdealStateIconSize, Spinner, Switch, Tag } from '@blueprintjs/core'
+import { Button, Card, ControlGroup, Divider, H5, Icon, InputGroup, Intent, Label, NonIdealState, NonIdealStateIconSize, Spinner, Tag } from '@blueprintjs/core'
 import React from 'react'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
@@ -57,7 +57,7 @@ class Songs extends React.Component{
                             <Spinner />
                             Loading songs...
                         </NonIdealState>
-                    ): loadedSongs.length == 0 && (
+                    ): loadedSongs.length === 0 && (
                         <NonIdealState
                             icon="search"  
                             iconSize={NonIdealStateIconSize.SMALL}
@@ -107,7 +107,7 @@ class Songs extends React.Component{
                                 <SongCard key={s.songKey} elevation={2}>
                                     <SongCardContent>
                                         <SongCardCover>
-                                            <img src={s.coverUrl} height={100} width={100} />
+                                            <img src={s.coverUrl} height={100} width={100} alt='' />
                                         </SongCardCover>
                                         <SongCardSongInfo>
                                             <H5>
