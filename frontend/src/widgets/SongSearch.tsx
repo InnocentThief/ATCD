@@ -27,6 +27,12 @@ class SongSearch extends React.Component {
         published_range: [null, null],
         searchText: "",
     }
+
+    componentWillUnmount(): void {
+        if (this.searchPromise) {
+            this.searchPromise.cancel()
+        }
+    }
         
     private searchPromise: CancelablePromise<void> | undefined
 

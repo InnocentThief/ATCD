@@ -22,7 +22,7 @@ class Songs extends React.Component<IState>{
             songs: { fetchSongs, loadedSongs }
         } = Context
 
-        if (loadedSongs.length == 0) {
+        if (loadedSongs.length === 0) {
             await fetchSongs({
                 searchText: ""
             })

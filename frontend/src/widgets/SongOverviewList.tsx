@@ -7,6 +7,7 @@ import { NonIdealState, NonIdealStateIconSize, Spinner } from '@blueprintjs/core
 import SongOverviewCard from './SongOverviewCard'
 
 class SongOverviewList extends React.Component {
+
     render() {
         const {
             songs: {
@@ -22,11 +23,6 @@ class SongOverviewList extends React.Component {
                 Try searching for something else.
             </div>
         );
-
-        // const indexOfLastPost = this.state.songList_currentPage * this.state.songList_postsPerPage
-        // const indexOfFirstPost = indexOfLastPost - this.state.songList_postsPerPage
-        // const currentSongs = loadedSongs.slice(indexOfFirstPost, indexOfLastPost)
-        // const paginate
 
         return (
             <Container>
@@ -45,12 +41,13 @@ class SongOverviewList extends React.Component {
                 )}
                 {loadedSongs.length > 0 && loadingSongs === false && (
                     <SongList>
-                        {loadedSongs.map(s=> (
-                            <SongOverviewCard 
-                                key={s.songKey} 
-                                item={s}
-                            />
-                        ))}
+                        {loadedSongs &&
+                            loadedSongs.map((song)=> (
+                                <SongOverviewCard 
+                                    key={song.songKey} 
+                                    item={song}
+                                />
+                            ))}
                     </SongList>
                 )}
             </Container>
