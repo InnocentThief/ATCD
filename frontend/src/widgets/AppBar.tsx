@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface Props extends RouteComponentProps<{}>{
-
 }
 
 class AppBar extends React.Component<Props>{

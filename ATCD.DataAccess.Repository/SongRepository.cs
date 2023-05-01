@@ -27,7 +27,7 @@ namespace ATCD.DataAccess.Repository
                     .Where(s => s.Title.Contains(searchText) || s.Artist.Contains(searchText) || s.Author.DisplayName.Contains(searchText));
             }
 
-            return await query.ToListAsync();
+            return await query.Take(50).ToListAsync();
         }
 
         public async Task<Song> GetSongForOverviewAsync(int songKey)
