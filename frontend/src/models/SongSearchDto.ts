@@ -1,3 +1,3 @@
 export class SongSearchDto {
-    searchText: string = ''
+  searchText: string = "";
 }

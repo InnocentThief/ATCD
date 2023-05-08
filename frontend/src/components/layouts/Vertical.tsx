@@ -1,8 +1,8 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from "styled-components";
 
 interface Props {
-  center?: boolean
-  scrollable?: boolean
+  center?: boolean;
+  scrollable?: boolean;
 }
 
 export default styled.div<Props>`
@@ -18,4 +18,4 @@ export default styled.div<Props>`
     css`
       overflow: auto;
     `}
-`
+`;
