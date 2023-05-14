@@ -11,7 +11,7 @@ namespace ATCD.DataAccess.Repository
             return new SongContext();
         }
 
-        public async Task<List<Song>> GetSongsForOverviewAsync(string searchText)
+        public async Task<List<Song>> GetSongsForOverviewAsync(string searchText, DateTime? publishedFrom, DateTime? publishedTo, int page, int itemsPerPage)
         {
             using var context = GetContext();
             var query = context.Song
@@ -27,7 +27,19 @@ namespace ATCD.DataAccess.Repository
                     .Where(s => s.Title.Contains(searchText) || s.Artist.Contains(searchText) || s.Author.DisplayName.Contains(searchText));
             }
 
-            return await query.Take(50).ToListAsync();
+            if (publishedFrom != null)
+            {
+                query = query
+                    .Where(s => s.Released >= publishedFrom);
+            }
+
+            if (publishedTo != null)
+            {
+                query = query
+                    .Where(s=>s.Released <= publishedTo);
+            }
+
+            return await query.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToListAsync();
         }
 
         public async Task<Song> GetSongForOverviewAsync(int songKey)

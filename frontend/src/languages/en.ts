@@ -21,9 +21,25 @@ export const enTextRepo: TextRepo = {
   "AppBar.Playlists": "Playlists",
 
   // Songs page
+  "Songs.SongInfo.MappedBy": "Mapped by",
   "Songs.Action.CopyAtr": "Copy ATR",
   "Songs.Action.Preview": "Preview",
   "Songs.Action.DownloadZip": "Download Zip",
+
+  // Song search
+  "SongSearch.SearchBox.Placeholder": "Song name / Artist / Mapper",
+  "SongSearch.AdvancedSearch.Show": "Show advanced search",
+  "SongSearch.AdvancedSearch.Hide":"Hide advanced search",
+  "SongSearch.Exclude.Label":"Exclude",
+  "SongSearch.Exclude.Placeholder":"Select one or many",
+  "SongSearch.Genre.Label":"Genre",
+  "SongSearch.Genre.Placeholder":"Select one or many",
+  "SongSearch.ChoreographyType.Label": "Choreography type",
+  "SongSearch.ChoreographyType.Placeholder": "Select one or many",
+  "SongSearch.GemSpeed.Label": "Gem speed",
+  "SongSearch.Published.Label": "Published",
+  "SongSearch.Published.Start.Placeholder": "Start date",
+  "SongSearch.Published.End.Placeholder": "End date",
 
   // Song page
   "Song.Detail.Key": "Key",

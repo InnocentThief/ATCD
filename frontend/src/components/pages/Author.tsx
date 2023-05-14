@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { Context } from "../../contexts";
 import Vertical from "../layouts/Vertical";
 
-interface Props extends RouteComponentProps<{ authorKey: string }> {}
+interface Props extends RouteComponentProps<{ authorKey: string }> { }
 
 class Author extends React.Component<Props> {
   async componentDidMount() {

@@ -19,9 +19,25 @@ const textKeys = [
   "AppBar.Playlists",
 
   // Songs page
+  "Songs.SongInfo.MappedBy",
   "Songs.Action.CopyAtr",
   "Songs.Action.Preview",
   "Songs.Action.DownloadZip",
+
+  // Song search
+  "SongSearch.SearchBox.Placeholder",
+  "SongSearch.AdvancedSearch.Show",
+  "SongSearch.AdvancedSearch.Hide",
+  "SongSearch.Exclude.Label",
+  "SongSearch.Exclude.Placeholder",
+  "SongSearch.Genre.Label",
+  "SongSearch.Genre.Placeholder",
+  "SongSearch.ChoreographyType.Label",
+  "SongSearch.ChoreographyType.Placeholder",
+  "SongSearch.GemSpeed.Label",
+  "SongSearch.Published.Label",
+  "SongSearch.Published.Start.Placeholder",
+  "SongSearch.Published.End.Placeholder",
 
   // Song page
   "Song.Detail.Key",

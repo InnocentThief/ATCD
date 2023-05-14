@@ -7,6 +7,7 @@ import { SettingsContext } from "./settings";
 import { SongContext } from "./songs";
 import { AccountContext } from "./account";
 import { GenreContext } from "./genre";
+import { SongSearchContext } from "./songSearch";
 
 configure({
   enforceActions: "never",
@@ -18,6 +19,7 @@ export interface ContextRoot {
   settings: SettingsContext;
   language: LanguageContext;
   songs: SongContext;
+  songSearch: SongSearchContext;
   authors: AuthorContext;
   playlists: PlaylistContext;
   genres: GenreContext;
@@ -28,6 +30,7 @@ const account = new AccountContext(auth);
 const settings = new SettingsContext();
 const language = new LanguageContext();
 const songs = new SongContext(auth);
+const songSearch = new SongSearchContext(songs);
 const authors = new AuthorContext(auth);
 const playlists = new PlaylistContext();
 const genres = new GenreContext(auth);
@@ -38,6 +41,7 @@ export const Context: ContextRoot = {
   settings,
   language,
   songs,
+  songSearch,
   authors,
   playlists,
   genres,

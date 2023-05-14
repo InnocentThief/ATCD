@@ -7,7 +7,7 @@ import { observer } from "mobx-react";
 import { Card, ControlGroup, Divider, Text, H3, H5 } from "@blueprintjs/core";
 import { Link } from "react-router-dom";
 
-interface Props extends RouteComponentProps<{ songKey: string }> {}
+interface Props extends RouteComponentProps<{ songKey: string }> { }
 
 class Song extends React.Component<Props> {
   async componentDidMount() {
@@ -104,7 +104,7 @@ class Song extends React.Component<Props> {
           </SongInfoCard>
           <ChoreographiesCard>
             {selectedSong?.choreographies.map((c) => (
-              <Choreography key={c.choreographyKey} onClick={() => {}}>
+              <Choreography key={c.choreographyKey} onClick={() => { }}>
                 <H5>
                   {c.choreographyType} ({c.displayName})
                 </H5>

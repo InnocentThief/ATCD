@@ -1,7 +1,7 @@
 import React from "react";
 import { SongOverviewDto } from "../models/SongOverviewDto";
 import styled from "styled-components";
-import { Button, Card, Divider, H5, Icon, Tag } from "@blueprintjs/core";
+import { Button, Card, Colors, ControlGroup, H5, Icon, Tag } from "@blueprintjs/core";
 import { Link } from "react-router-dom";
 import { Tooltip2 } from "@blueprintjs/popover2";
 import { Context } from "../contexts";
@@ -21,49 +21,44 @@ const SongOverviewCard = ({ item }: Props) => {
 
   return (
     <SongCard>
-      <SongCardCover>
-        <img src={item.coverUrl} height={100} width={100} alt="" />
-      </SongCardCover>
-      <SongCardSongInfo>
+      <img src={item.coverUrl} height={100} width={100} alt="" />
+      <SongInfo vertical={true} fill={false}>
         <H5>
-          <Link to={{ pathname: `songs/${item.songKey}` }}>
+          <LinkWithWrap to={{ pathname: `songs/${item.songKey}` }}>
             {item.title} - {item.artist}
-          </Link>
+          </LinkWithWrap>
         </H5>
         <p>
-          Mapped by{" "}
-          <Link to={{ pathname: `mappers/${item.authorKey}` }}>
+          {`${get("Songs.SongInfo.MappedBy")} `}
+          <LinkWithWrap to={{ pathname: `mappers/${item.authorKey}` }}>
             {item.author}
-          </Link>
+          </LinkWithWrap>
         </p>
-        <SongCardGenreChoreographyInfo>
-          <GenreTag round={true}>{item.genre}</GenreTag>
-          <Divider />
+        <p><GenreTag round={true}>{item.genre}</GenreTag></p>
+        <ChoreoTags>
           {item.choreographies.map((c) => (
-            <ChoreographyTag key={c.choreographyKey}>
-              {c.choreographyType} ({c.displayName})
+            <ChoreographyTag
+              key={c.choreographyKey}
+              itemType={c.choreographyType}>
+              {c.displayName}
             </ChoreographyTag>
           ))}
-        </SongCardGenreChoreographyInfo>
-      </SongCardSongInfo>
-      <SongCardAdditionalInfo>
-        <SongCardAdditionalInfoRow>
-          <SongCardAdditionalInfoValue>{item.atr}</SongCardAdditionalInfoValue>
-          <Icon icon="key" onClick={() => {}} />
-        </SongCardAdditionalInfoRow>
-        <SongCardAdditionalInfoRow>
-          <SongCardAdditionalInfoValue>
-            {item.length}
-          </SongCardAdditionalInfoValue>
+        </ChoreoTags>
+      </SongInfo>
+      <SongInfo vertical={true} fill={false}>
+        <SongCardAdditionalInfo>
+          {item.atr}
+          <Icon icon="key" onClick={() => { }} />
+        </SongCardAdditionalInfo>
+        <SongCardAdditionalInfo>
+          {item.length}
           <Icon icon="time" />
-        </SongCardAdditionalInfoRow>
-        <SongCardAdditionalInfoRow>
-          <SongCardAdditionalInfoValue>
-            {item.avgBpm}
-          </SongCardAdditionalInfoValue>
+        </SongCardAdditionalInfo>
+        <SongCardAdditionalInfo>
+          {item.avgBpm}
           <Icon icon="dashboard" />
-        </SongCardAdditionalInfoRow>
-        <SongCardAdditionalInfoRow>
+        </SongCardAdditionalInfo>
+        <SongCardSpecialInfo>
           {item.contentStrike && (
             <Tooltip2 content="Content Strike" placement="top" compact={true}>
               <Icon icon="lightning" color="red" />
@@ -79,9 +74,9 @@ const SongOverviewCard = ({ item }: Props) => {
               <Icon icon="clean" color="gold" />
             </Tooltip2>
           )}
-        </SongCardAdditionalInfoRow>
-      </SongCardAdditionalInfo>
-      <SongCardActions>
+        </SongCardSpecialInfo>
+      </SongInfo>
+      <SongInfo vertical={true}>
         <Tooltip2
           content={get("Songs.Action.CopyAtr")}
           placement="top"
@@ -108,57 +103,65 @@ const SongOverviewCard = ({ item }: Props) => {
         >
           <Button minimal={true} icon="download" intent="primary" />
         </Tooltip2>
-      </SongCardActions>
+      </SongInfo>
     </SongCard>
   );
 };
 
 const SongCard = styled(Card)`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 100px 1fr 80px 35px;
   padding: 10px;
 `;
 
-const SongCardCover = styled.div`
-  margin-right: 10px;
-`;
+const SongInfo = styled(ControlGroup)`
+  margin: 0px 6px;
+`
 
-const SongCardSongInfo = styled.div`
-  width: 100%;
-`;
+const LinkWithWrap = styled(Link)`
+  white-space: pre-line;
+  width: 100%
+`
 
-const SongCardGenreChoreographyInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
 const GenreTag = styled(Tag)`
-  margin-right: 3px;
+  margin: 6px 0px;
 `;
+
+const ChoreoTags = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`
 
 const ChoreographyTag = styled(Tag)`
-  margin-left: 3px;
   margin-right: 3px;
+  margin-bottom: 3px;
+  background: ${props =>
+    props.itemType === "Easy" ? Colors.FOREST3
+      : props.itemType === "Regular" ? Colors.CERULEAN3
+        : props.itemType === "Expert" ? Colors.VERMILION3
+          : props.itemType === "Cardio" ? Colors.INDIGO3
+            : ""};
+  .bp4-dark & {
+    background: ${props =>
+    props.itemType === "Easy" ? Colors.FOREST3
+      : props.itemType === "Regular" ? Colors.CERULEAN3
+        : props.itemType === "Expert" ? Colors.VERMILION3
+          : props.itemType === "Cardio" ? Colors.INDIGO3
+            : ""};
+  }
 `;
 
 const SongCardAdditionalInfo = styled.div`
-  margin-right: 10px;
-  width: 150px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin-top: 6px;;
 `;
 
-const SongCardAdditionalInfoRow = styled.div`
+const SongCardSpecialInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin-bottom: 10px;
-`;
-
-const SongCardAdditionalInfoValue = styled.div`
-  margin-right: 10px;
-`;
-
-const SongCardActions = styled.div`
-  width: 30px;
+  margin-top: 6px;
 `;
 
 export default SongOverviewCard;

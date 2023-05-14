@@ -28,7 +28,7 @@ export const LOGIN_ROUTE = "/login";
 export const RESET_PASSWORD_ROUTE = "/restpassword";
 export const REGISTER_ROUTE = "/register";
 
-interface Props extends RouteComponentProps {}
+interface Props extends RouteComponentProps { }
 
 class Router extends React.Component<Props> {
   render() {

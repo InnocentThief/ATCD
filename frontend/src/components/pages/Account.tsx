@@ -109,7 +109,7 @@ class Account extends React.Component {
                     Username
                     <InputGroup />
                   </Label>
-                  <Button text="Change username" intent={Intent.SUCCESS}/>
+                  <Button text="Change username" intent={Intent.SUCCESS} />
                 </AccountDetails>
                 <AccountDetails fill={true} vertical={true}>
                   <Label>
@@ -149,7 +149,7 @@ class Account extends React.Component {
     );
   }
 
-  handleMainTabChange = () => {};
+  handleMainTabChange = () => { };
 }
 
 const Container = styled.div`

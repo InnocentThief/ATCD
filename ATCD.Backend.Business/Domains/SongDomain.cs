@@ -13,9 +13,9 @@ namespace ATCD.Backend.Business.Domains
             songRepository = new SongRepository();
         }
 
-        internal async Task<List<SongOverviewDto>> GetSongsForOverviewAsync(SongSearchDto songSearchDto)
+        internal async Task<List<SongOverviewDto>> GetSongsForOverviewAsync(SongSearchDto songSearch)
         {
-            var songs = await songRepository.GetSongsForOverviewAsync(songSearchDto.SearchText);
+            var songs = await songRepository.GetSongsForOverviewAsync(songSearch.SearchText, songSearch.PublishedFrom, songSearch.PublishedTo, songSearch.Page, songSearch.ItemsPerPage);
             return songs.ToOverviewDtos();
         }
 
