@@ -1,5 +1,5 @@
-import { TextKey } from "./TextKey";
+import { TextKey } from './TextKey'
 
 export type TextRepo = {
-  [key in TextKey]: string;
-};
+  [key in TextKey]: string
+}

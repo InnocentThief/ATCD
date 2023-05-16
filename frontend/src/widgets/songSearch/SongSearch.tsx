@@ -1,36 +1,35 @@
-import React from "react";
+import React from 'react'
 import {
   Button,
   Collapse,
   ControlGroup,
   InputGroup,
   Intent,
-} from "@blueprintjs/core";
-import { Context } from "../../contexts";
-import { observer } from "mobx-react";
-import styled from "styled-components";
-import SongSearchPublished from "./SongSearchPublished";
-import SongSearchExclude from "./SongSearchExclude";
-import SongSearchGenre from "./SongSearchGenre";
-import SongSearchChoreoType from "./SongSearchChoreoType";
-import SongSearchGemSpeed from "./SongSearchGemSpeed";
+} from '@blueprintjs/core'
+import { Context } from '../../contexts'
+import { observer } from 'mobx-react'
+import styled from 'styled-components'
+import SongSearchPublished from './SongSearchPublished'
+import SongSearchExclude from './SongSearchExclude'
+import SongSearchGenre from './SongSearchGenre'
+import SongSearchChoreoType from './SongSearchChoreoType'
+import SongSearchGemSpeed from './SongSearchGemSpeed'
 
 class SongSearch extends React.Component {
-
   componentWillUnmount(): void {
     const {
       songSearch: { searchPromise },
-    } = Context;
+    } = Context
     if (searchPromise) {
-      searchPromise.cancel();
+      searchPromise.cancel()
     }
   }
 
   render() {
     const {
       songSearch: { searchText, advancedSearchVisible },
-      language: { get }
-    } = Context;
+      language: { get },
+    } = Context
 
     return (
       <Container>
@@ -38,7 +37,7 @@ class SongSearch extends React.Component {
           <InputGroup
             type="search"
             leftIcon="search"
-            placeholder={get("SongSearch.SearchBox.Placeholder")}
+            placeholder={get('SongSearch.SearchBox.Placeholder')}
             fill={true}
             value={searchText}
             onChange={this.updateSearchText}
@@ -48,7 +47,9 @@ class SongSearch extends React.Component {
             onClick={this.handleAdvancedSearchVisibleClick}
             icon="settings"
           >
-            {advancedSearchVisible ? get("SongSearch.AdvancedSearch.Hide") : get("SongSearch.AdvancedSearch.Show")}
+            {advancedSearchVisible
+              ? get('SongSearch.AdvancedSearch.Hide')
+              : get('SongSearch.AdvancedSearch.Show')}
           </Button>
         </ControlGroup>
         <Collapse isOpen={advancedSearchVisible}>
@@ -67,46 +68,46 @@ class SongSearch extends React.Component {
         </Collapse>
         {/* <SongSearchOrderBy /> */}
       </Container>
-    );
+    )
   }
 
   private handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const {
-      songSearch: { search, resetPage }
+      songSearch: { search, resetPage },
     } = Context
-    if (event.key === "Enter") {
-      resetPage();
-      search();
+    if (event.key === 'Enter') {
+      resetPage()
+      search()
     }
-  };
+  }
 
   private handleAdvancedSearchVisibleClick = () => {
     const {
-      songSearch: { changeAdvancedSearchVisibleState }
+      songSearch: { changeAdvancedSearchVisibleState },
     } = Context
     changeAdvancedSearchVisibleState()
-  };
+  }
 
   private updateSearchText = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     const {
-      songSearch: { updateSearchText }
+      songSearch: { updateSearchText },
     } = Context
     updateSearchText(event.target.value)
   }
 
   private search = async () => {
     const {
-      songSearch: { search }
+      songSearch: { search },
     } = Context
     search()
-  };
+  }
 }
 
 const Container = styled.div`
   padding-bottom: 15px;
-`;
+`
 
 const SearchDetails = styled.div`
   display: grid;
@@ -114,18 +115,16 @@ const SearchDetails = styled.div`
   gap: 0px 10px;
   width: 100%;
   margin-top: 20px;
-`;
+`
 
 const SearchButton = styled(Button)`
   width: 100%;
-`;
-
-const AdvancedSearchLabel = styled.div`
-
 `
+
+const AdvancedSearchLabel = styled.div``
 
 const AdvancedSearchControlGroup = styled(ControlGroup)`
   margin-bottom: 10px;
 `
 
-export default observer(SongSearch);
+export default observer(SongSearch)

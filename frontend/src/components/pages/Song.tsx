@@ -1,28 +1,28 @@
-import React from "react";
-import { RouteComponentProps } from "react-router";
-import styled from "styled-components";
-import Vertical from "../layouts/Vertical";
-import { Context } from "../../contexts";
-import { observer } from "mobx-react";
-import { Card, ControlGroup, Divider, Text, H3, H5 } from "@blueprintjs/core";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { RouteComponentProps } from 'react-router'
+import styled from 'styled-components'
+import Vertical from '../layouts/Vertical'
+import { Context } from '../../contexts'
+import { observer } from 'mobx-react'
+import { Card, ControlGroup, Divider, Text, H3, H5 } from '@blueprintjs/core'
+import { Link } from 'react-router-dom'
 
-interface Props extends RouteComponentProps<{ songKey: string }> { }
+interface Props extends RouteComponentProps<{ songKey: string }> {}
 
 class Song extends React.Component<Props> {
   async componentDidMount() {
     const {
       songs: { fetchSongDetail },
-    } = Context;
+    } = Context
 
-    await fetchSongDetail(this.props.match.params.songKey);
+    await fetchSongDetail(this.props.match.params.songKey)
   }
 
   render() {
     const {
       songs: { selectedSong },
       language: { get },
-    } = Context;
+    } = Context
 
     return (
       <Container>
@@ -40,12 +40,12 @@ class Song extends React.Component<Props> {
         <SongInfoChoreographies>
           <SongInfoCard>
             <SongInfo fill={true} vertical={false}>
-              <Text>{get("Song.Detail.Key")}</Text>
+              <Text>{get('Song.Detail.Key')}</Text>
               <SongInfoValue>{selectedSong?.songKey}</SongInfoValue>
             </SongInfo>
             <SongInfoDivider />
             <SongInfo fill={true} vertical={false}>
-              <Text>{get("Song.Detail.Mapper")}</Text>
+              <Text>{get('Song.Detail.Mapper')}</Text>
               <SongInfoValue>
                 <Link
                   to={{ pathname: `../mappers/${selectedSong?.authorKey}` }}
@@ -56,55 +56,55 @@ class Song extends React.Component<Props> {
             </SongInfo>
             <SongInfoDivider />
             <SongInfo fill={true} vertical={false}>
-              <Text>{get("Song.Detail.Published")}</Text>
+              <Text>{get('Song.Detail.Published')}</Text>
               <SongInfoValue>{selectedSong?.released}</SongInfoValue>
             </SongInfo>
             <SongInfoDivider />
             <SongInfo fill={true} vertical={false}>
-              <Text>{get("Song.Detail.Genre")}</Text>
+              <Text>{get('Song.Detail.Genre')}</Text>
               <SongInfoValue>{selectedSong?.genre}</SongInfoValue>
             </SongInfo>
             <SongInfoDivider />
             <SongInfo fill={true} vertical={false}>
-              <Text>{get("Song.Detail.SongLenght")}</Text>
+              <Text>{get('Song.Detail.SongLenght')}</Text>
               <SongInfoValue>{selectedSong?.length}</SongInfoValue>
             </SongInfo>
             <SongInfoDivider />
             <SongInfo fill={true} vertical={false}>
-              <Text>{get("Song.Detail.AverageBpm")}</Text>
+              <Text>{get('Song.Detail.AverageBpm')}</Text>
               <SongInfoValue>{selectedSong?.avgBpm}</SongInfoValue>
             </SongInfo>
             <SongInfoDivider />
             <SongInfo fill={true} vertical={false}>
-              <Text>{get("Song.Detail.Explicit")}</Text>
+              <Text>{get('Song.Detail.Explicit')}</Text>
               <SongInfoValue>
                 {selectedSong?.explicit
-                  ? `${get("Global.Yes")}`
-                  : `${get("Global.No")}`}
+                  ? `${get('Global.Yes')}`
+                  : `${get('Global.No')}`}
               </SongInfoValue>
             </SongInfo>
             <SongInfoDivider />
             <SongInfo fill={true} vertical={false}>
-              <Text>{get("Song.Detail.Challenge")}</Text>
+              <Text>{get('Song.Detail.Challenge')}</Text>
               <SongInfoValue>
                 {selectedSong?.challenge
-                  ? `${get("Global.Yes")}`
-                  : `${get("Global.No")}`}
+                  ? `${get('Global.Yes')}`
+                  : `${get('Global.No')}`}
               </SongInfoValue>
             </SongInfo>
             <SongInfoDivider />
             <SongInfo fill={true} vertical={false}>
-              <Text>{get("Song.Detail.ContentStrike")}</Text>
+              <Text>{get('Song.Detail.ContentStrike')}</Text>
               <SongInfoValue>
                 {selectedSong?.contentStrike
-                  ? `${get("Global.Yes")}`
-                  : `${get("Global.No")}`}
+                  ? `${get('Global.Yes')}`
+                  : `${get('Global.No')}`}
               </SongInfoValue>
             </SongInfo>
           </SongInfoCard>
           <ChoreographiesCard>
-            {selectedSong?.choreographies.map((c) => (
-              <Choreography key={c.choreographyKey} onClick={() => { }}>
+            {selectedSong?.choreographies.map(c => (
+              <Choreography key={c.choreographyKey} onClick={() => {}}>
                 <H5>
                   {c.choreographyType} ({c.displayName})
                 </H5>
@@ -127,7 +127,7 @@ class Song extends React.Component<Props> {
         </SongInfoChoreographies>
         <ScoreCard></ScoreCard>
       </Container>
-    );
+    )
   }
 }
 
@@ -136,67 +136,67 @@ const Container = styled(Vertical)`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   margin: 15px auto;
-`;
+`
 
 const SongCard = styled(Card)`
   margin-bottom: 6px;
-`;
+`
 
 const SongCardContent = styled.div`
   display: flex;
-`;
+`
 
 const SongCardContentCover = styled.div`
   margin-right: 6px;
-`;
+`
 
 const SongInfoChoreographies = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
   gap: 6px;
   margin-bottom: 6px;
-`;
+`
 
-const SongInfoCard = styled(Card)``;
+const SongInfoCard = styled(Card)``
 
-const SongInfo = styled(ControlGroup)``;
+const SongInfo = styled(ControlGroup)``
 
 const SongInfoDivider = styled(Divider)`
   margin-left: 0px;
   margin-right: 0px;
   margin-top: 6px;
   margin-bottom: 6px;
-`;
+`
 
 const SongInfoValue = styled(Text)`
   text-align: right;
-`;
+`
 
-const ChoreographiesCard = styled(Card)``;
+const ChoreographiesCard = styled(Card)``
 
 const Choreography = styled.div`
   height: 50px;
   padding: 3px;
   margin-bottom: 20px;
-`;
+`
 
 const ChoreographyDivider = styled(Divider)`
   margin-left: 0px;
   margin-right: 0px;
   margin-top: 6px;
   margin-bottom: 6px;
-`;
+`
 
 const ChoreographyInfos = styled.div`
   display: flex;
-`;
+`
 
 const ChoreographyInfo = styled.div`
   display: flex;
   margin-bottom: 6px;
   margin-right: 10px;
-`;
+`
 
-const ScoreCard = styled(Card)``;
+const ScoreCard = styled(Card)``
 
-export default observer(Song);
+export default observer(Song)

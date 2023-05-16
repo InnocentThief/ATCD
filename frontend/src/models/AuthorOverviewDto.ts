@@ -1,21 +1,21 @@
-import { logTypeMissmatch, parseNumber, parseString } from "../helpers/model";
+import { logTypeMissmatch, parseNumber, parseString } from '../helpers/model'
 
 export class AuthorOverviewDto {
-  authorKey: number = 0;
-  displayName: string = "";
-  platformId: string = "";
-  accountId: string = "";
-  description: string = "";
-  FirstPublished: string = "";
-  LastPublished: string = "";
-  AvgBpm: number = 0;
-  AvgDuration: string = "";
-  TotalSongs: number = 0;
+  authorKey: number = 0
+  displayName: string = ''
+  platformId: string = ''
+  accountId: string = ''
+  description: string = ''
+  FirstPublished: string = ''
+  LastPublished: string = ''
+  AvgBpm: number = 0
+  AvgDuration: string = ''
+  TotalSongs: number = 0
 
   static fromJSON(obj: any): AuthorOverviewDto {
     if (!obj) {
-      logTypeMissmatch(`AuthorOverviewDto`, obj);
-      return new AuthorOverviewDto();
+      logTypeMissmatch(`AuthorOverviewDto`, obj)
+      return new AuthorOverviewDto()
     }
 
     return {
@@ -29,6 +29,6 @@ export class AuthorOverviewDto {
       AvgBpm: parseNumber(obj.AvgBpm),
       AvgDuration: parseString(obj.AvgDuration),
       TotalSongs: parseNumber(obj.TotalSongs),
-    };
+    }
   }
 }

@@ -4,31 +4,31 @@ import {
   parseBoolean,
   parseNumber,
   parseString,
-} from "../helpers/model";
-import { SongOverviewChoreographyDto } from "./SongOverviewChoreographyDto";
+} from '../helpers/model'
+import { SongOverviewChoreographyDto } from './SongOverviewChoreographyDto'
 
 export class SongOverviewDto {
-  songKey: number = 0;
-  atr: string = "";
-  title: string = "";
-  artist: string = "";
-  coverUrl: string = "";
-  avgBpm: string = "";
-  genre: string = "";
-  length: string = "";
-  authorKey: number = 0;
-  author: string = "";
-  released: string = "";
-  description: string = "";
-  explicit: boolean = false;
-  contentStrike: boolean = false;
-  challenge: boolean = false;
-  choreographies: SongOverviewChoreographyDto[] = [];
+  songKey: number = 0
+  atr: string = ''
+  title: string = ''
+  artist: string = ''
+  coverUrl: string = ''
+  avgBpm: string = ''
+  genre: string = ''
+  length: string = ''
+  authorKey: number = 0
+  author: string = ''
+  released: string = ''
+  description: string = ''
+  explicit: boolean = false
+  contentStrike: boolean = false
+  challenge: boolean = false
+  choreographies: SongOverviewChoreographyDto[] = []
 
   static fromJSON(obj: any): SongOverviewDto {
     if (!obj) {
-      logTypeMissmatch(`SongOverviewDto`, obj);
-      return new SongOverviewDto();
+      logTypeMissmatch(`SongOverviewDto`, obj)
+      return new SongOverviewDto()
     }
 
     return {
@@ -51,6 +51,6 @@ export class SongOverviewDto {
         obj.choreographies,
         SongOverviewChoreographyDto.fromJSON
       ),
-    };
+    }
   }
 }

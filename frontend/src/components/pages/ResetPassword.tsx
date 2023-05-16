@@ -5,10 +5,10 @@ import {
   H2,
   H4,
   InputGroup,
-} from "@blueprintjs/core";
-import { observer } from "mobx-react";
-import React from "react";
-import styled from "styled-components";
+} from '@blueprintjs/core'
+import { observer } from 'mobx-react'
+import React from 'react'
+import styled from 'styled-components'
 
 class ResetPassword extends React.Component {
   render() {
@@ -28,7 +28,7 @@ class ResetPassword extends React.Component {
           </ControlGroup>
         </Form>
       </Container>
-    );
+    )
   }
 }
 
@@ -37,7 +37,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   margin: 50px auto;
-`;
+`
 
 const Form = styled(Card)`
   display: grid;
@@ -45,6 +45,6 @@ const Form = styled(Card)`
   align-items: stretch;
   text-align: center;
   padding: 32px;
-`;
+`
 
-export default observer(ResetPassword);
+export default observer(ResetPassword)

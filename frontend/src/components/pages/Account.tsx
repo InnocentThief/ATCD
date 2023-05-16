@@ -11,25 +11,25 @@ import {
   Tab,
   Tabs,
   TextArea,
-} from "@blueprintjs/core";
-import { observer } from "mobx-react";
-import React from "react";
-import styled from "styled-components";
-import { Context } from "../../contexts";
+} from '@blueprintjs/core'
+import { observer } from 'mobx-react'
+import React from 'react'
+import styled from 'styled-components'
+import { Context } from '../../contexts'
 
 class Account extends React.Component {
   async componentDidMount() {
     const {
       account: { fetchAuthors },
-    } = Context;
+    } = Context
 
-    await fetchAuthors();
+    await fetchAuthors()
   }
 
   render() {
     const {
       account: { currentAccount, loadedAuthors },
-    } = Context;
+    } = Context
 
     return (
       <Container>
@@ -76,7 +76,7 @@ class Account extends React.Component {
               <>
                 <Divider />
                 <AliasList>
-                  {loadedAuthors.map((a) => (
+                  {loadedAuthors.map(a => (
                     <AliasListItem key={a.accountId}>
                       {a.displayName}
                       <Divider />
@@ -146,10 +146,10 @@ class Account extends React.Component {
           />
         </Tabs>
       </Container>
-    );
+    )
   }
 
-  handleMainTabChange = () => { };
+  handleMainTabChange = () => {}
 }
 
 const Container = styled.div`
@@ -157,21 +157,21 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   margin: 15px auto;
-`;
+`
 
 const AccountCard = styled(Card)`
   margin-bottom: 6px;
-`;
+`
 
 const AccountDetails = styled(ControlGroup)`
   max-width: 600px;
   margin-top: 20px;
-`;
+`
 
-const AliasList = styled.div``;
+const AliasList = styled.div``
 
 const AliasListItem = styled.div`
   margin-bottom: 20px;
-`;
+`
 
-export default observer(Account);
+export default observer(Account)

@@ -1,17 +1,17 @@
-import { logTypeMissmatch, parseNumber, parseString } from "../helpers/model";
+import { logTypeMissmatch, parseNumber, parseString } from '../helpers/model'
 
 export class SongOverviewChoreographyDto {
-  choreographyKey: number = 0;
-  id: string = "";
-  choreographyType: string = "";
-  displayName: string = "";
-  gemSpeed: number = 0;
-  gemRadius: number = 0;
+  choreographyKey: number = 0
+  id: string = ''
+  choreographyType: string = ''
+  displayName: string = ''
+  gemSpeed: number = 0
+  gemRadius: number = 0
 
   static fromJSON(obj: any): SongOverviewChoreographyDto {
     if (!obj) {
-      logTypeMissmatch(`SongOverviewDto`, obj);
-      return new SongOverviewChoreographyDto();
+      logTypeMissmatch(`SongOverviewDto`, obj)
+      return new SongOverviewChoreographyDto()
     }
 
     return {
@@ -21,6 +21,6 @@ export class SongOverviewChoreographyDto {
       displayName: parseString(obj.displayName),
       gemSpeed: parseNumber(obj.gemSpeed),
       gemRadius: parseNumber(obj.gemRadius),
-    };
+    }
   }
 }
