@@ -21,8 +21,8 @@ namespace ATCD.Backend.WebApp.Controllers
         [Route("")]
         public async Task<ActionResult<List<GenreDto>>> GetGenresAsync()
         {
-            await Task.CompletedTask;
-            return null;
+            var genreDtos = await songDomain.GetGenresAsync();
+            return Ok(genreDtos);
         }
 
 

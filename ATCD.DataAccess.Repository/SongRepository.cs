@@ -11,7 +11,7 @@ namespace ATCD.DataAccess.Repository
             return new SongContext();
         }
 
-        public async Task<List<Song>> GetSongsForOverviewAsync(string searchText, DateTime? publishedFrom, DateTime? publishedTo, int page, int itemsPerPage)
+        public async Task<List<Song>> GetSongsForOverviewAsync(string searchText, List<byte> excludes, List<int> genres, List<ChoreographyType> choreoTypes, DateTime? publishedFrom, DateTime? publishedTo, int page, int itemsPerPage)
         {
             using var context = GetContext();
             var query = context.Song
@@ -21,24 +21,49 @@ namespace ATCD.DataAccess.Repository
                 .Include(s => s.Genre)
                 .Where(s => s.Custom == true);
 
+            // Search text
             if (!string.IsNullOrWhiteSpace(searchText))
             {
-                query = query
-                    .Where(s => s.Title.Contains(searchText) || s.Artist.Contains(searchText) || s.Author.DisplayName.Contains(searchText));
+                query = query.Where(s => s.Title.Contains(searchText) || s.Artist.Contains(searchText) || s.Author.DisplayName.Contains(searchText));
             }
 
+            // Excludes
+            if (excludes.Contains(1)) // Exclude Explicit
+            {
+                query = query.Where(s => !s.Explicit);
+            }
+            if (excludes.Contains(2)) // Exclude Challenge
+            {
+                query = query.Where(s => !s.Challenge);
+            }
+            if (excludes.Contains(3)) // Exclude Content Strike
+            {
+                query = query.Where(s => !s.ContentStrike);
+            }
+
+            // Genre
+            if (genres.Any())
+            {
+                query = query.Where(s => s.GenreKey.HasValue && genres.Contains(s.GenreKey.Value));
+            }
+
+            // Choreography types
+            if (choreoTypes.Any())
+            {
+                query = query.Where(s => s.Choreographies.Any(c => choreoTypes.Contains(c.ChoreographyType)));
+            }
+
+            // Published
             if (publishedFrom != null)
             {
-                query = query
-                    .Where(s => s.Released >= publishedFrom);
+                query = query.Where(s => s.Released >= publishedFrom);
             }
-
             if (publishedTo != null)
             {
-                query = query
-                    .Where(s=>s.Released <= publishedTo);
+                query = query.Where(s => s.Released <= publishedTo);
             }
 
+            // load
             return await query.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToListAsync();
         }
 
@@ -65,6 +90,12 @@ namespace ATCD.DataAccess.Repository
                 .OrderByDescending(s => s.Released)
                 .Take(10)
                 .ToListAsync();
+        }
+
+        public async Task<List<Genre>> GetGenresAsync()
+        {
+            using var context = GetContext();
+            return await context.Genre.ToListAsync();
         }
 
         public async Task<List<Song>> GetLatestSongsByGenreAsync(int genreKey)

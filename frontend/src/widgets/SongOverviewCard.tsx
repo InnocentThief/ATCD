@@ -156,7 +156,7 @@ const ChoreographyTag = styled(Tag)`
       : props.itemType === 'Cardio'
       ? Colors.INDIGO3
       : ''};
-  .bp4-dark & {
+  .bp4-dark && {
     background: ${props =>
       props.itemType === 'Easy'
         ? Colors.FOREST3

@@ -35,5 +35,27 @@ namespace ATCD.Backend.Business.Converter.Web
                 _ => "Unkown choreograpy type"
             };
         }
+
+        internal static List<ChoreographyType> ToChoreographyTypes(this List<byte> choreographyTypes)
+        {
+            var ret = new List<ChoreographyType>();
+            foreach (var type in choreographyTypes)
+            {
+                switch (type)
+                {
+                    case 1:
+                        ret.Add(ChoreographyType.Easy); break;
+                    case 2:
+                        ret.Add(ChoreographyType.Regular); break;
+                    case 3:
+                        ret.Add(ChoreographyType.Expert); break;
+                    case 4:
+                        ret.Add(ChoreographyType.Cardio); break;
+                    default:
+                        break;
+                }
+            }
+            return ret;
+        }
     }
 }

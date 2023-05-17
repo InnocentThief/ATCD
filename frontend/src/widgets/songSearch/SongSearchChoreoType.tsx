@@ -8,19 +8,20 @@ import {
   ChoreographyType,
   areChoreoTypesEqual,
   filterChoreoType,
-  getChoreoTypeItemProps,
-} from '../../components/layouts/ChoreographyTypes'
+  getItemProps,
+  CHOREOGRAPHY_TYPES,
+} from '../../helpers/choreographyTypes'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
 
 class SongSearchChoreoType extends React.Component {
   render() {
     const {
-      songSearch: { choreographyTypes_items, choreoTypes_selectedItems },
+      songSearch: { selectedChoreoTypes },
       language: { get },
     } = Context
 
-    const getTagProps = (_value: React.ReactNode, index: number): TagProps => ({
+    const getTagProps = (_value: React.ReactNode): TagProps => ({
       intent: Intent.NONE,
       minimal: false,
     })
@@ -31,9 +32,10 @@ class SongSearchChoreoType extends React.Component {
           {get('SongSearch.ChoreographyType.Label')}
         </AdvancedSearchLabel>
         <MultiSelect2<ChoreographyType>
+          initialContent={undefined}
           itemPredicate={filterChoreoType}
           itemRenderer={this.renderChoreoType}
-          items={choreographyTypes_items}
+          items={CHOREOGRAPHY_TYPES}
           itemsEqual={areChoreoTypesEqual}
           menuProps={{ 'aria-label': 'Choregraphy Types' }}
           noResults={
@@ -47,10 +49,10 @@ class SongSearchChoreoType extends React.Component {
           onItemSelect={this.handleChoreoTypeSelect}
           placeholder={get('SongSearch.ChoreographyType.Placeholder')}
           resetOnSelect={true}
-          selectedItems={choreoTypes_selectedItems}
-          tagRenderer={this.renderChoreoTypeTag}
+          selectedItems={selectedChoreoTypes}
+          tagRenderer={this.renderTag}
           tagInputProps={{
-            onRemove: this.handleChoreoTypeTagRemove,
+            onRemove: this.handleTagRemove,
             tagProps: getTagProps,
           }}
         />
@@ -58,43 +60,37 @@ class SongSearchChoreoType extends React.Component {
     )
   }
 
-  private renderChoreoTypeTag = (choreographyType: ChoreographyType) =>
+  private renderTag = (choreographyType: ChoreographyType) =>
     choreographyType.displayName
 
-  private renderChoreoType: ItemRenderer<ChoreographyType> = (
-    choreoType,
-    props
-  ) => {
+  private renderChoreoType: ItemRenderer<ChoreographyType> = (choreoType, props) => {
     if (!props.modifiers.matchesPredicate) {
       return null
     }
 
     return (
       <MenuItem2
-        {...getChoreoTypeItemProps(choreoType, props)}
+        {...getItemProps(choreoType, props)}
         selected={this.isChoreoTypeSelected(choreoType)}
         shouldDismissPopover={false}
-        text={`${choreoType.displayName}`}
+        text={choreoType.displayName}
       />
     )
   }
 
-  private handleChoreoTypeTagRemove = (
-    _tag: React.ReactNode,
-    index: number
-  ) => {
-    this.deselectChoreoTypes(index)
+  private handleTagRemove = (_tag: React.ReactNode, index: number) => {
+    this.deselectChoreoType(index)
   }
 
   private getSelectedChoreoTypeIndex(choreoType: ChoreographyType) {
     const {
-      songSearch: { choreoTypes_selectedItems },
+      songSearch: { selectedChoreoTypes },
     } = Context
-    return choreoTypes_selectedItems.indexOf(choreoType)
+    return selectedChoreoTypes.indexOf(choreoType)
   }
 
   private isChoreoTypeSelected(choreoType: ChoreographyType) {
-    return this.getSelectedChoreoTypeIndex(choreoType) !== 1
+    return this.getSelectedChoreoTypeIndex(choreoType) !== -1
   }
 
   private selectChoreoType(choreoType: ChoreographyType) {
@@ -103,37 +99,40 @@ class SongSearchChoreoType extends React.Component {
 
   private selectChoreoTypes(choreoTypesToSelect: ChoreographyType[]) {
     const {
-      songSearch: { choreoTypes_selectedItems },
+      songSearch: { selectedChoreoTypes, updateSelectedChoreoTypes },
     } = Context
-    let nextSelectedChoreoTypes = choreoTypes_selectedItems.slice()
+
+    let nextChoreoTypes = selectedChoreoTypes.slice()
+
     choreoTypesToSelect.forEach(choreoType => {
-      nextSelectedChoreoTypes = !arrayContainsChoreoType(
-        nextSelectedChoreoTypes,
-        choreoType
-      )
-        ? [...nextSelectedChoreoTypes, choreoType]
-        : nextSelectedChoreoTypes
+      nextChoreoTypes = !arrayContainsChoreoType(nextChoreoTypes, choreoType) ? [...nextChoreoTypes, choreoType] : nextChoreoTypes
     })
-    this.setState({ choreographytypes_selected: nextSelectedChoreoTypes })
+    updateSelectedChoreoTypes(nextChoreoTypes)
   }
 
-  private deselectChoreoTypes(index: number) {
+  private deselectChoreoType(index: number) {
     const {
-      songSearch: { choreoTypes_selectedItems },
+      songSearch: { selectedChoreoTypes, updateSelectedChoreoTypes },
     } = Context
-    const choreoType = choreoTypes_selectedItems[index]
+
+    let currentChoreoTypes = selectedChoreoTypes.slice()
+    let nextChoreoTypes = currentChoreoTypes.filter((_choreoType, i) => i !== index)
+    updateSelectedChoreoTypes(nextChoreoTypes)
   }
 
   private handleChoreoTypeSelect = (choreoType: ChoreographyType) => {
     if (!this.isChoreoTypeSelected(choreoType)) {
       this.selectChoreoType(choreoType)
     } else {
-      this.deselectChoreoTypes(this.getSelectedChoreoTypeIndex(choreoType))
+      this.deselectChoreoType(this.getSelectedChoreoTypeIndex(choreoType))
     }
   }
 
   private handleChoreoTypesClear = () => {
-    this.setState({ choreographyTypes_selectedItems: [] })
+    const {
+      songSearch: { clearSelectedChoreoTypes }
+    } = Context
+    clearSelectedChoreoTypes()
   }
 }
 

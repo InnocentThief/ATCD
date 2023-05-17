@@ -15,7 +15,7 @@ namespace ATCD.Backend.Business.Domains
 
         internal async Task<List<SongOverviewDto>> GetSongsForOverviewAsync(SongSearchDto songSearch)
         {
-            var songs = await songRepository.GetSongsForOverviewAsync(songSearch.SearchText, songSearch.PublishedFrom, songSearch.PublishedTo, songSearch.Page, songSearch.ItemsPerPage);
+            var songs = await songRepository.GetSongsForOverviewAsync(songSearch.SearchText, songSearch.ChoreoExcludes, songSearch.Genres, songSearch.ChoreoTypes.ToChoreographyTypes(), songSearch.PublishedFrom, songSearch.PublishedTo, songSearch.Page, songSearch.ItemsPerPage);
             return songs.ToOverviewDtos();
         }
 
@@ -29,6 +29,12 @@ namespace ATCD.Backend.Business.Domains
         {
             var songs = await songRepository.GetLatestSongsByAuthorAsync(authorKey);
             return songs.ToOverviewDtos();
+        }
+
+        internal async Task<List<GenreDto>> GetGenresAsync()
+        {
+            var genres = await songRepository.GetGenresAsync();
+            return genres.ToGenreDtos();
         }
 
         internal async Task<List<SongOverviewDto>> GetLatestSongsByGenreAsync(int genreKey)

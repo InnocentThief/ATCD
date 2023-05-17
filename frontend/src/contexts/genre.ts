@@ -2,16 +2,28 @@ import { makeAutoObservable } from 'mobx'
 import { parseArray } from '../helpers/model'
 import { SongOverviewDto } from '../models/SongOverviewDto'
 import { AuthContext } from './auth'
+import { GenreDto } from '../models/GenreDto'
 
 export class GenreContext {
+  loadedGenres: GenreDto[] = []
   loadedSongs: SongOverviewDto[] = []
   loadingSongs = false
 
   constructor(private auth: AuthContext) {
     makeAutoObservable(this)
+
+    this.fetchGenres()
   }
 
-  fetchGenres = async () => {}
+  fetchGenres = async () => {
+    try {
+      const response = await this.auth.fetch(`api/genres`)
+      const json = await response.json()
+      this.loadedGenres = parseArray(json, GenreDto.fromJSON)
+    } catch (error) {
+      this.loadedSongs = []
+    }
+  }
 
   fetchLatestSongsByGenre = async (genreKey: string) => {
     this.loadingSongs = true

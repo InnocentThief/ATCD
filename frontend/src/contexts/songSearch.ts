@@ -1,17 +1,17 @@
 import { makeAutoObservable } from 'mobx'
-import {
-  CHOREOGRAPHY_TYPES,
-  ChoreographyType,
-} from '../components/layouts/ChoreographyTypes'
+import { ChoreographyType } from '../helpers/choreographyTypes'
 import { DateRange } from '@blueprintjs/datetime2'
 import { CancelablePromise, makeCancelablePromise } from '../helpers/promise'
 import { SongContext } from './songs'
+import { ChoreographyExclude } from '../helpers/choreographyExcludes'
+import { GenreDto } from '../models/GenreDto'
 
 export class SongSearchContext {
   searchText: string = ''
   advancedSearchVisible: boolean = false
-  choreographyTypes_items: ChoreographyType[] = CHOREOGRAPHY_TYPES
-  choreoTypes_selectedItems: ChoreographyType[] = []
+  selectedChoreoExcludes: ChoreographyExclude[] = []
+  selectedGenres: GenreDto[] = []
+  selectedChoreoTypes: ChoreographyType[] = []
   published_range: DateRange = [null, null]
   page: number = 1
   itemsPerPage: number = 50
@@ -29,6 +29,9 @@ export class SongSearchContext {
         searchText: this.searchText,
         page: this.page,
         itemsPerPage: this.itemsPerPage,
+        choreoExcludes: this.selectedChoreoExcludes.map(ce => ce.id),
+        genres: this.selectedGenres.map(g => g.genreKey),
+        choreoTypes: this.selectedChoreoTypes.map(ct => ct.id),
         publishedFrom: start,
         publishedTo: end,
       })
@@ -57,6 +60,30 @@ export class SongSearchContext {
 
   updateSearchText = (searchText: string) => {
     this.searchText = searchText
+  }
+
+  clearSelectedChoreoExcludes = () => {
+    this.selectedChoreoExcludes = []
+  }
+
+  updateSelectedChoreoExcludes = (choreoExcludes: ChoreographyExclude[]) => {
+    this.selectedChoreoExcludes = choreoExcludes
+  }
+
+  clearSelectedGenres = () => {
+    this.selectedGenres = []
+  }
+
+  updateSelectedGenres = (genres: GenreDto[]) => {
+    this.selectedGenres = genres
+  }
+
+  clearSelectedChoreoTypes = () => {
+    this.selectedChoreoTypes = []
+  }
+
+  updateSelectedChoreoTypes = (choreoTypes: ChoreographyType[]) => {
+    this.selectedChoreoTypes = choreoTypes
   }
 
   updatePublishedRanged = (range: DateRange) => {

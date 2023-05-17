@@ -29,3 +29,8 @@ code {
 .flex-one {
   flex: 1;
 }
+
+.genrePopOver {
+  max-height: 250px;
+  overflow-y: auto;
+}

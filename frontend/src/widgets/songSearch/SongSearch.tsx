@@ -57,7 +57,6 @@ class SongSearch extends React.Component {
             <SongSearchExclude />
             <SongSearchGenre />
             <SongSearchChoreoType />
-            <SongSearchGemSpeed />
             <SongSearchPublished />
           </SearchDetails>
           <SearchButton
@@ -119,12 +118,6 @@ const SearchDetails = styled.div`
 
 const SearchButton = styled(Button)`
   width: 100%;
-`
-
-const AdvancedSearchLabel = styled.div``
-
-const AdvancedSearchControlGroup = styled(ControlGroup)`
-  margin-bottom: 10px;
 `
 
 export default observer(SongSearch)
