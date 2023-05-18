@@ -11,6 +11,7 @@ namespace ATCD.Backend.Business.Converter.Web
             {
                 ChoreographyKey = choreography.ChoreographyKey,
                 Id = choreography.Id,
+                ChoreographyTypeId = (byte)choreography.ChoreographyType,
                 ChoreographyType = choreography.ChoreographyType.ToDisplayText(),
                 DisplayName = choreography.Name,
                 GemSpeed = choreography.GemSpeed,

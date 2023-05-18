@@ -4,6 +4,7 @@
     {
         public int ChoreographyKey { get; set; }
         public string Id { get; set; }  
+        public byte ChoreographyTypeId { get; set; }
         public string ChoreographyType { get; set; }
         public string DisplayName { get; set; }
         public double GemSpeed { get; set; }

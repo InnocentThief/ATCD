@@ -19,6 +19,7 @@ namespace ATCD.Backend.Business.Converter.Web
                 CoverUrl = song.CoverURL,
                 Description = song.Description,
                 Explicit = song.Explicit,
+                GenreKey = song.GenreKey,
                 Genre = song.Genre.DisplayName,
                 Length = $"{song.SongFullLengthInSeconds / 60:#}:{song.SongFullLengthInSeconds % 60:#}",
                 Released = song.Released,

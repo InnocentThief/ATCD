@@ -10,6 +10,7 @@
         public int AuthorKey { get; set; }
         public string Author { get; set; }
         public DateTime Released { get; set; }
+        public int? GenreKey { get; set; }
         public string Genre { get; set; }
         public string AvgBpm { get; set; }
         public string Length { get; set; }

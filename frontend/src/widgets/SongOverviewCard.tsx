@@ -46,11 +46,8 @@ const SongOverviewCard = ({ item }: Props) => {
           <GenreTag round={true}>{item.genre}</GenreTag>
         </p>
         <ChoreoTags>
-          {item.choreographies.map(c => (
-            <ChoreographyTag
-              key={c.choreographyKey}
-              itemType={c.choreographyType}
-            >
+          {item.choreographies.slice().sort((c1, c2) => (c1.choreographyTypeId < c2.choreographyTypeId ? -1 : 1)).map(c => (
+            <ChoreographyTag key={c.choreographyKey} itemType={c.choreographyType}>
               {c.displayName}
             </ChoreographyTag>
           ))}
@@ -59,7 +56,7 @@ const SongOverviewCard = ({ item }: Props) => {
       <SongInfo vertical={true} fill={false}>
         <SongCardAdditionalInfo>
           {item.atr}
-          <Icon icon="key" onClick={() => {}} />
+          <Icon icon="key" onClick={() => { }} />
         </SongCardAdditionalInfo>
         <SongCardAdditionalInfo>
           {item.length}
@@ -150,23 +147,23 @@ const ChoreographyTag = styled(Tag)`
     props.itemType === 'Easy'
       ? Colors.FOREST3
       : props.itemType === 'Regular'
-      ? Colors.CERULEAN3
-      : props.itemType === 'Expert'
-      ? Colors.VERMILION3
-      : props.itemType === 'Cardio'
-      ? Colors.INDIGO3
-      : ''};
-  .bp4-dark && {
-    background: ${props =>
-      props.itemType === 'Easy'
-        ? Colors.FOREST3
-        : props.itemType === 'Regular'
         ? Colors.CERULEAN3
         : props.itemType === 'Expert'
-        ? Colors.VERMILION3
-        : props.itemType === 'Cardio'
-        ? Colors.INDIGO3
-        : ''};
+          ? Colors.VERMILION3
+          : props.itemType === 'Cardio'
+            ? Colors.INDIGO3
+            : ''};
+  .bp4-dark && {
+    background: ${props =>
+    props.itemType === 'Easy'
+      ? Colors.FOREST3
+      : props.itemType === 'Regular'
+        ? Colors.CERULEAN3
+        : props.itemType === 'Expert'
+          ? Colors.VERMILION3
+          : props.itemType === 'Cardio'
+            ? Colors.INDIGO3
+            : ''};
   }
 `
 

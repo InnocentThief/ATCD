@@ -64,7 +64,10 @@ namespace ATCD.DataAccess.Repository
             }
 
             // load
-            return await query.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToListAsync();
+            var songs = await query.Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .ToListAsync();
+
+            return songs.OrderByDescending(s => s.Released).ToList();
         }
 
         public async Task<Song> GetSongForOverviewAsync(int songKey)
@@ -88,7 +91,7 @@ namespace ATCD.DataAccess.Repository
                 .Include(s => s.Genre)
                 .Where(s => s.AuthorKey == authorKey)
                 .OrderByDescending(s => s.Released)
-                .Take(10)
+                .Take(6)
                 .ToListAsync();
         }
 
@@ -108,7 +111,7 @@ namespace ATCD.DataAccess.Repository
                 .Include(s => s.Genre)
                 .Where(s => s.GenreKey == genreKey)
                 .OrderByDescending(s => s.Released)
-                .Take(10)
+                .Take(6)
                 .ToListAsync();
         }
 

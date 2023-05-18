@@ -14,6 +14,7 @@ export class SongOverviewDto {
   artist: string = ''
   coverUrl: string = ''
   avgBpm: string = ''
+  genreKey: number = 0
   genre: string = ''
   length: string = ''
   authorKey: number = 0
@@ -38,6 +39,7 @@ export class SongOverviewDto {
       artist: parseString(obj.artist),
       coverUrl: parseString(obj.coverUrl),
       avgBpm: parseString(obj.avgBpm),
+      genreKey: parseNumber(obj.genreKey),
       genre: parseString(obj.genre),
       length: parseString(obj.length),
       authorKey: parseNumber(obj.authorKey),
