@@ -13,6 +13,7 @@ import {
 import { Link } from 'react-router-dom'
 import { Tooltip2 } from '@blueprintjs/popover2'
 import { Context } from '../contexts'
+import * as toaster from '../helpers/toaster'
 
 interface Props {
   item: SongOverviewDto
@@ -25,6 +26,11 @@ const SongOverviewCard = ({ item }: Props) => {
 
   const copyATR = (atr: string) => {
     navigator.clipboard.writeText(`!atr ${atr}`)
+    toaster.success("ATR successfully copied")
+  }
+
+  const navigateToPreview = (url: string) => {
+    window.open(url)
   }
 
   return (
@@ -102,7 +108,7 @@ const SongOverviewCard = ({ item }: Props) => {
           placement="top"
           compact={true}
         >
-          <Button minimal={true} icon="video" intent="primary" />
+          <Button minimal={true} icon="video" intent="primary" onClick={() => navigateToPreview(item.previewURL)} />
         </Tooltip2>
         <Tooltip2
           content={get('Songs.Action.DownloadZip')}

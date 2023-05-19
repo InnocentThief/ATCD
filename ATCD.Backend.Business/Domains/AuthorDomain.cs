@@ -32,5 +32,17 @@ namespace ATCD.Backend.Business.Domains
             var authors = await authorRepository.GetAuthorsForAccountAsync(accountKey);
             return authors.ToOverviewDtos();
         }
+
+        internal async Task<List<SongOverviewDto>> GetPublishedSongsAsync(int accountKey)
+        {
+            var songs = await authorRepository.GetPublishedSongsAsync(accountKey);
+            return songs.ToOverviewDtos();
+        }
+
+        internal async Task<List<SongOverviewDto>> GetUnpublishedSongsAsync(int accountKey)
+        {
+            var songs = await authorRepository.GetUnpublishedSongsAsync(accountKey);
+            return songs.ToOverviewDtos();
+        }
     }
 }

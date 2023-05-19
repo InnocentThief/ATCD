@@ -6,11 +6,11 @@ export class AuthorOverviewDto {
   platformId: string = ''
   accountId: string = ''
   description: string = ''
-  FirstPublished: string = ''
-  LastPublished: string = ''
-  AvgBpm: number = 0
-  AvgDuration: string = ''
-  TotalSongs: number = 0
+  firstPublished: string = ''
+  lastPublished: string = ''
+  avgBpm: number = 0
+  avgDuration: string = ''
+  totalSongs: number = 0
 
   static fromJSON(obj: any): AuthorOverviewDto {
     if (!obj) {
@@ -24,11 +24,11 @@ export class AuthorOverviewDto {
       platformId: parseString(obj.platformId),
       accountId: parseString(obj.accountId),
       description: parseString(obj.description),
-      FirstPublished: parseString(obj.FirstPublished),
-      LastPublished: parseString(obj.LastPublished),
-      AvgBpm: parseNumber(obj.AvgBpm),
-      AvgDuration: parseString(obj.AvgDuration),
-      TotalSongs: parseNumber(obj.TotalSongs),
+      firstPublished: parseString(obj.firstPublished),
+      lastPublished: parseString(obj.lastPublished),
+      avgBpm: parseNumber(obj.avgBpm),
+      avgDuration: parseString(obj.avgDuration),
+      totalSongs: parseNumber(obj.totalSongs),
     }
   }
 }

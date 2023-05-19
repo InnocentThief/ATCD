@@ -21,6 +21,7 @@ export class SongOverviewDto {
   author: string = ''
   released: string = ''
   description: string = ''
+  previewURL: string = ''
   explicit: boolean = false
   contentStrike: boolean = false
   challenge: boolean = false
@@ -46,6 +47,7 @@ export class SongOverviewDto {
       author: parseString(obj.author),
       released: parseString(obj.released),
       description: parseString(obj.description),
+      previewURL: parseString(obj.previewURL),
       explicit: parseBoolean(obj.explicit),
       contentStrike: parseBoolean(obj.contentStrike),
       challenge: parseBoolean(obj.challenge),

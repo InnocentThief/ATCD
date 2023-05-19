@@ -9,6 +9,7 @@
     "@blueprintjs/datetime2": "^0.9.27",
     "@blueprintjs/popover2": "^1.14.1",
     "@blueprintjs/select": "^4.9.14",
+    "@blueprintjs/table": "^4.10.4",
     "@rneui/base": "^4.0.0-rc.7",
     "@rneui/themed": "^4.0.0-rc.7",
     "@testing-library/jest-dom": "^5.16.5",

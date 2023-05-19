@@ -35,8 +35,36 @@ namespace ATCD.DataAccess.Repository
             using var context = GetContext();
             return await context.Author
                 .AsNoTracking()
-                .Include(a=> a.Songs)
+                .Include(a => a.Songs)
                 .Where(a => a.AccountKey == accountKey)
+                .ToListAsync();
+        }
+
+        public async Task<List<Song>> GetPublishedSongsAsync(int accountKey)
+        {
+            using var context = GetContext();
+            return await context.Song
+                .AsNoTracking()
+                .Include(s => s.Author)
+                .Include(s => s.Choreographies)
+                .Include(s => s.Genre)
+                .Where(s => s.Author.AccountKey == accountKey)
+                .Where(s => s.Published)
+                .OrderBy(s => s.Title)
+                .ToListAsync();
+        }
+
+        public async Task<List<Song>> GetUnpublishedSongsAsync(int accountKey)
+        {
+            using var context = GetContext();
+            return await context.Song
+                .AsNoTracking()
+                .Include(s => s.Author)
+                .Include(s => s.Choreographies)
+                .Include(s => s.Genre)
+                .Where(s => s.Author.AccountKey == accountKey)
+                .Where(s => !s.Published)
+                .OrderBy(s => s.Title)
                 .ToListAsync();
         }
 

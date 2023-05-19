@@ -83,6 +83,8 @@ namespace ATCD.DataAccess.Entity
 
         public string Description { get; set; }
 
+        public string PreviewURL { get; set; }
+
         public bool Explicit { get; set; }
 
         public bool Challenge { get; set; }
@@ -90,6 +92,8 @@ namespace ATCD.DataAccess.Entity
         public bool ContentStrike { get; set; }
 
         public DateTime Released { get; set; }
+
+        public bool Published { get; set; }
 
         public ICollection<Choreography> Choreographies { get; set; }
     }

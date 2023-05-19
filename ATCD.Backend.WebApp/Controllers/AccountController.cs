@@ -54,5 +54,23 @@ namespace ATCD.Backend.WebApp.Controllers
             var authors = await authorDomain.GetAuthorsForAccountAsync(accountKey);
             return Ok(authors);
         }
+
+        [HttpGet]
+        [Route("{accountKey}/publishedSongs")]
+        public async Task<ActionResult<List<SongOverviewDto>>> GetPublishedSongs(int accountKey)
+        {
+            if (accountKey == 0) { return BadRequest(); }
+            var publishedSongs = await authorDomain.GetPublishedSongsAsync(accountKey);
+            return Ok(publishedSongs);
+        }
+
+        [HttpGet]
+        [Route("{accountKey}/unpublishedSongs")]
+        public async Task<ActionResult<List<SongOverviewDto>>> GetUnpublishedSongs(int accountKey)
+        {
+            if (accountKey == 0) { return BadRequest(); }
+            var unpublishedSongs = await authorDomain.GetUnpublishedSongsAsync(accountKey);
+            return Ok(unpublishedSongs);
+        }
     }
 }

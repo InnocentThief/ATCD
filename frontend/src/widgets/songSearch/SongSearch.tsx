@@ -13,7 +13,6 @@ import SongSearchPublished from './SongSearchPublished'
 import SongSearchExclude from './SongSearchExclude'
 import SongSearchGenre from './SongSearchGenre'
 import SongSearchChoreoType from './SongSearchChoreoType'
-import SongSearchGemSpeed from './SongSearchGemSpeed'
 
 class SongSearch extends React.Component {
   componentWillUnmount(): void {

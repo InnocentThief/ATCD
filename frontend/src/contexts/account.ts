@@ -3,6 +3,7 @@ import { parseArray } from '../helpers/model'
 import { AccountDto } from '../models/AccountDto'
 import { AuthorOverviewDto } from '../models/AuthorOverviewDto'
 import { AuthContext } from './auth'
+import { SongOverviewDto } from '../models/SongOverviewDto'
 
 export class AccountContext {
   loadingAccount = false
@@ -10,6 +11,12 @@ export class AccountContext {
 
   loadedAuthors: AuthorOverviewDto[] = []
   loadingAuthors = false
+
+  loadedPublishedSongs: SongOverviewDto[] = []
+  loadingPublishedSongs = false
+
+  loadedUnpublishedSongs: SongOverviewDto[] = []
+  loadingUnpublishedSongs = false
 
   constructor(private auth: AuthContext) {
     makeAutoObservable(this)
@@ -52,6 +59,36 @@ export class AccountContext {
       this.loadedAuthors = []
     } finally {
       this.loadingAuthors = false
+    }
+  }
+
+  fetchPublishedSongs = async () => {
+    this.loadingPublishedSongs = true
+    try {
+      const response = await this.auth.fetch(
+        `/api/accounts/${this.currentAccount?.accountKey}/publishedSongs`
+      )
+      const json = await response.json()
+      this.loadedPublishedSongs = parseArray(json, SongOverviewDto.fromJSON)
+    } catch (error) {
+      this.loadedPublishedSongs = []
+    } finally {
+      this.loadingPublishedSongs = false
+    }
+  }
+
+  fetchUnpublishedSongs = async () => {
+    this.loadingUnpublishedSongs = true
+    try {
+      const response = await this.auth.fetch(
+        `/api/accounts/${this.currentAccount?.accountKey}/unpublishedSongs`
+      )
+      const json = await response.json()
+      this.loadedUnpublishedSongs = parseArray(json, SongOverviewDto.fromJSON)
+    } catch (error) {
+      this.loadedUnpublishedSongs = []
+    } finally {
+      this.loadingUnpublishedSongs = false
     }
   }
 }

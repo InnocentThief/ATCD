@@ -16,6 +16,9 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
+import AuthorOverviewList from '../../widgets/account/AuthorOverviewList'
+import PublishedSongList from '../../widgets/account/PublishedSongList'
+import UnpublishedSongList from '../../widgets/account/UnpublishedSongList'
 
 class Account extends React.Component {
   async componentDidMount() {
@@ -28,7 +31,7 @@ class Account extends React.Component {
 
   render() {
     const {
-      account: { currentAccount, loadedAuthors },
+      account: { currentAccount },
     } = Context
 
     return (
@@ -43,14 +46,11 @@ class Account extends React.Component {
             title="Songs"
             icon="music"
             panel={
-              <>
-                <Divider />
-                <Tabs>
-                  <Tab id="spub" title="Published" icon="eye-open" />
-                  <Tab id="supub" title="Unpublished" icon="eye-off" />
-                  <Tab id="sadd" title="Add song" icon="add" />
-                </Tabs>
-              </>
+              <Tabs>
+                <Tab id="spub" title="Published" icon="eye-open" panel={<PublishedSongList />} />
+                <Tab id="supub" title="Unpublished" icon="eye-off" panel={<UnpublishedSongList />} />
+                <Tab id="sadd" title="Add song" icon="add" />
+              </Tabs>
             }
           />
           <Tab
@@ -58,33 +58,18 @@ class Account extends React.Component {
             title="Playlists"
             icon="list"
             panel={
-              <>
-                <Divider />
-                <Tabs>
-                  <Tab id="ppub" title="Published" icon="eye-open" />
-                  <Tab id="pupub" title="Unpublished" icon="eye-off" />
-                  <Tab id="padd" title="Add playlist" icon="add" />
-                </Tabs>
-              </>
+              <Tabs>
+                <Tab id="ppub" title="Published" icon="eye-open" />
+                <Tab id="pupub" title="Unpublished" icon="eye-off" />
+                <Tab id="padd" title="Add playlist" icon="add" />
+              </Tabs>
             }
           />
           <Tab
             id="aliases"
             title="Aliases"
             icon="layout-hierarchy"
-            panel={
-              <>
-                <Divider />
-                <AliasList>
-                  {loadedAuthors.map(a => (
-                    <AliasListItem key={a.accountId}>
-                      {a.displayName}
-                      <Divider />
-                    </AliasListItem>
-                  ))}
-                </AliasList>
-              </>
-            }
+            panel={<AuthorOverviewList />}
           />
           <Tab
             id="account"
@@ -92,7 +77,6 @@ class Account extends React.Component {
             icon="person"
             panel={
               <>
-                <Divider />
                 <AccountDetails fill={true} vertical={true}>
                   <H4>Account details</H4>
                   <Divider />
@@ -149,7 +133,7 @@ class Account extends React.Component {
     )
   }
 
-  handleMainTabChange = () => {}
+  handleMainTabChange = () => { }
 }
 
 const Container = styled.div`

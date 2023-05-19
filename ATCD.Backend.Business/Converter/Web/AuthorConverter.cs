@@ -19,7 +19,7 @@ namespace ATCD.Backend.Business.Converter.Web
                 PlatformId = author.PlatformId,
                 FirstPublished = author.Songs.OrderBy(s => s.Released).First().Released,
                 LastPublished = author.Songs.OrderByDescending(s => s.Released).First().Released,
-                AvgBpm = author.Songs.Average(s => s.AvgBpm),
+                AvgBpm = Math.Round(author.Songs.Average(s => s.AvgBpm), 2),
                 AvgDuration = $"{avgDuration / 60:#}:{avgDuration % 60:#}",
                 TotalSongs = author.Songs.Count
             };

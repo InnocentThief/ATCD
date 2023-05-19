@@ -4,9 +4,11 @@ import styled from 'styled-components'
 import Vertical from '../layouts/Vertical'
 import { Context } from '../../contexts'
 import { observer } from 'mobx-react'
-import { Card, ControlGroup, Divider, Text, H3, H5, Colors, H4, NonIdealState, NonIdealStateIconSize } from '@blueprintjs/core'
+import { Card, ControlGroup, Divider, Text, H3, H5, Colors, H4, NonIdealState, NonIdealStateIconSize, Button } from '@blueprintjs/core'
 import { Link } from 'react-router-dom'
+import * as toaster from '../../helpers/toaster'
 import SongOverviewCard from '../../widgets/SongOverviewCard'
+import { Tooltip2 } from '@blueprintjs/popover2'
 
 interface Props extends RouteComponentProps<{ songKey: string }> { }
 
@@ -35,6 +37,34 @@ class Song extends React.Component<Props> {
             </H3>
             {selectedSong?.description}
           </SongDescription>
+          <SongActions vertical={true}>
+            <Tooltip2
+              content={get('Songs.Action.CopyAtr')}
+              placement="top"
+              compact={true}
+            >
+              <Button
+                minimal={true}
+                icon="duplicate"
+                intent="primary"
+                onClick={this.copyATR}
+              />
+            </Tooltip2>
+            <Tooltip2
+              content={get('Songs.Action.Preview')}
+              placement="top"
+              compact={true}
+            >
+              <Button minimal={true} icon="video" intent="primary" onClick={this.navigateToPreview} />
+            </Tooltip2>
+            <Tooltip2
+              content={get('Songs.Action.DownloadZip')}
+              placement="top"
+              compact={true}
+            >
+              <Button minimal={true} icon="download" intent="primary" />
+            </Tooltip2>
+          </SongActions>
         </SongCard>
         <SongInfoChoreographies>
           <Card>
@@ -155,6 +185,24 @@ class Song extends React.Component<Props> {
       </Container>
     )
   }
+
+  copyATR = () => {
+    const {
+      songs: { selectedSong }
+    } = Context
+
+    navigator.clipboard.writeText(`!atr ${selectedSong?.atr}`)
+    toaster.success("ATR successfully copied")
+  }
+
+  navigateToPreview = () => {
+    const {
+      songs: { selectedSong }
+    } = Context
+    if (selectedSong !== null) {
+      window.open(selectedSong?.previewURL)
+    }
+  }
 }
 
 const Container = styled(Vertical)`
@@ -166,7 +214,7 @@ const Container = styled(Vertical)`
 
 const SongCard = styled(Card)`
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 200px 1fr 35px;
   margin-bottom: 6px;
 `
 
@@ -183,6 +231,10 @@ const SongInfoChoreographies = styled.div`
 const SongInfo = styled.div`
   display: grid;
   grid-template-columns: 1fr auto;
+`
+
+const SongActions = styled(ControlGroup)`
+  margin: 6px 6px;
 `
 
 const SongInfoDivider = styled(Divider)`

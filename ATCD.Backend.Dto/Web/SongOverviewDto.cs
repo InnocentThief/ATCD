@@ -15,6 +15,7 @@
         public string AvgBpm { get; set; }
         public string Length { get; set; }
         public string Description { get; set; }
+        public string PreviewURL { get; set; }
         public bool Explicit { get; set; }
         public bool Challenge { get; set; }
         public bool ContentStrike { get; set; }
