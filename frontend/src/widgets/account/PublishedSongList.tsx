@@ -32,7 +32,7 @@ class PublishedSongList extends React.Component {
                 {loadedPublishedSongs.length > 0 && (
                     <SongList>
                         {loadedPublishedSongs.map(song => (
-                            <SongCard>
+                            <SongCard key={song.songKey}>
                                 <img src={song.coverUrl} height={100} width={100} alt="" />
                                 <SongInfo vertical={true} fill={false}>
                                     <H5>

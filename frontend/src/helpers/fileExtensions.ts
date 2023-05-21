@@ -19,3 +19,9 @@ export const getExtension = (path: string): string => {
   }
   return ''
 }
+
+export async function GetFileFromFilePath(path: string): Promise<File> {
+  let response = await fetch(path)
+  let data = await response.blob()
+  return new File([data], 'UploadFile')
+}

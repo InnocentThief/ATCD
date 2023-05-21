@@ -10,7 +10,7 @@ import * as toaster from '../../helpers/toaster'
 class AddSong extends React.Component {
     render() {
         const {
-            songAdd: { atsFilePath, songFilePath, coverFilePath, allFilePathsAvailable, upload }
+            songAdd: { atsFileName, songFileName, coverFileName, allFilePathsAvailable, upload }
         } = Context
 
         return (
@@ -32,7 +32,7 @@ class AddSong extends React.Component {
                     >
                         <FileInput
                             id='ats-file-input'
-                            text={atsFilePath}
+                            text={atsFileName}
                             fill={true}
                             buttonText='Browse'
                             onInputChange={this.handleAtsFileTextChange} />
@@ -45,7 +45,7 @@ class AddSong extends React.Component {
                     >
                         <FileInput
                             id='song-file-input'
-                            text={songFilePath}
+                            text={songFileName}
                             fill={true}
                             buttonText='Browse'
                             onInputChange={this.handleSongFileTextChange} />
@@ -58,7 +58,7 @@ class AddSong extends React.Component {
                     >
                         <FileInput
                             id='cover-file-input'
-                            text={coverFilePath}
+                            text={coverFileName}
                             fill={true}
                             buttonText='Browse'
                             onInputChange={this.handleCoverFileTextChange} />
@@ -88,40 +88,50 @@ class AddSong extends React.Component {
 
     private handleAtsFileTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {
-            songAdd: { updateAtsFilePath }
+            songAdd: { updateAtsFile }
         } = Context
-        let fileName = e.target.value
-        if (getExtension(fileName) === "ats") {
-            updateAtsFilePath(fileName)
-        } else {
-            updateAtsFilePath("")
-            toaster.error("Wrong file type selected. Please select an .ats file.")
+        if (e.target.files) {
+            let file = e.target.files[0]
+            if (getExtension(file.name) === "ats") {
+                updateAtsFile(file)
+            } else {
+                updateAtsFile(null)
+                toaster.error("Wrong file type selected. Please select an .ats file.")
+            }
         }
     };
 
+    private accept(file: any) {
+        console.log(file.path)
+    }
+
     private handleSongFileTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {
-            songAdd: { updateSongFilePath }
+            songAdd: { updateSongFile }
         } = Context
-        let fileName = e.target.value
-        if (getExtension(fileName) === "ogg") {
-            updateSongFilePath(fileName)
-        } else {
-            updateSongFilePath("")
-            toaster.error("Wrong file type selected. Please select an .ogg file.")
+        if (e.target.files) {
+            let file = e.target.files[0]
+            if (getExtension(file.name) === "ogg") {
+                updateSongFile(file)
+            } else {
+                updateSongFile(null)
+                toaster.error("Wrong file type selected. Please select an .ogg file.")
+            }
         }
     };
 
     private handleCoverFileTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {
-            songAdd: { updateCoverFilePath }
+            songAdd: { updateCoverFile }
         } = Context
-        let fileName = e.target.value
-        if (getExtension(fileName) === "png") {
-            updateCoverFilePath(fileName)
-        } else {
-            updateCoverFilePath("")
-            toaster.error("Wrong file type selected. Please select a .png file.")
+        if (e.target.files) {
+            let file = e.target.files[0]
+            if (getExtension(file.name) === "png") {
+                updateCoverFile(file)
+            } else {
+                updateCoverFile(null)
+                toaster.error("Wrong file type selected. Please select an .png file.")
+            }
         }
     };
 }

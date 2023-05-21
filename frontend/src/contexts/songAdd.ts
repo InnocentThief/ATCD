@@ -1,11 +1,16 @@
 import { makeAutoObservable } from 'mobx'
 import { AuthContext } from './auth'
 import { parseString } from '../helpers/model'
+import { Context } from '.'
 
 export class SongAddContext {
-  atsFilePath: string = ''
-  songFilePath: String = ''
-  coverFilePath: string = ''
+  atsFile: File | null = null
+  songFile: File | null = null
+  coverFile: File | null = null
+
+  atsFileName: string = ''
+  songFileName: string = ''
+  coverFileName: string = ''
   allFilePathsAvailable: boolean = false
 
   uploadFinishedMessage: string = ''
@@ -15,43 +20,64 @@ export class SongAddContext {
     makeAutoObservable(this)
   }
 
-  updateAtsFilePath = (filePath: string) => {
-    this.atsFilePath = filePath
+  updateAtsFile = (file: File | null) => {
+    this.atsFile = file
+    if (this.atsFile) {
+      this.atsFileName = this.atsFile.name
+    } else {
+      this.atsFileName = ''
+    }
     this.updateFilePathsAvailability()
   }
 
-  updateSongFilePath = (filePath: string) => {
-    this.songFilePath = filePath
+  updateSongFile = (file: File | null) => {
+    this.songFile = file
+    if (this.songFile) {
+      this.songFileName = this.songFile.name
+    } else {
+      this.songFileName = ''
+    }
     this.updateFilePathsAvailability()
   }
 
-  updateCoverFilePath = (filePath: string) => {
-    this.coverFilePath = filePath
+  updateCoverFile = (file: File | null) => {
+    this.coverFile = file
+    if (this.coverFile) {
+      this.coverFileName = this.coverFile.name
+    } else {
+      this.coverFileName = ''
+    }
     this.updateFilePathsAvailability()
   }
 
   upload = async () => {
-    // const {
-    //   account: { currentAccount },
-    // } = Context
-    // const atsFile = fs.readFileSync('/path-to-file', 'utf-8')
-    // let atsFileToUpload = ""
-    // formData.append('file', atsFileToUpload, '')
-    // let songFileToUpload = ''
-    // formData.append('file', songFileToUpload, '')
-    // let coverFileToUpload = ''
-    // formData.append('file', coverFileToUpload, '')
-    // const response = await this.auth.fetch(
-    //   `/api/accounts/${currentAccount?.accountKey}/uploadSongFiles`,
-    //   {
-    //     method: 'POST',
-    //     body: formData,
-    //   },
-    //   false
-    // )
-    // this.handleUploadResponse(response)
-    // try {
-    // } catch (error) {}
+    const {
+      account: { currentAccount },
+    } = Context
+
+    const formData = new FormData()
+
+    if (this.atsFile) {
+      formData.append('file', this.atsFile, this.atsFile.name)
+    }
+    if (this.songFile) {
+      formData.append('file', this.songFile, this.songFile.name)
+    }
+    if (this.coverFile) {
+      formData.append('file', this.coverFile, this.coverFile.name)
+    }
+
+    const response = await this.auth.fetch(
+      `/api/accounts/${currentAccount?.accountKey}/uploadSongFiles`,
+      {
+        method: 'POST',
+        body: formData,
+      },
+      false
+    )
+    this.handleUploadResponse(response)
+    try {
+    } catch (error) {}
   }
 
   private handleUploadResponse = async (response: Response) => {
@@ -60,12 +86,9 @@ export class SongAddContext {
   }
 
   private updateFilePathsAvailability = () => {
-    console.log(this.atsFilePath)
-    console.log(this.songFilePath)
-    console.log(this.coverFilePath)
     this.allFilePathsAvailable =
-      this.atsFilePath.length > 0 &&
-      this.songFilePath.length > 0 &&
-      this.coverFilePath.length > 0
+      this.atsFileName.length > 0 &&
+      this.songFileName.length > 0 &&
+      this.coverFileName.length > 0
   }
 }

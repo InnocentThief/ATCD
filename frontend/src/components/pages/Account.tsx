@@ -153,10 +153,4 @@ const AccountDetails = styled(ControlGroup)`
   margin-top: 20px;
 `
 
-const AliasList = styled.div``
-
-const AliasListItem = styled.div`
-  margin-bottom: 20px;
-`
-
 export default observer(Account)
