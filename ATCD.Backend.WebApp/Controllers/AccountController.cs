@@ -72,5 +72,28 @@ namespace ATCD.Backend.WebApp.Controllers
             var unpublishedSongs = await authorDomain.GetUnpublishedSongsAsync(accountKey);
             return Ok(unpublishedSongs);
         }
+
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("{accountKey}/uploadSongFiles")]
+        public async Task<ActionResult> UploadSongFiles(int accountKey)
+        {
+            try
+            {
+                var atsFile = Request.Form.Files[0];
+                var oggFile = Request.Form.Files[1];
+                var pngFile = Request.Form.Files[2];
+
+                if (atsFile.Length > 0 )
+                {
+
+                }
+
+                return Ok(""); // TODO: return URL to song edit page
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+        }
     }
 }

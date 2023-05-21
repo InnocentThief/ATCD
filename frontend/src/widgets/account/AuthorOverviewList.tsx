@@ -3,7 +3,7 @@ import React from 'react'
 import Vertical from '../../components/layouts/Vertical'
 import styled from 'styled-components'
 import { Context } from '../../contexts'
-import { Card, Divider, H5, NonIdealState, NonIdealStateIconSize, Text } from '@blueprintjs/core'
+import { Card, H5, NonIdealState, NonIdealStateIconSize } from '@blueprintjs/core'
 
 class AuthorOverviewList extends React.Component {
 

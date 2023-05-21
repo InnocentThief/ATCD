@@ -8,6 +8,7 @@ import { SongContext } from './songs'
 import { AccountContext } from './account'
 import { GenreContext } from './genre'
 import { SongSearchContext } from './songSearch'
+import { SongAddContext } from './songAdd'
 
 configure({
   enforceActions: 'never',
@@ -20,6 +21,7 @@ export interface ContextRoot {
   language: LanguageContext
   songs: SongContext
   songSearch: SongSearchContext
+  songAdd: SongAddContext
   authors: AuthorContext
   playlists: PlaylistContext
   genres: GenreContext
@@ -31,6 +33,7 @@ const settings = new SettingsContext()
 const language = new LanguageContext()
 const songs = new SongContext(auth)
 const songSearch = new SongSearchContext(songs)
+const songAdd = new SongAddContext(auth)
 const authors = new AuthorContext(auth)
 const playlists = new PlaylistContext()
 const genres = new GenreContext(auth)
@@ -42,6 +45,7 @@ export const Context: ContextRoot = {
   language,
   songs,
   songSearch,
+  songAdd,
   authors,
   playlists,
   genres,

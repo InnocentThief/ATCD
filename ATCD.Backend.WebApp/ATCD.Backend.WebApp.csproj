@@ -20,4 +20,8 @@
     <ProjectReference Include="..\ATCD.Backend.Dto\ATCD.Backend.Dto.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\SongFiles\" />
+  </ItemGroup>
+
 </Project>

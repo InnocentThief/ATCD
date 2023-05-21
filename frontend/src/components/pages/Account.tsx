@@ -19,6 +19,7 @@ import { Context } from '../../contexts'
 import AuthorOverviewList from '../../widgets/account/AuthorOverviewList'
 import PublishedSongList from '../../widgets/account/PublishedSongList'
 import UnpublishedSongList from '../../widgets/account/UnpublishedSongList'
+import AddSong from '../../widgets/account/AddSong'
 
 class Account extends React.Component {
   async componentDidMount() {
@@ -49,7 +50,7 @@ class Account extends React.Component {
               <Tabs>
                 <Tab id="spub" title="Published" icon="eye-open" panel={<PublishedSongList />} />
                 <Tab id="supub" title="Unpublished" icon="eye-off" panel={<UnpublishedSongList />} />
-                <Tab id="sadd" title="Add song" icon="add" />
+                <Tab id="sadd" title="Add song" icon="add" panel={<AddSong />} />
               </Tabs>
             }
           />
